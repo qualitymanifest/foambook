@@ -1,43 +1,58 @@
 import React, { Component } from 'react';
 import { browserHistory, Link } from 'react-router';
+import { createContainer } from 'meteor/react-meteor-data'
+import { Navbar, NavItem, Nav } from 'react-bootstrap';
+import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
 
 import Accounts from './accounts';
 
-class Header extends Component {
-/*	onBinClick(e) {
-		e.preventDefault(); // don't try to navigate
+/* the forceUpdate on click is to re-render the header after the
+	'.active' NavItem changes. this is a temp fix */
 
-		Meteor.call('bins.insert', (error, binId) => {
-			// url is essentially put onto a stack that allows users to
-			// navigate backwards and forwards
-			browserHistory.push(`/bins/${binId}`)
-		})
-	} */
+class Header extends Component {
 	render() {
 		const pathname = browserHistory.getCurrentLocation().pathname
 		let toggle;
-		if (pathname === '/add_note') {
-			toggle = <Link to='/'>Search notes</Link>
-		}
-		else {
-			toggle = <Link to='/add_note'>Submit notes</Link>
-		}
 		return (
-			<nav className="nav navbar-default">
-				<div className="navbar-header">
-					<a className="navbar-brand">Train Notes</a>
-				</div>
-				<ul className="nav navbar-nav">
-					<li>
-						<Accounts />
-					</li>
-					<li>
-						{toggle}
-					</li>
-				</ul>
-			</nav>
+		  <Navbar inverse collapseOnSelect fixedTop>
+		    <Navbar.Header>
+		      <Navbar.Brand>
+		        <a href="#">Train Notes</a>
+		      </Navbar.Brand>
+		      <Navbar.Toggle />
+		    </Navbar.Header>
+		    <Navbar.Collapse>
+		      <Nav pullRight>
+		        <IndexLinkContainer onClick={() => this.forceUpdate()} to='/'>
+		        	<NavItem>
+		        		Search
+		        	</NavItem>
+		        </IndexLinkContainer>
+		        <LinkContainer onClick={() => this.forceUpdate()} to='/add_note'>
+		        	<NavItem>
+		        		Submit
+		        	</NavItem>
+		        </LinkContainer>
+		    		{this.props.user ? 
+					 		<LinkContainer onClick={() => this.forceUpdate()} to="/user_profile">
+					 			<NavItem>
+					 				Profile
+					 			</NavItem>
+					 		</LinkContainer>
+					 : null}
+					 <NavItem id="log-button">
+					 	<Accounts />
+					 </NavItem>
+		      </Nav>
+		    </Navbar.Collapse>
+		  </Navbar>
 		)
 	}
 }
+
+Header = createContainer(() => {
+	return { 
+		user : Meteor.user() }
+}, Header);
 
 export default Header;

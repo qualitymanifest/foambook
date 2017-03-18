@@ -7,7 +7,7 @@ import dateutil from 'dateutil';
 import { Notes } from '../../imports/collections/notes'
 import { validation, cleanLocation } from '../validation.js';
 import DateTime from './dateTime';
-import RecentSubmissions from './recent_submissions';
+import NotesTable from './notes_table';
 /*
 might want this for storing
 let date = new Date()
@@ -40,6 +40,10 @@ class AddNoteForm extends Component {
 	}
 
 	render() {
+		const date = new Date();
+		const hoursOffset = date.getTimezoneOffset() / 60;
+		console.log(hoursOffset)
+
 		if (!this.props.user) { return <div>Please log in to submit train notes</div> }
 		return (
 			<div>
@@ -76,7 +80,7 @@ class AddNoteForm extends Component {
 				}}
 
 			</Form>
-			<RecentSubmissions recentSubmissions={this.props.notes} />
+			<NotesTable notes={this.props.notes.slice(-5).reverse()} />
 			</div>
 		)
 	}

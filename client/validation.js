@@ -32,8 +32,8 @@ export const validation = (values) => {
 	}
 	return {
 		railroad : railroad !== "UP" ? 'Please enter a valid RR' : null,
-		location : !properLocation ? 'Please enter a valid location' : null,
-		symbol : !upSymbol.test(symbol) ? 'Please enter a valid symbol' : null,
+		location : !properLocation ? 'Must include state initials and city or yard name' : null,
+		symbol : !upSymbol.test(symbol) ? 'Invalid symbol' : null,
 		dateTime : !valDateTime(dateTime) ? 'Please enter a valid date' : null
 	}
 }

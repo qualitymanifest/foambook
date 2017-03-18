@@ -1,25 +1,36 @@
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
+import { browserHistory } from 'react-router';
+import { Form, Text, FormField, FormError } from 'react-form'
 
-const mapStateToProps = (state) => {
-		return {
-			user: state.user
+import { Notes } from '../../imports/collections/notes';
+import NotesTable from './notes_table';
+
+
+class UserProfile extends Component {
+	componentWillMount() {
+		if (!this.props.user) {
+			browserHistory.push('/')
 		}
 	}
 
-class UserProfile extends Component {
 	render(props) {
 		return (
-			<div>UserProfile {this.props.user.name}</div>
+			<div>
+				If you are going to be submitting notes for the same location and/or railroad,
+				specify those here. That way, when you go to submit a note, those fields will
+				be automatically filled for you!
+				<NotesTable notes={this.props.notes} />
+			</div>
 		)
 	}
 }
 
 
 UserProfile = createContainer(() => {
-	Meteor.subscribe('user.notes');
+	Meteor.subscribe('userNotes');
 	return { 
-		userNotes : userNotes.find({}).fetch(),
+		notes : Notes.find({}).fetch(),
 		user : Meteor.user() }
 }, UserProfile);
 

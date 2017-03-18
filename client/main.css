@@ -1,3 +1,28 @@
+body {
+	/* clear navbar-fixed-top */
+	padding-top: 60px;
+}
+
 .FormError {
 	color: red;
+}
+
+.login-display-name {
+	display : none !important;
+}
+
+.ReactForm {
+	width: 300px;
+	margin: 0 auto;
+}
+
+#log-button {
+	/* since the button was 6px taller than the text navitems,
+	it was creating a funny line below the .active class,
+ 	so lower padding accordingly */
+	padding : 12px;
+}
+
+th, tr {
+	text-align: center;
 }
