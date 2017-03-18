@@ -1,6 +1,7 @@
 body {
 	/* clear navbar-fixed-top */
 	padding-top: 60px;
+	background-color: #EEF1EF;
 }
 
 .FormError {
@@ -25,4 +26,21 @@ body {
 
 th, tr {
 	text-align: center;
+}
+
+input {
+	padding-left: 5px;
+	text-transform : uppercase;
+}
+
+.in a, .collapsing a {
+	/* hamburger dropdown default aligns items to the left,
+	even though hamburger is on the right */
+	 text-align: center;
+}
+
+.navbar-text {
+	margin: 17px 10px;
+	font-size: 12px;
+	display : inline-block;
 }

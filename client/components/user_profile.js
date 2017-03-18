@@ -8,13 +8,13 @@ import NotesTable from './notes_table';
 
 
 class UserProfile extends Component {
+
 	componentWillMount() {
 		if (!this.props.user) {
 			browserHistory.push('/')
 		}
 	}
-
-	render(props) {
+	render() {
 		return (
 			<div>
 				If you are going to be submitting notes for the same location and/or railroad,
@@ -28,7 +28,7 @@ class UserProfile extends Component {
 
 
 UserProfile = createContainer(() => {
-	Meteor.subscribe('userNotes');
+	Meteor.subscribe('user.notes');
 	return { 
 		notes : Notes.find({}).fetch(),
 		user : Meteor.user() }

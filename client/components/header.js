@@ -5,6 +5,7 @@ import { Navbar, NavItem, Nav } from 'react-bootstrap';
 import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
 
 import Accounts from './accounts';
+import { Notes } from '../../imports/collections/notes'
 
 /* the forceUpdate on click is to re-render the header after the
 	'.active' NavItem changes. this is a temp fix */
@@ -17,9 +18,14 @@ class Header extends Component {
 		  <Navbar inverse collapseOnSelect fixedTop>
 		    <Navbar.Header>
 		      <Navbar.Brand>
-		        <a href="#">Train Notes</a>
+		        <a href="#">FoamBook</a>
 		      </Navbar.Brand>
-		      <Navbar.Toggle />
+		    {this.props.notesCount && 
+	      	<Navbar.Text>
+	      		{this.props.notesCount} notes & counting!
+	      	</Navbar.Text>
+		    }
+		    	<Navbar.Toggle />
 		    </Navbar.Header>
 		    <Navbar.Collapse>
 		      <Nav pullRight>
@@ -33,13 +39,13 @@ class Header extends Component {
 		        		Submit
 		        	</NavItem>
 		        </LinkContainer>
-		    		{this.props.user ? 
+		    		{this.props.user &&
 					 		<LinkContainer onClick={() => this.forceUpdate()} to="/user_profile">
 					 			<NavItem>
 					 				Profile
 					 			</NavItem>
 					 		</LinkContainer>
-					 : null}
+					 	}
 					 <NavItem id="log-button">
 					 	<Accounts />
 					 </NavItem>
@@ -51,7 +57,9 @@ class Header extends Component {
 }
 
 Header = createContainer(() => {
+	Meteor.subscribe('notes');
 	return { 
+		notesCount : Notes.find({}).count(),
 		user : Meteor.user() }
 }, Header);
 
