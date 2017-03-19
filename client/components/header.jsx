@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { browserHistory, Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import { createContainer } from 'meteor/react-meteor-data'
 import { Navbar, NavItem, Nav } from 'react-bootstrap';
 import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
@@ -15,15 +15,15 @@ class Header extends Component {
 		const pathname = browserHistory.getCurrentLocation().pathname
 		let toggle;
 		return (
-		  <Navbar inverse collapseOnSelect fixedTop>
+			<Navbar inverse collapseOnSelect fixedTop>
 		    <Navbar.Header>
 		      <Navbar.Brand>
 		        <a href="#">FoamBook</a>
 		      </Navbar.Brand>
-		    {this.props.notesCount && 
-	      	<Navbar.Text>
-	      		{this.props.notesCount} notes & counting!
-	      	</Navbar.Text>
+		    {this.props.notesCount &&
+		    	<Navbar.Text>
+		    		{this.props.notesCount} notes & counting!
+		    	</Navbar.Text>
 		    }
 		    	<Navbar.Toggle />
 		    </Navbar.Header>
@@ -52,7 +52,7 @@ class Header extends Component {
 		      </Nav>
 		    </Navbar.Collapse>
 		  </Navbar>
-		)
+		);
 	}
 }
 

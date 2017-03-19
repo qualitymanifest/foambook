@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class QueryForm extends Component {
 	render() {
+		console.log('QUERY')
 		return (
 			<div>
 				QueryForm
