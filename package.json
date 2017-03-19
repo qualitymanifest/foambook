@@ -3,8 +3,8 @@
   "private": true,
   "scripts": {
     "start": "meteor run",
-    "lint": "eslint .",
-    "lint:autofix": "eslint . --fix",
+    "lint": "eslint . --ext js,jsx",
+    "lint:autofix": "eslint . --fix --ext js,jsx",
     "pretest": "npm run lint --silent"
   },
   "eslintConfig": {

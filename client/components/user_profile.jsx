@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { browserHistory } from 'react-router';
-import { Form, Text, FormField, FormError } from 'react-form'
+import { Form, Text } from 'react-form';
 
 import { Notes } from '../../imports/collections/notes';
 import NotesTable from './notes_table';
@@ -11,7 +11,7 @@ class UserProfile extends Component {
 
 	componentWillMount() {
 		if (!this.props.user) {
-			browserHistory.push('/')
+			browserHistory.push('/');
 		}
 	}
 	render() {
@@ -22,16 +22,16 @@ class UserProfile extends Component {
 				be automatically filled for you!
 				<NotesTable notes={this.props.notes} />
 			</div>
-		)
+		);
 	}
 }
 
 
 UserProfile = createContainer(() => {
 	Meteor.subscribe('user.notes');
-	return { 
-		notes : Notes.find({}).fetch(),
-		user : Meteor.user() }
+	return {
+		notes: Notes.find({}).fetch(),
+		user: Meteor.user() };
 }, UserProfile);
 
-export default UserProfile
+export default UserProfile;

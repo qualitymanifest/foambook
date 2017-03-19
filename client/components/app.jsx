@@ -1,13 +1,10 @@
 import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data'
 
 import Header from './header';
 
-export default (props) => {
-	return (
+export default props => (
 		<div>
 			<Header />
-			{props.children}		
+			{props.children}
 		</div>
-	)
-}
+	);
