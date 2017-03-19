@@ -1,13 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Router, Route, IndexRoute, browserHistory } from "react-router";
 
-import AddNoteForm from './components/add_note_form';
-import UserProfile from './components/user_profile';
-import QueryForm from './components/query_form';
-import Header from './components/header';
+import AddNoteForm from "./components/add_note_form";
+import UserProfile from "./components/user_profile";
+import QueryForm from "./components/query_form";
+import Header from "./components/header";
 
-Accounts.onLogout(() => browserHistory.push('/'));
+Accounts.onLogout(() => browserHistory.push("/"));
 
 // IndexRoute is only visible if the parent / route doesn't have
 // any visible children
@@ -29,5 +29,5 @@ const routes = (
 );
 
 Meteor.startup(() => {
-	ReactDOM.render(routes, document.querySelector('#render-target'));
+	ReactDOM.render(routes, document.querySelector("#render-target"));
 });

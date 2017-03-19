@@ -28,11 +28,18 @@
     },
     "rules": {
       "no-tabs" : 0,
-      "import/extensions" : 0,
       "react/jsx-indent" : 0,
-      "indent" : 0,
+      "react/jsx-indent-props" : 0,
+      "indent" : [2, "tab", {"SwitchCase" : 1}],
+      "import/extensions" : 0,
       "import/no-extraneous-dependencies" : 0,
-      "react/jsx-indent-props" : 0
+      "quotes" : [
+        "error", "double",
+        {
+          "allowTemplateLiterals": true
+        }
+      ],
+      "jsx-a11y/label-has-for" : 0
 
     }
   },

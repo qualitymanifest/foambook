@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import { browserHistory } from 'react-router';
-import { Form, Text } from 'react-form';
+import React, { Component } from "react";
+import { createContainer } from "meteor/react-meteor-data";
+import { browserHistory } from "react-router";
+import { Form, Text } from "react-form";
 
-import { Notes } from '../../imports/collections/notes';
-import NotesTable from './notes_table';
+import { Notes } from "../../imports/collections/notes";
+import NotesTable from "./notes_table";
 
 
 class UserProfile extends Component {
 
 	componentWillMount() {
 		if (!this.props.user) {
-			browserHistory.push('/');
+			browserHistory.push("/");
 		}
 	}
 	render() {
@@ -20,7 +20,7 @@ class UserProfile extends Component {
 				If you are going to be submitting notes for the same location and/or railroad,
 				specify those here. That way, when you go to submit a note, those fields will
 				be automatically filled for you!
-				<NotesTable notes={this.props.notes} />
+				<NotesTable notes={this.props.notes.reverse()} />
 			</div>
 		);
 	}
@@ -28,7 +28,7 @@ class UserProfile extends Component {
 
 
 UserProfile = createContainer(() => {
-	Meteor.subscribe('user.notes');
+	Meteor.subscribe("user.notes");
 	return {
 		notes: Notes.find({}).fetch(),
 		user: Meteor.user() };

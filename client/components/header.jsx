@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Navbar, NavItem, Nav } from 'react-bootstrap';
-import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
+import React, { Component } from "react";
+import { createContainer } from "meteor/react-meteor-data";
+import { Navbar, NavItem, Nav } from "react-bootstrap";
+import { IndexLinkContainer, LinkContainer } from "react-router-bootstrap";
 
-import Accounts from './accounts';
-import { Notes } from '../../imports/collections/notes';
+import Accounts from "./accounts";
+import { Notes } from "../../imports/collections/notes";
 
 /* the forceUpdate on click is to re-render the header after the
 	'.active' NavItem changes. this is a temp fix */
@@ -15,7 +15,7 @@ class Header extends Component {
 			<Navbar inverse collapseOnSelect fixedTop>
 				<Navbar.Header>
 					<Navbar.Brand>
-						<a href="#">FoamBook</a>
+						FoamBook
 					</Navbar.Brand>
 				{this.props.notesCount &&
 					<Navbar.Text>
@@ -54,7 +54,7 @@ class Header extends Component {
 }
 
 Header = createContainer(() => {
-	Meteor.subscribe('notes');
+	Meteor.subscribe("notes");
 	return {
 		notesCount: Notes.find({}).count(),
 		user: Meteor.user() };

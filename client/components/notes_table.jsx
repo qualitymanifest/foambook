@@ -1,7 +1,7 @@
-import React from 'react';
-import moment from 'moment-timezone';
+import React from "react";
+import moment from "moment-timezone";
 
-moment.tz.setDefault('Etc/UTC');
+moment.tz.setDefault("Etc/UTC");
 
 const NotesTable = (props) => {
 	const renderedNotes = props.notes.map((train, idx) => {
@@ -9,9 +9,9 @@ const NotesTable = (props) => {
 		return (
 			<tr key={idx}>
 				<td>{railroad}</td>
-				<td>{location.join(' ')}</td>
+				<td>{location.join(" ")}</td>
 				<td>{symbol}</td>
-				<td>{moment(dateTime).format('MM-DD-YY HH:mm') }</td>
+				<td>{moment(dateTime).format("MM-DD-YY HH:mm") }</td>
 			</tr>
 		);
 	});
