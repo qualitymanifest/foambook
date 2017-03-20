@@ -5,7 +5,6 @@ class QueryForm extends Component {
 		return (
 			<div>
 				QueryForm
-				sickass d3 results component will go here
 			</div>
 		);
 	}

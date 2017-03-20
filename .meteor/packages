@@ -24,3 +24,5 @@ accounts-google@1.1.1
 google-config-ui@1.0.0
 twbs:bootstrap
 accounts-base@1.2.15
+aldeed:simple-schema
+aldeed:collection2

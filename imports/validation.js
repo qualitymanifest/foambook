@@ -48,13 +48,19 @@ export const valSymbol = (symbol, railroad) => {
 
 export const valLocation = (location) => {
 	// returns true if valid, otherwise an error message
+	if (location.length > 40) {
+		return "Too many characters!";
+	}
 	const locArray = cleanLocation(location);
-	// this detects lack of commas or insufficient
+	// this detects lack of commas or insufficient details
 	if (locArray.length < 2) {
-		return "Must include state, and city/yard/city&yard, seperated by commas";
+		return "Must include city/yard/city&yard + state, seperated by commas";
 	}
 	if (!Array.from(locArray.map(el => states.includes(el))).includes(true)) {
 		return "Must include a two letter state, i.e. AZ";
+	}
+	if (locArray.length > 3) {
+		return "Too specific - use city/yard/city&yard + state only";
 	}
 	return true;
 };
@@ -71,6 +77,6 @@ export const validation = (values) => {
 		railroad: !validRR.test(railroad) ? "Please enter a valid RR" : null,
 		location: locationTest !== true ? locationTest : null,
 		symbol: !validRR.test(railroad) ? "Enter RR before symbol" : !valSymbol(symbol, railroad) ? "Invalid symbol" : null,
-		dateTime: dateTest !== true ? dateTest : null,
+		dateTime: dateTest !== true ? dateTest : null
 	};
 };

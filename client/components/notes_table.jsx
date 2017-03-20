@@ -12,6 +12,7 @@ const NotesTable = (props) => {
 				<td>{location.join(" ")}</td>
 				<td>{symbol}</td>
 				<td>{moment(dateTime).format("MM-DD-YY HH:mm") }</td>
+				{props.deleteFunc && <td>x</td>}
 			</tr>
 		);
 	});
@@ -23,6 +24,7 @@ const NotesTable = (props) => {
 					<th>Location</th>
 					<th>Symbol</th>
 					<th>Date/Time</th>
+					{props.deleteFunc && <th>Delete?</th>}
 				</tr>
 			</thead>
 			<tbody>

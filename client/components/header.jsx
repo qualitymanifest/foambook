@@ -1,3 +1,4 @@
+import { Meteor } from "meteor/meteor";
 import React, { Component } from "react";
 import { createContainer } from "meteor/react-meteor-data";
 import { Navbar, NavItem, Nav } from "react-bootstrap";

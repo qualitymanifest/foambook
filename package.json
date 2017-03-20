@@ -11,9 +11,9 @@
     "parser": "babel-eslint",
     "parserOptions": {
       "allowImportExportEverywhere": true,
-      "ecmaVersion" : 6,
+      "ecmaVersion": 6,
       "ecmaFeatures": {
-        "jsx" : true
+        "jsx": true
       }
     },
     "plugins": [
@@ -27,20 +27,30 @@
       "import/resolver": "meteor"
     },
     "rules": {
-      "no-tabs" : 0,
-      "react/jsx-indent" : 0,
-      "react/jsx-indent-props" : 0,
-      "indent" : [2, "tab", {"SwitchCase" : 1}],
-      "import/extensions" : 0,
-      "import/no-extraneous-dependencies" : 0,
-      "quotes" : [
-        "error", "double",
+      "no-tabs": 0,
+      "react/jsx-indent": 0,
+      "react/jsx-indent-props": 0,
+      "indent": [
+        2,
+        "tab",
+        {
+          "SwitchCase": 1
+        }
+      ],
+      "import/extensions": 0,
+      "import/no-extraneous-dependencies": 0,
+      "quotes": [
+        "error",
+        "double",
         {
           "allowTemplateLiterals": true
         }
       ],
-      "jsx-a11y/label-has-for" : 0
-
+      "jsx-a11y/label-has-for": 0,
+      "comma-dangle": [
+        "error",
+        "never"
+      ]
     }
   },
   "dependencies": {
@@ -55,8 +65,10 @@
     "react-dom": "^15.4.2",
     "react-form": "^1.2.6",
     "react-number-format": "^1.1.1",
+    "react-redux": "^5.0.3",
     "react-router": "^3.0.2",
-    "react-router-bootstrap": "^0.23.1"
+    "react-router-bootstrap": "^0.23.1",
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
