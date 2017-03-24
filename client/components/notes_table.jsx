@@ -6,14 +6,17 @@ moment.tz.setDefault("Etc/UTC");
 const NotesTable = (props) => {
 	if (!props.notes.length) return null;
 	const renderedNotes = props.notes.map((train, idx) => {
-		const { railroad, location, symbol, dateTime } = train;
+		const { railroad, location, symbol, dateTime, _id } = train;
 		return (
 			<tr key={idx}>
 				<td>{railroad}</td>
 				<td>{location.join(" ")}</td>
 				<td>{symbol}</td>
 				<td>{moment(dateTime).format("MM-DD-YY HH:mm") }</td>
-				{props.deleteFunc && <td><span className="glyphicon glyphicon-trash"/></td>}
+				{props.deleteFunc && 
+					<td>
+						<span onClick={() => props.deleteFunc(_id)} className="glyphicon glyphicon-trash"/>
+					</td>}
 			</tr>
 		);
 	});

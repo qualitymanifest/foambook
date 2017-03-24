@@ -10,6 +10,7 @@ export default (props) => {
 	return (
 		<Form
 			onSubmit={props.onSubmit}
+			defaultValues={props.defaultValues}
 			validate={values => preferenceValidation(
 				_.mapValues(values, value => value ? value.toUpperCase() : null)
 			)}

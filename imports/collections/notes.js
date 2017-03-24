@@ -28,6 +28,12 @@ Meteor.methods({
 		);
 		Notes.insert(note);
 	},
+	"notes.delete": (noteId) => {
+		if (!Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+		Notes.remove({userId: Meteor.userId(), _id: noteId})
+	},
 	"user.update": (preferences) => {
 		if (!Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");

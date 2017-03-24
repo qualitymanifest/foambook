@@ -12,12 +12,6 @@ import { incrementPages } from "../actions";
 
 class UserProfile extends Component {
 
-	componentWillMount() {
-		if (!this.props.user) {
-			browserHistory.push("/");
-		}
-	}
-
 	onSubmit(values) {
 		Meteor.call("user.update", values, (err, res) => {
 			if (err) {
@@ -26,15 +20,43 @@ class UserProfile extends Component {
 		});
 	}
 
+	deleteFunc(noteId) {
+		Meteor.call("notes.delete", noteId, (err, res) => {
+			if (err) {
+				alert(err);
+			}
+		});
+	}
+
 	render() {
+		
+		let defaultValues = null;
+		if (!this.props.user) {
+			// default props.user is "LOADING". if undefined, definitely not logged in.
+			return <div>You are not logged in!</div>;
+		}
+		if (this.props.user === "LOADING") {
+			return <div>LOADING SPINNER...</div>;
+		}
+		if (this.props.user.preferences) {
+			// user is logged in, and has preferences. create defaults object for form!
+			const { railroad, location, timezone } = this.props.user.preferences;
+			defaultValues = {
+				railroad : railroad ? railroad : "",
+				location : location ? location : "",
+				timezone: timezone ? timezone : ""
+			};
+		}
+
 		return (
 			<div className="center">
 				You can set default form values here so you don't have to type them in every time!
 				Note: default time in time input field will reflect timezone specified here.	
 				<PreferenceForm 
 					onSubmit={_.debounce(this.onSubmit.bind(this), 200)}
+					defaultValues={defaultValues}
 				/>
-				<NotesTable notes={this.props.notes} deleteFunc={true} />
+				<NotesTable notes={this.props.notes} deleteFunc={this.deleteFunc.bind(this)} />
 				{	!!this.props.notes.length &&
 					<button className="btn btn-primary" onClick={this.props.paginate} >Load More</button>
 				}
@@ -42,6 +64,10 @@ class UserProfile extends Component {
 		);
 	}
 }
+
+UserProfile.defaultProps = {
+	user: "LOADING"
+};
 
 const mapDispatchToProps = (dispatch) => {
 	return {

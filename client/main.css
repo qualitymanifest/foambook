@@ -54,4 +54,5 @@ input {
 
 .glyphicon-trash {
 	color: red;
+	cursor: pointer;
 }

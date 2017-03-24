@@ -14,6 +14,7 @@ Moment.tz.setDefault("Etc/UTC");
 
 class AddNoteForm extends Component {
 
+
 	onSubmit(values) {
 	/* had to clone using Object.assign because previously added
 	values were changing to be the lowercased first letter of the
@@ -35,16 +36,30 @@ class AddNoteForm extends Component {
 	}
 
 	render() {
-		if (!this.props.user) { return <div>Please log in to submit train notes</div>; }
+		// in case user turns out to be logged in but have no default preferences
+		let defaultValues = null;
+		if (!this.props.user) {
+			// default props.user is "LOADING". if undefined, definitely not logged in.
+			return <div>Please log in to submit train notes</div>;
+		}
+		if (this.props.user === "LOADING") {
+			return <div>LOADING SPINNER...</div>;
+		}
+		if (this.props.user.preferences) {
+			// user is logged in, and has preferences. create defaults object for form!
+			const { railroad, location, timezone } = this.props.user.preferences;
+			defaultValues = {
+				railroad : railroad ? railroad : "",
+				location : location ? location : "",
+				dateTime: timezone ? Moment().tz(timezone).format("MM-DD-YY HH:mm") : ""
+			};
+		}
+
 		return (
 			<div className="center">
 			<Form
 				onSubmit={_.debounce(this.onSubmit.bind(this), 200)}
-				defaultValues={{
-					railroad: "UP",
-					location: "TUCSON, AZ",
-					symbol: "QEWWC",
-					dateTime: Moment().tz("America/Phoenix").format("MM-DD-YY HH:mm") }}
+				defaultValues={ defaultValues }
 				/* input values aren't really uppercase, its just the css. i was previously
 				using prevalidate to uppercase, but that ran the function on every keystroke and would
 				move the text cursor if you tried to update the middle of the word. */
@@ -54,7 +69,7 @@ class AddNoteForm extends Component {
 			>
 				{({ submitForm }) => (
 						<form onSubmit={submitForm}>
-							<label>Railroad reporting marks</label>
+							<label>Railroad</label>
 							<Text field="railroad" placeholder="UP | ??" />
 							<label>Location</label>
 							<Text field="location" placeholder="Tucson, AZ" />
@@ -73,6 +88,10 @@ class AddNoteForm extends Component {
 	}
 }
 
+AddNoteForm.defaultProps = {
+	user: "LOADING"
+};
+
 AddNoteForm = createContainer(() => {
 	Meteor.subscribe("notes", 5);
 	Meteor.subscribe("user.preferences");
@@ -81,8 +100,7 @@ AddNoteForm = createContainer(() => {
 			sort: { createdAt: -1 },
 			limit: 5
 		}).fetch(),
-		user: Meteor.user(),
-		preferences: Meteor.users.findOne({_id: Meteor.userId()}, {fields : {preferences: 1}})
+		user: Meteor.user()
 	};
 }, AddNoteForm);
 
