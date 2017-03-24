@@ -1,14 +1,5 @@
 # todo
 
-- deciding to show page to user or not based on auth:
-	- subscription starts out as null, and stays null if not logged in. this presents some problems telling whether page is loading or user just isnt logged in. potential solutions :
-		- could set userid prop to a default, that way if it turns out null we know they're not logged in?
-		- https://guide.meteor.com/data-loading.html#readiness
-
-- user page
-	- allow for note deletion
-	- pass note deletion func into notes_table
-
 - query page
 	-	d3!
 	- filtering options

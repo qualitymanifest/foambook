@@ -2,9 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Router, Route, IndexRoute, browserHistory } from "react-router";
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
+import { createStore } from "redux";
+import { Meteor } from 'meteor/meteor'
+import { Accounts } from "meteor/accounts-base";
 
-import reducers from "./reducers"
+import reducers from "./reducers";
 import AddNoteForm from "./components/add_note_form";
 import UserProfile from "./components/user_profile";
 import QueryForm from "./components/query_form";
@@ -24,7 +26,7 @@ const App = props => (
 const store = createStore(reducers);
 
 const routes = (
-	<Provider store = {store}>
+	<Provider store={store}>
 		<Router history={browserHistory}>
 			<Route path="/" component={App}>
 				<IndexRoute component={QueryForm} />

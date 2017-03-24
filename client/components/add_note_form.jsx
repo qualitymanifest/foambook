@@ -36,7 +36,7 @@ class AddNoteForm extends Component {
 	}
 
 	render() {
-		// in case user turns out to be logged in but have no default preferences
+		// in case user turns out to be logged in but has no default preferences
 		let defaultValues = null;
 		if (!this.props.user) {
 			// default props.user is "LOADING". if undefined, definitely not logged in.
@@ -49,8 +49,8 @@ class AddNoteForm extends Component {
 			// user is logged in, and has preferences. create defaults object for form!
 			const { railroad, location, timezone } = this.props.user.preferences;
 			defaultValues = {
-				railroad : railroad ? railroad : "",
-				location : location ? location : "",
+				railroad,
+				location,
 				dateTime: timezone ? Moment().tz(timezone).format("MM-DD-YY HH:mm") : ""
 			};
 		}
@@ -59,7 +59,7 @@ class AddNoteForm extends Component {
 			<div className="center">
 			<Form
 				onSubmit={_.debounce(this.onSubmit.bind(this), 200)}
-				defaultValues={ defaultValues }
+				defaultValues={defaultValues}
 				/* input values aren't really uppercase, its just the css. i was previously
 				using prevalidate to uppercase, but that ran the function on every keystroke and would
 				move the text cursor if you tried to update the middle of the word. */
@@ -92,9 +92,8 @@ AddNoteForm.defaultProps = {
 	user: "LOADING"
 };
 
-AddNoteForm = createContainer(() => {
+const MeteorAddNoteForm = createContainer(() => {
 	Meteor.subscribe("notes", 5);
-	Meteor.subscribe("user.preferences");
 	return {
 		notes: Notes.find({}, {
 			sort: { createdAt: -1 },
@@ -104,4 +103,4 @@ AddNoteForm = createContainer(() => {
 	};
 }, AddNoteForm);
 
-export default AddNoteForm;
+export default MeteorAddNoteForm;

@@ -23,7 +23,7 @@ Meteor.methods({
 
 		const note = Object.assign(
 			{},
-			train, 
+			train,
 			{ userId: Meteor.userId(), createdAt: Moment().format("x") }
 		);
 		Notes.insert(note);
@@ -32,7 +32,7 @@ Meteor.methods({
 		if (!Meteor.userId()) {
 			throw new Meteor.Error("not-authorized");
 		}
-		Notes.remove({userId: Meteor.userId(), _id: noteId})
+		Notes.remove({ userId: Meteor.userId(), _id: noteId });
 	},
 	"user.update": (preferences) => {
 		if (!Meteor.userId()) {

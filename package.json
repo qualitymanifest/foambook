@@ -50,7 +50,8 @@
       "comma-dangle": [
         "error",
         "never"
-      ]
+      ],
+      "react/prop-types": 0
     }
   },
   "dependencies": {

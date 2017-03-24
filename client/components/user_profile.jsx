@@ -1,7 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import React, { Component } from "react";
 import { createContainer } from "meteor/react-meteor-data";
-import { browserHistory } from "react-router";
 import { connect } from "react-redux";
 import _ from "lodash";
 
@@ -13,7 +12,9 @@ import { incrementPages } from "../actions";
 class UserProfile extends Component {
 
 	onSubmit(values) {
-		Meteor.call("user.update", values, (err, res) => {
+		// AFAICT values don't need to be uppercased - they will be in
+		// addNoteForm which is where it matters anyway
+		Meteor.call("user.update", values, (err) => {
 			if (err) {
 				alert(err);
 			}
@@ -21,7 +22,7 @@ class UserProfile extends Component {
 	}
 
 	deleteFunc(noteId) {
-		Meteor.call("notes.delete", noteId, (err, res) => {
+		Meteor.call("notes.delete", noteId, (err) => {
 			if (err) {
 				alert(err);
 			}
@@ -29,7 +30,6 @@ class UserProfile extends Component {
 	}
 
 	render() {
-		
 		let defaultValues = null;
 		if (!this.props.user) {
 			// default props.user is "LOADING". if undefined, definitely not logged in.
@@ -41,18 +41,14 @@ class UserProfile extends Component {
 		if (this.props.user.preferences) {
 			// user is logged in, and has preferences. create defaults object for form!
 			const { railroad, location, timezone } = this.props.user.preferences;
-			defaultValues = {
-				railroad : railroad ? railroad : "",
-				location : location ? location : "",
-				timezone: timezone ? timezone : ""
-			};
+			defaultValues = { railroad, location, timezone };
 		}
 
 		return (
 			<div className="center">
 				You can set default form values here so you don't have to type them in every time!
-				Note: default time in time input field will reflect timezone specified here.	
-				<PreferenceForm 
+				Default time in time input field will reflect timezone specified here.
+				<PreferenceForm
 					onSubmit={_.debounce(this.onSubmit.bind(this), 200)}
 					defaultValues={defaultValues}
 				/>

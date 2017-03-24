@@ -14,7 +14,9 @@ export const cleanLocation = (location) => {
 	if (typeof location !== "string" || !location.length) {
 		return [];
 	}
-	// return array with only alphabetic chars
+	// return array with only alphabetic chars. considered leaving spaces
+	// in for city names that include spaces, but that could lead to bugs
+	// with the split the way it is (i.e. state could be " AZ" instead of "AZ")
 	return location.replace(/[^A-Z,]/g, "").split(",");
 };
 
@@ -72,7 +74,7 @@ export const preferenceValidation = (values) => {
 		railroad: railroad && !validRR.test(railroad) ? "Please enter a valid RR" : null,
 		location: location && locationTest !== true ? locationTest : null
 	};
-}
+};
 
 export const submitValidation = (values) => {
 	const { railroad, location, symbol, dateTime } = values;
@@ -84,11 +86,21 @@ export const submitValidation = (values) => {
 	return {
 		railroad: !validRR.test(railroad) ? "Please enter a valid RR" : null,
 		location: locationTest !== true ? locationTest : null,
-		symbol: /*!validRR.test(railroad) ? "Enter RR before symbol" : */!valSymbol(symbol, railroad) ? "Invalid symbol" : null,
+		symbol: !valSymbol(symbol, railroad) ? "Invalid symbol" : null,
 		dateTime: dateTest !== true ? dateTest : null
 	};
 };
 
+export const queryValidation = (values) => {
+	const { railroad, location, symbol } = values;
+	// predicting problems with this if there is no location
+	const locationTest = valLocation(location);
+	return {
+		railroad: railroad && !validRR.test(railroad) ? "Please enter a valid RR" : null,
+		location: location && locationTest !== true ? locationTest : null,
+		symbol: symbol && !valSymbol(symbol, railroad) ? "Invalid symbol" : null,
+	}
+}
 
 /* potential encapsulation for checking user state and loading defaults:
 		in some kind of utility file :

@@ -8,14 +8,14 @@ const NotesTable = (props) => {
 	const renderedNotes = props.notes.map((train, idx) => {
 		const { railroad, location, symbol, dateTime, _id } = train;
 		return (
-			<tr key={idx}>
+			<tr key={_id}>
 				<td>{railroad}</td>
 				<td>{location.join(" ")}</td>
 				<td>{symbol}</td>
-				<td>{moment(dateTime).format("MM-DD-YY HH:mm") }</td>
+				<td>{moment(dateTime).format("MM-DD-YY HH:mm")}</td>
 				{props.deleteFunc && 
 					<td>
-						<span onClick={() => props.deleteFunc(_id)} className="glyphicon glyphicon-trash"/>
+						<span onClick={() => props.deleteFunc(_id)} className="glyphicon glyphicon-trash" />
 					</td>}
 			</tr>
 		);

@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import _ from "lodash";
-import Moment from 'moment-timezone';
+import Moment from "moment-timezone";
 import { Form, Text, Select } from "react-form";
-import { preferenceValidation } from '../../imports/validation';
+import { preferenceValidation } from "../../imports/validation";
 
 const moment = Moment();
 
@@ -40,11 +40,15 @@ export default (props) => {
 						}, {
 							label: `EST: ${moment.tz("America/New_York").format("MM-DD-YY HH:mm")}`,
 							value: "America/New_York"
-						}]}
+						}, {
+							label: "None",
+							value: ""
+						}
+						]}
 					/>
-					<button className="btn btn-warning">Submit Changes</button>
+					<button className="btn btn-warning">Change Preferences</button>
 				</form>
 			)}
 		</Form>
-	)
-}
+	);
+};
