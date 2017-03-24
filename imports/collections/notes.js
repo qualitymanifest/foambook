@@ -1,8 +1,20 @@
 import { Meteor } from "meteor/meteor";
 import { Mongo } from "meteor/mongo";
-import Moment from "moment"
+import Moment from "moment";
+import SimpleSchema from "simpl-schema";
 
-// this is on client - can check with Meteor.isClient /isServer
+const Notes = new Mongo.Collection("notes");
+Notes.schema = new SimpleSchema({
+	railroad: { type: String, max: 10 },
+	location: { type: Array, minCount: 2, maxCount: 3 },
+	"location.$": { type: String, max: 20 },
+	symbol: { type: String, max: 10 },
+	dateTime: { type: Date },
+	userId: { type: String },
+	createdAt: { type: Number }
+});
+Notes.attachSchema(Notes.schema);
+
 Meteor.methods({
 	"notes.insert": (train) => {
 		if (!Meteor.userId()) {
@@ -15,18 +27,18 @@ Meteor.methods({
 			{ userId: Meteor.userId(), createdAt: Moment().format("x") }
 		);
 		Notes.insert(note);
+	},
+	"user.update": (preferences) => {
+		if (!Meteor.userId()) {
+			throw new Meteor.Error("not-authorized");
+		}
+
+		Meteor.users.update(Meteor.userId(), {
+			$set: {
+				preferences
+			}
+		});
 	}
 });
-
-const Notes = new Mongo.Collection("notes");
-Notes.schema = new SimpleSchema({
-	railroad: { type: String, max: 10 },
-	location: { type: [String], minCount: 2, maxCount: 3 },
-	symbol: { type: String, max: 10 },
-	dateTime: { type: Date },
-	userId: { type: String },
-	createdAt: { type: Number }
-});
-Notes.attachSchema(Notes.schema);
 
 exports.Notes = Notes;

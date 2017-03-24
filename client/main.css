@@ -12,9 +12,16 @@ body {
 	display : none !important;
 }
 
-.ReactForm {
-	width: 300px;
-	margin: 0 auto;
+.center {
+	/* this feels ghetto but it works, the goal was to
+	center the form itself not the form content, so this is
+	a div wrapping the form */
+	text-align: center;
+}
+
+.select {
+	width: auto;
+	margin: 0px auto 5px auto;
 }
 
 #log-button {
@@ -43,4 +50,8 @@ input {
 	margin: 17px 10px;
 	font-size: 12px;
 	display : inline-block;
+}
+
+.glyphicon-trash {
+	color: red;
 }

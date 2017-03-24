@@ -40,7 +40,7 @@ class Header extends Component {
 						{this.props.user &&
 							<LinkContainer onClick={() => this.forceUpdate()} to="/user_profile">
 								<NavItem>
-									Profile
+									{this.props.user.profile.name}
 								</NavItem>
 							</LinkContainer>
 						}

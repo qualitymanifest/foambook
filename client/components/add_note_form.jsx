@@ -3,15 +3,14 @@ import React, { Component } from "react";
 import { Form, Text } from "react-form";
 import _ from "lodash";
 import { createContainer } from "meteor/react-meteor-data";
-import moment from "moment-timezone";
+import Moment from "moment-timezone";
 
 import { Notes } from "../../imports/collections/notes";
-import { validation, cleanLocation } from "../../imports/validation";
+import { submitValidation, cleanLocation } from "../../imports/validation";
 import DateTime from "./dateTime";
 import NotesTable from "./notes_table";
 
-moment.tz.setDefault("Etc/UTC");
-const m = moment().tz("America/Phoenix");
+Moment.tz.setDefault("Etc/UTC");
 
 class AddNoteForm extends Component {
 
@@ -23,14 +22,14 @@ class AddNoteForm extends Component {
 		valuesCopy.railroad = valuesCopy.railroad.toUpperCase();
 		valuesCopy.location = cleanLocation(valuesCopy.location.toUpperCase());
 		valuesCopy.symbol = valuesCopy.symbol.toUpperCase();
-		valuesCopy.dateTime = moment(valuesCopy.dateTime, "MM-DD-YY HH:mm").toDate();
+		valuesCopy.dateTime = Moment(valuesCopy.dateTime, "MM-DD-YY HH:mm").toDate();
 	// clear out symbol and date fields:
 
 	// assuming user isn't constantly changing rr/loc, focus on symbol
 		document.querySelector("#symbol").focus();
-		Meteor.call("notes.insert", valuesCopy, (err) => {
+		Meteor.call("notes.insert", valuesCopy, (err, res) => {
 			if (err) {
-				console.log("error during train form submission", err);
+				alert(err);
 			}
 		});
 	}
@@ -38,18 +37,20 @@ class AddNoteForm extends Component {
 	render() {
 		if (!this.props.user) { return <div>Please log in to submit train notes</div>; }
 		return (
-			<div>
+			<div className="center">
 			<Form
-			onSubmit={this.onSubmit.bind(this)}
-			defaultValues={{
-				railroad: "UP",
-				location: "TUCSON, AZ",
-				symbol: "QEWWC",
-				dateTime: m.format("MM-DD-YY HH:mm") }}
-			/* input values aren't really uppercase, its just the css. i was previously
-			using prevalidate to uppercase, but that ran the function on every keystroke and would
-			move the text cursor if you tried to update the middle of the word. */
-			validate={values => validation(_.mapValues(values, value => value ? value.toUpperCase() : null))}
+				onSubmit={_.debounce(this.onSubmit.bind(this), 200)}
+				defaultValues={{
+					railroad: "UP",
+					location: "TUCSON, AZ",
+					symbol: "QEWWC",
+					dateTime: Moment().tz("America/Phoenix").format("MM-DD-YY HH:mm") }}
+				/* input values aren't really uppercase, its just the css. i was previously
+				using prevalidate to uppercase, but that ran the function on every keystroke and would
+				move the text cursor if you tried to update the middle of the word. */
+				validate={values => submitValidation(
+					_.mapValues(values, value => value ? value.toUpperCase() : null)
+				)}
 			>
 				{({ submitForm }) => (
 						<form onSubmit={submitForm}>
@@ -61,22 +62,28 @@ class AddNoteForm extends Component {
 							<Text field="symbol" id="symbol" placeholder="SYMBOL" autoFocus />
 							<label>Date/Time</label>
 							<DateTime field="dateTime" placeholder="MM-DD-YY 23:59" />
-							<button>Submit</button>
+							<button className="btn btn-primary">Submit</button>
 						</form>
 					)}
 
 			</Form>
-			<NotesTable notes={this.props.notes.slice(-5).reverse()} />
+			<NotesTable notes={this.props.notes} />
 			</div>
 		);
 	}
 }
 
 AddNoteForm = createContainer(() => {
-	Meteor.subscribe("notes");
+	Meteor.subscribe("notes", 5);
+	Meteor.subscribe("user.preferences");
 	return {
-		notes: Notes.find({}).fetch(),
-		user: Meteor.user() };
+		notes: Notes.find({}, {
+			sort: { createdAt: -1 },
+			limit: 5
+		}).fetch(),
+		user: Meteor.user(),
+		preferences: Meteor.users.findOne({_id: Meteor.userId()}, {fields : {preferences: 1}})
+	};
 }, AddNoteForm);
 
 export default AddNoteForm;

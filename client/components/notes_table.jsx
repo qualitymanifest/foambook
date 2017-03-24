@@ -4,6 +4,7 @@ import moment from "moment-timezone";
 moment.tz.setDefault("Etc/UTC");
 
 const NotesTable = (props) => {
+	if (!props.notes.length) return null;
 	const renderedNotes = props.notes.map((train, idx) => {
 		const { railroad, location, symbol, dateTime } = train;
 		return (
@@ -12,7 +13,7 @@ const NotesTable = (props) => {
 				<td>{location.join(" ")}</td>
 				<td>{symbol}</td>
 				<td>{moment(dateTime).format("MM-DD-YY HH:mm") }</td>
-				{props.deleteFunc && <td>x</td>}
+				{props.deleteFunc && <td><span className="glyphicon glyphicon-trash"/></td>}
 			</tr>
 		);
 	});

@@ -48,7 +48,7 @@ export const valSymbol = (symbol, railroad) => {
 
 export const valLocation = (location) => {
 	// returns true if valid, otherwise an error message
-	if (location.length > 40) {
+	if (location && location.length > 30) {
 		return "Too many characters!";
 	}
 	const locArray = cleanLocation(location);
@@ -65,8 +65,16 @@ export const valLocation = (location) => {
 	return true;
 };
 
+export const preferenceValidation = (values) => {
+	const { railroad, location } = values;
+	const locationTest = valLocation(location);
+	return {
+		railroad: !validRR.test(railroad) ? "Please enter a valid RR" : null,
+		location: locationTest !== true ? locationTest : null
+	};
+}
 
-export const validation = (values) => {
+export const submitValidation = (values) => {
 	const { railroad, location, symbol, dateTime } = values;
 	// only keep non-word characters and , split on commas
 	// does location have at least two parts, (hopefully city, state || yard, state... etc)
