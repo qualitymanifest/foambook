@@ -57,6 +57,8 @@
   "dependencies": {
     "babel-runtime": "^6.20.0",
     "connect-route": "^0.1.5",
+    "d3": "^4.7.4",
+    "d3-tip": "^0.7.1",
     "lodash": "^4.17.4",
     "meteor-node-stubs": "~0.2.4",
     "moment-timezone": "^0.5.11",
@@ -64,6 +66,7 @@
     "react-addons-pure-render-mixin": "^15.4.2",
     "react-bootstrap": "^0.30.8",
     "react-dom": "^15.4.2",
+    "react-faux-dom": "^3.0.1",
     "react-form": "^1.2.6",
     "react-number-format": "^1.1.1",
     "react-redux": "^5.0.3",

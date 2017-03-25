@@ -10,9 +10,11 @@ import { Notes } from "../../imports/collections/notes";
 import { changeQuery } from "../actions";
 import NotesTable from "./notes_table";
 import { queryValidation, cleanLocation } from "../../imports/validation";
+import Scatterplot from './scatterplot';
 
 //Moment.tz.setDefault("Etc/UTC");
 let M = Moment();
+console.log(M.isoWeekday());
 console.log(M.format("HHmm"));
 
 
@@ -58,6 +60,7 @@ class QueryForm extends Component {
 							</form>
 						)}
 				</Form>
+				<Scatterplot notes={this.props.notes} />
 				<NotesTable notes={this.props.notes} />
 			</div>
 		);

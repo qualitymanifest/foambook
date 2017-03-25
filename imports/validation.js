@@ -35,7 +35,7 @@ export const valDateTime = (dateTime) => {
 	return "Invalid date";
 };
 
-const upSymbol = /^[ACGIKMOQUZ][A-Z]{4}[BCELPXR]?$/;
+const upSymbol = /^[ACGIKMOQUZ][A-Z1-4]{4}[BCELPXR]?$/;
 const bnsfSymbol = /^[BCEGHMQSUVXZ][A-Z]{6}[1-9]?$/;
 export const valSymbol = (symbol, railroad) => {
 	switch (railroad) {
