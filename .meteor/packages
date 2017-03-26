@@ -26,3 +26,4 @@ twbs:bootstrap
 accounts-base@1.2.15
 ddp-rate-limiter
 aldeed:collection2-core@2.0.0
+mdg:validated-method

@@ -1,9 +1,9 @@
 # todo
 
 - d3:
-	- tooltips
-	- d3 axis labels
+	- better tooltips
 	- force / "jittering" to un-stack entries with same time/date
+	- make x axis work with time better (since 60 min in hour...)
 
 - responsiveness
 	- hold window size in redux state?

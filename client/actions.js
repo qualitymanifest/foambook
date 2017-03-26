@@ -9,6 +9,7 @@ export const incrementPages = () => {
 export const CHANGE_QUERY = "CHANGE_QUERY";
 
 export const changeQuery = (values) => {
+	
 	return {
 		type: CHANGE_QUERY,
 		payload: values

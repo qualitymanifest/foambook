@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactFauxDOM from "react-faux-dom";
 import * as d3 from "d3";
-import d3tip from "d3-tip"
+import _ from "lodash";
 import Moment from "moment-timezone";
 
 Moment.tz.setDefault("Etc/UTC");
@@ -14,7 +14,7 @@ const addInfo = (notes) => {
 	const newNotes = notes.map((note) => {
 		const noteMoment = Moment(note.dateTime);
 		const newNote = Object.assign({}, note);
-		newNote.time = noteMoment.format("HHmm");
+		newNote.time = (noteMoment.hours() * 60) + noteMoment.minutes()
 		newNote.weekday = noteMoment.isoWeekday();
 		return newNote;
 	});
@@ -31,15 +31,17 @@ const days = {
 	7: "Su"
 };
 
+const tickHours = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22];
+
 
 class Scatterplot extends Component {
 
 	render() {
 		if (!this.props.notes) return null;
-		let data = addInfo(this.props.notes);
+		const data = addInfo(this.props.notes);
 
 		const div = ReactFauxDOM.createElement("div");
-		div.setAttribute("id", "chart")
+		div.setAttribute("id", "chart");
 /* ---------------------------------------------------- */
 /* ---------------------------------------------------- */
 
@@ -48,7 +50,11 @@ class Scatterplot extends Component {
 		const height = 500 - margin.top - margin.bottom;
 
 		const x = d3.scaleLinear()
-			.domain([0, 2359])
+			.domain([0, 1439])
+			.range([0, width]);
+
+		const xAxis = d3.scaleLinear()
+			.domain([0, 24])
 			.range([0, width]);
 
 		const y = d3.scaleLinear()
@@ -70,12 +76,12 @@ class Scatterplot extends Component {
 		main.append("g")
 			.attr("transform", `translate(0,${height})`)
 			.attr("class", "main axis date")
-			.call(d3.axisBottom(x));
+			.call(d3.axisBottom(xAxis).ticks(11).tickValues(tickHours));
 
 		main.append("g")
 			.attr("transform", "translate(0,0)")
 			.attr("class", "main axis date")
-			.call(d3.axisLeft(y));
+			.call(d3.axisLeft(y).ticks(7).tickFormat(d => days[d]));
 
 		const g = main.append("g");
 
@@ -84,7 +90,9 @@ class Scatterplot extends Component {
 			.enter().append("circle")
 				.attr("cx", d => x(d.time))
 				.attr("cy", d => y(d.weekday))
-				.attr("r", 8);
+				.attr("r", 8)
+				.append("title")
+					.text(d => d.symbol);
 
 /* ---------------------------------------------------- */
 /* ---------------------------------------------------- */
