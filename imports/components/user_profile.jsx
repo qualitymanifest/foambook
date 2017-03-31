@@ -36,7 +36,7 @@ class UserProfile extends Component {
 			return <div>You are not logged in!</div>;
 		}
 		if (this.props.user === "LOADING") {
-			return <div>LOADING SPINNER...</div>;
+			return <div id="spinner" />;
 		}
 		if (this.props.user.preferences) {
 			// user is logged in, and has preferences. create defaults object for form!

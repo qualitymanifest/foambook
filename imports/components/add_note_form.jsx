@@ -43,7 +43,7 @@ class AddNoteForm extends Component {
 			return <div>Please log in to submit train notes</div>;
 		}
 		if (this.props.user === "LOADING") {
-			return <div>LOADING SPINNER...</div>;
+			return <div id="spinner" />;
 		}
 		if (this.props.user.preferences) {
 			// user is logged in, and has preferences. create defaults object for form!

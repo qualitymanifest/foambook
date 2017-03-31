@@ -20,7 +20,6 @@ export const cleanLocation = (location) => {
 	return location.replace(/[^A-Z,]/g, "").split(",");
 };
 
-
 export const valDateTime = (dateTime) => {
 	// returns true if valid, otherwise an error message
 	const realDateTime = moment(dateTime, "MM-DD-YY HH:mm");
@@ -114,37 +113,5 @@ export const queryValidation = (values) => {
 		railroad: railroad && !validRR.test(railroad) ? "Please enter a valid RR" : null,
 		location: location && locationTest !== true ? locationTest : null,
 		symbol: symbol && !valSymbol(symbol, railroad) ? "Invalid symbol" : null,
-	}
-}
-
-/* potential encapsulation for checking user state and loading defaults:
-		in some kind of utility file :
-		const getStatusAndSetDefaults = (user, appLocation) {
-			if (!user) {
-				return {isDefinitelyLoggedIn : false, returnValue: <div>You are not logged in!</div> }
-			}
-			if (user === "LOADING") {
-				return {isDefinitelyLoggedIn: false, returnValue: <div>LOADING SPINNER</div>}
-			}
-			if (user.preferences) {
-				return {isDefinitelyLoggedIn: true, returnValue:
-					railroad : user.railroad ? user.railroad : "",
-					location : user.location ? user.location : "",
-					// this would need work depending on appLocation
-					dateTime: user.timezone ? Moment().tz(user.timezone).format("MM-DD-YY HH:mm") : ""
-				}
-			}
-			else {
-				return {isDefinitelyLoggedIn: true, returnValue: null}
-			}
-		}
-		then in render :
-
-		let checkStatus = getStatusAndSetDefaults(this.props.user, "AddNoteForm")
-		if (!checkStatus.isDefinitelyLoggedIn) {
-			return checkStatus.returnValue;
-		}
-		else {
-			const defaultValues = checkStatus.returnValue;
-		}
-*/
+	};
+};
