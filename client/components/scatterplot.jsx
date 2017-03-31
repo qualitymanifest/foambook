@@ -37,7 +37,7 @@ const tickHours = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22];
 class Scatterplot extends Component {
 
 	render() {
-		if (!this.props.notes) return null;
+		if (!this.props.notes.length) return null;
 		const data = addInfo(this.props.notes);
 
 		const div = ReactFauxDOM.createElement("div");

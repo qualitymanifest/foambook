@@ -2,7 +2,7 @@ import moment from "moment-timezone";
 
 moment.tz.setDefault("Etc/UTC");
 
-const validRR = /^(BNSF|UP|CSX|NS|CN|CP|PAR)$/;
+const validRR = /^(BNSF|UP|CSX|NS|CN|CP|KCS)$/;
 
 const states = ["AL", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "ID",
 	"IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT",
@@ -37,12 +37,27 @@ export const valDateTime = (dateTime) => {
 
 const upSymbol = /^[ACGIKMOQUZ][A-Z1-4]{4}[BCELPXR]?$/;
 const bnsfSymbol = /^[BCEGHMQSUVXZ][A-Z]{6}[1-9]?$/;
+const csxSymbol = /^[A-Z][0-9]{3}$/;
+const nsSymbol = /^([A-Z]{1,2}\d{1,2}|\d{3}|\d{2}[A-Z])$/;
+const cpSymbol = /^2?\d{3}$/; // extras might be 2NNN?
+const cnSymbol = /^[A-Z]{1}\d{3,5}$/;
+const kcsSymbol = /^[ACDGHILMORSUWX][A-Z]{4}$/;
 export const valSymbol = (symbol, railroad) => {
 	switch (railroad) {
 		case "UP":
 			return upSymbol.test(symbol);
 		case "BNSF":
 			return bnsfSymbol.test(symbol);
+		case "CSX":
+			return csxSymbol.test(symbol);
+		case "NS":
+			return nsSymbol.test(symbol);
+		case "CP":
+			return cpSymbol.test(symbol);
+		case "CN":
+			return cnSymbol.test(symbol);
+		case "KCS":
+			return kcsSymbol.test(symbol);
 		default:
 			return false;
 	}
