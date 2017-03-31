@@ -6,10 +6,10 @@ import Moment from "moment-timezone";
 import { Form, Text } from "react-form";
 import _ from "lodash";
 
-import { Notes } from "../../imports/collections/notes";
-import { changeQuery } from "../actions";
+import { Notes } from "../collections/notes";
+import { changeQuery } from "../../client/actions";
 import NotesTable from "./notes_table";
-import { queryValidation, cleanLocation } from "../../imports/validation";
+import { queryValidation, cleanLocation } from "../validation";
 import Scatterplot from "./scatterplot";
 
 class QueryForm extends Component {

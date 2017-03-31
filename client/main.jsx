@@ -7,10 +7,10 @@ import { Meteor } from 'meteor/meteor'
 import { Accounts } from "meteor/accounts-base";
 
 import reducers from "./reducers";
-import AddNoteForm from "./components/add_note_form";
-import UserProfile from "./components/user_profile";
-import QueryForm from "./components/query_form";
-import Header from "./components/header";
+import AddNoteForm from "../imports/components/add_note_form";
+import UserProfile from "../imports/components/user_profile";
+import QueryForm from "../imports/components/query_form";
+import Header from "../imports/components/header";
 
 Accounts.onLogout(() => browserHistory.push("/"));
 

@@ -5,9 +5,9 @@ import { connect } from "react-redux";
 import _ from "lodash";
 
 import PreferenceForm from "./preference_form";
-import { Notes } from "../../imports/collections/notes";
+import { Notes } from "../collections/notes";
 import NotesTable from "./notes_table";
-import { incrementPages } from "../actions";
+import { incrementPages } from "../../client/actions";
 
 class UserProfile extends Component {
 

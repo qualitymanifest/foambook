@@ -5,8 +5,8 @@ import _ from "lodash";
 import { createContainer } from "meteor/react-meteor-data";
 import Moment from "moment-timezone";
 
-import { Notes } from "../../imports/collections/notes";
-import { submitValidation, cleanLocation } from "../../imports/validation";
+import { Notes } from "../collections/notes";
+import { submitValidation, cleanLocation } from "../validation";
 import DateTime from "./dateTime";
 import NotesTable from "./notes_table";
 

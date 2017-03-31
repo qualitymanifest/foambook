@@ -5,7 +5,7 @@ import { Navbar, NavItem, Nav } from "react-bootstrap";
 import { IndexLinkContainer, LinkContainer } from "react-router-bootstrap";
 
 import Accounts from "./accounts";
-import { Notes } from "../../imports/collections/notes";
+import { Notes } from "../collections/notes";
 
 /* the forceUpdate on click is to re-render the header after the
 	'.active' NavItem changes. this is a temp fix */

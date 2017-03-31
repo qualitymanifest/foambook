@@ -2,7 +2,8 @@ import React from "react";
 import _ from "lodash";
 import Moment from "moment-timezone";
 import { Form, Text, Select } from "react-form";
-import { preferenceValidation } from "../../imports/validation";
+
+import { preferenceValidation } from "../validation";
 
 const moment = Moment();
 
