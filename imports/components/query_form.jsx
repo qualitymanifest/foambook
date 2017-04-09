@@ -39,7 +39,7 @@ class QueryForm extends Component {
 				<Form
 					onSubmit={_.debounce(this.onSubmit.bind(this), 200)}
 					validate={values => queryValidation(
-						_.mapValues(values, value => value ? value.toUpperCase() : null)
+						_.mapValues(values, value => value && typeof value === "string" ? value.toUpperCase() : null)
 					)}
 					defaultValues={this.props.queryState ? this.props.queryState : null}
 				>
@@ -63,6 +63,7 @@ class QueryForm extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
+	// put query in state so that it will be the same when user navigates back
 	return {
 		changeQuery: (values) => {
 			dispatch(changeQuery(values));

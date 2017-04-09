@@ -5,24 +5,29 @@ import { connect } from "react-redux";
 import _ from "lodash";
 
 import PreferenceForm from "./preference_form";
-import { Notes } from "../collections/notes";
+import { Notes, NotesDelete, UserUpdate } from "../collections/notes";
 import NotesTable from "./notes_table";
 import { incrementPages } from "../../client/actions";
+import { cleanLocation } from "../validation";
 
 class UserProfile extends Component {
 
 	onSubmit(values) {
-		// AFAICT values don't need to be uppercased - they will be in
-		// addNoteForm which is where it matters anyway
-		Meteor.call("user.update", values, (err) => {
+		let valuesCopy = Object.assign({}, values);
+		if (valuesCopy.railroad) {
+			valuesCopy.railroad = valuesCopy.railroad.toUpperCase();
+		}
+		valuesCopy.location = cleanLocation(valuesCopy.location);
+		//console.log(values);
+		UserUpdate.call(valuesCopy, (err) => {
 			if (err) {
 				alert(err);
 			}
-		});
+		})
 	}
 
 	deleteFunc(noteId) {
-		Meteor.call("notes.delete", noteId, (err) => {
+		NotesDelete.call({ noteId }, (err) => {
 			if (err) {
 				alert(err);
 			}
@@ -41,7 +46,7 @@ class UserProfile extends Component {
 		if (this.props.user.preferences) {
 			// user is logged in, and has preferences. create defaults object for form!
 			const { railroad, location, timezone } = this.props.user.preferences;
-			defaultValues = { railroad, location, timezone };
+			defaultValues = { railroad, location: location.join(", "), timezone };
 		}
 
 		return (

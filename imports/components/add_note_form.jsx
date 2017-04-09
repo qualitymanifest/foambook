@@ -5,7 +5,8 @@ import _ from "lodash";
 import { createContainer } from "meteor/react-meteor-data";
 import Moment from "moment-timezone";
 
-import { Notes } from "../collections/notes";
+//import { Notes } from "../collections/notes";
+import { Notes, NotesInsert } from "../collections/notes";
 import { submitValidation, cleanLocation } from "../validation";
 import DateTime from "./dateTime";
 import NotesTable from "./notes_table";
@@ -28,11 +29,16 @@ class AddNoteForm extends Component {
 
 	// assuming user isn't constantly changing rr/loc, focus on symbol
 		document.querySelector("#symbol").focus();
-		Meteor.call("notes.insert", valuesCopy, (err, res) => {
+		NotesInsert.call(valuesCopy, (err) => {
+			if (err) {
+				alert(err)
+			}
+		})
+		/*Meteor.call("notes.insert", valuesCopy, (err, res) => {
 			if (err) {
 				alert(err);
 			}
-		});
+		});*/
 	}
 
 	render() {
@@ -50,7 +56,7 @@ class AddNoteForm extends Component {
 			const { railroad, location, timezone } = this.props.user.preferences;
 			defaultValues = {
 				railroad,
-				location,
+				location: location.join(", "),
 				dateTime: timezone ? Moment().tz(timezone).format("MM-DD-YY HH:mm") : ""
 			};
 		}
@@ -64,7 +70,7 @@ class AddNoteForm extends Component {
 				using prevalidate to uppercase, but that ran the function on every keystroke and would
 				move the text cursor if you tried to update the middle of the word. */
 				validate={values => submitValidation(
-					_.mapValues(values, value => value ? value.toUpperCase() : null)
+					_.mapValues(values, value => value && typeof value === "string" ? value.toUpperCase() : null)
 				)}
 			>
 				{({ submitForm }) => (

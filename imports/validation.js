@@ -9,31 +9,6 @@ const states = ["AL", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "ID"
 	"NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
 	"SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"];
 
-export const cleanLocation = (location) => {
-	// first make sure field is not empty, to avoid error during .replace
-	if (typeof location !== "string" || !location.length) {
-		return [];
-	}
-	// return array with only alphabetic chars. considered leaving spaces
-	// in for city names that include spaces, but that could lead to bugs
-	// with the split the way it is (i.e. state could be " AZ" instead of "AZ")
-	return location.replace(/[^A-Z,]/g, "").split(",");
-};
-
-export const valDateTime = (dateTime) => {
-	// returns true if valid, otherwise an error message
-	const realDateTime = moment(dateTime, "MM-DD-YY HH:mm");
-	const fiveYearsAgo = moment().subtract(5, "years");
-	const now = moment();
-	if (realDateTime.isValid()) {
-		if (!moment(realDateTime).isBetween(fiveYearsAgo, now)) {
-			return "Must be within the last five years";
-		}
-		return true;
-	}
-	return "Invalid date";
-};
-
 const upSymbol = /^[ACGIKMOQUZ][A-Z1-4]{4}[BCELPXR]?$/;
 const bnsfSymbol = /^[BCEGHMQSUVXZ][A-Z]{6}[1-9]?$/;
 const csxSymbol = /^[A-Z][0-9]{3}$/;
@@ -41,6 +16,7 @@ const nsSymbol = /^([A-Z]{1,2}\d{1,2}|\d{3}|\d{2}[A-Z])$/;
 const cpSymbol = /^2?\d{3}$/; // extras might be 2NNN?
 const cnSymbol = /^[A-Z]{1}\d{3,5}$/;
 const kcsSymbol = /^[ACDGHILMORSUWX][A-Z]{4}$/;
+
 export const valSymbol = (symbol, railroad) => {
 	switch (railroad) {
 		case "UP":
@@ -62,6 +38,31 @@ export const valSymbol = (symbol, railroad) => {
 	}
 };
 
+export const valDateTime = (dateTime) => {
+	// returns true if valid, otherwise an error message
+	const realDateTime = moment(dateTime, "MM-DD-YY HH:mm");
+	const fiveYearsAgo = moment().subtract(5, "years");
+	const now = moment();
+	if (realDateTime.isValid()) {
+		if (!moment(realDateTime).isBetween(fiveYearsAgo, now)) {
+			return "Must be within the last five years";
+		}
+		return true;
+	}
+	return "Invalid date";
+};
+
+export const cleanLocation = (location) => {
+	// first make sure field is not empty, to avoid error during .replace
+	if (typeof location !== "string" || !location.length) {
+		return [];
+	}
+	// return array with only alphabetic chars split on commas. considered leaving spaces
+	// in for city names that include spaces, but that could lead to bugs
+	// with the split the way it is (i.e. state could be " AZ" instead of "AZ")
+	return location.toUpperCase().replace(/[^A-Z,]/g, "").split(",");
+};
+
 export const valLocation = (location) => {
 	// returns true if valid, otherwise an error message
 	if (location && location.length > 30) {
@@ -80,6 +81,9 @@ export const valLocation = (location) => {
 	}
 	return true;
 };
+
+
+/* **** FORM SPECIFIC VALIDATION **** */
 
 export const preferenceValidation = (values) => {
 	const { railroad, location } = values;
@@ -112,6 +116,6 @@ export const queryValidation = (values) => {
 	return {
 		railroad: railroad && !validRR.test(railroad) ? "Please enter a valid RR" : null,
 		location: location && locationTest !== true ? locationTest : null,
-		symbol: symbol && !valSymbol(symbol, railroad) ? "Invalid symbol" : null,
+		symbol: symbol && !valSymbol(symbol, railroad) ? "Invalid symbol" : null
 	};
 };
