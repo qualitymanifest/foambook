@@ -17,28 +17,20 @@ class AddNoteForm extends Component {
 
 
 	onSubmit(values) {
-	/* had to clone using Object.assign because previously added
-	values were changing to be the lowercased first letter of the
-	new value????????? */
 		const valuesCopy = Object.assign({}, values);
 		valuesCopy.railroad = valuesCopy.railroad.toUpperCase();
 		valuesCopy.location = cleanLocation(valuesCopy.location.toUpperCase());
 		valuesCopy.symbol = valuesCopy.symbol.toUpperCase();
 		valuesCopy.dateTime = Moment(valuesCopy.dateTime, "MM-DD-YY HH:mm").toDate();
-	// clear out symbol and date fields:
-
+	// clear out symbol and date fields
 	// assuming user isn't constantly changing rr/loc, focus on symbol
 		document.querySelector("#symbol").focus();
 		NotesInsert.call(valuesCopy, (err) => {
 			if (err) {
-				alert(err)
-			}
-		})
-		/*Meteor.call("notes.insert", valuesCopy, (err, res) => {
-			if (err) {
 				alert(err);
 			}
-		});*/
+		});
+
 	}
 
 	render() {
@@ -75,15 +67,17 @@ class AddNoteForm extends Component {
 			>
 				{({ submitForm }) => (
 						<form onSubmit={submitForm}>
-							<label>Railroad</label>
-							<Text field="railroad" placeholder="UP | ??" />
-							<label>Location</label>
-							<Text field="location" placeholder="Tucson, AZ" />
-							<label>Symbol</label>
-							<Text field="symbol" id="symbol" placeholder="SYMBOL" autoFocus />
-							<label>Date/Time</label>
-							<DateTime field="dateTime" placeholder="MM-DD-YY 23:59" />
-							<button className="btn btn-primary">Submit</button>
+							<div className="form-group col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-5">
+								<label>Railroad</label>
+								<Text className="form-control" field="railroad" placeholder="UP | ??" />
+								<label>Location</label>
+								<Text className="form-control" field="location" placeholder="Tucson, AZ" />
+								<label>Symbol</label>
+								<Text className="form-control" field="symbol" id="symbol" placeholder="SYMBOL" autoFocus />
+								<label>Date/Time</label>
+								<DateTime className="form-control" field="dateTime" placeholder="MM-DD-YY 23:59" />
+								<button className="btn btn-primary btn-block">Submit</button>
+							</div>
 						</form>
 					)}
 

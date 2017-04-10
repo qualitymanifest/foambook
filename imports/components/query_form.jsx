@@ -29,7 +29,7 @@ class QueryForm extends Component {
 		}
 		// temp solution for making sure omitting values doesnt show entire collection
 		if (_.values(queryValues).length === 0) {
-			queryValues.railroad = null;
+			//queryValues.railroad = null;
 		}
 		this.props.changeQuery(queryValues);
 	}
@@ -45,13 +45,18 @@ class QueryForm extends Component {
 				>
 					{({ submitForm }) => (
 							<form onSubmit={submitForm}>
-								<label>Railroad</label>
-								<Text field="railroad" placeholder="UP | ??" />
-								<label>Location</label>
-								<Text field="location" placeholder="Tucson, AZ" />
-								<label>Symbol</label>
-								<Text field="symbol" placeholder="SYMBOL" />
-								<button className="btn btn-primary">Search</button>
+								<div className="form-group col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-5">
+									<label>Railroad</label>
+									<Text className="form-control" field="railroad" placeholder="UP | ??" />
+									<label>Location</label>
+									<Text className="form-control" field="location" placeholder="Tucson, AZ" />
+									<label>Symbol</label>
+									<Text className="form-control" field="symbol" placeholder="SYMBOL" />
+									<button className="btn btn-primary btn-block">
+										<span className="glyphicon glyphicon-search" />
+										Search
+									</button>
+								</div>
 							</form>
 						)}
 				</Form>

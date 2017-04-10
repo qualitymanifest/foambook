@@ -18,7 +18,6 @@ class UserProfile extends Component {
 			valuesCopy.railroad = valuesCopy.railroad.toUpperCase();
 		}
 		valuesCopy.location = cleanLocation(valuesCopy.location);
-		//console.log(values);
 		UserUpdate.call(valuesCopy, (err) => {
 			if (err) {
 				alert(err);
@@ -79,7 +78,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const MeteorUserProfile = createContainer(({ profileState }) => {
-	Meteor.subscribe("user.notes", profileState.loadNum);
+	Meteor.subscribe("userNotes", profileState.loadNum);
 	return {
 		// specifying userId again doesn't seem necessary but can prevent future bugs
 		// see "Always use specific queries to fetch data" in guide

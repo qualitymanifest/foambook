@@ -21,7 +21,7 @@ const NotesTable = (props) => {
 		);
 	});
 	return (
-		<table className="table table-striped table-condensed">
+		<table className="table table-striped table-condensed table-responsive">
 			<thead>
 				<tr>
 					<th>RR</th>

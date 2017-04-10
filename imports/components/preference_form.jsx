@@ -18,36 +18,41 @@ export default (props) => {
 		>
 			{({ submitForm }) => (
 				<form onSubmit={submitForm}>
-					<label>Default Railroad</label>
-					<Text field="railroad" placeholder="RAILROAD" />
-					<label>Default Location</label>
-					<Text field="location" placeholder="LOCATION" />
-					<label>Default Timezone</label>
-					<Select
-						className="form-control select"
-						field="timezone"
-						options={[{
-							label: `PST: ${moment.tz("America/Los_Angeles").format("MM-DD-YY HH:mm")}`,
-							value: "America/Los_Angeles"
-						}, {
-							label: `AZ: ${moment.tz("America/Phoenix").format("MM-DD-YY HH:mm")}`,
-							value: "America/Phoenix"
-						}, {
-							label: `MST: ${moment.tz("America/Denver").format("MM-DD-YY HH:mm")}`,
-							value: "America/Denver"
-						}, {
-							label: `CST: ${moment.tz("America/Chicago").format("MM-DD-YY HH:mm")}`,
-							value: "America/Chicago"
-						}, {
-							label: `EST: ${moment.tz("America/New_York").format("MM-DD-YY HH:mm")}`,
-							value: "America/New_York"
-						}, {
-							label: "None",
-							value: ""
-						}
-						]}
-					/>
-					<button className="btn btn-warning">Change Preferences</button>
+					<div className="form-group col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-5">
+						<label>Default Railroad</label>
+						<Text className="form-control" field="railroad" placeholder="RAILROAD" />
+						<label>Default Location</label>
+						<Text className="form-control" field="location" placeholder="LOCATION" />
+						<label>Default Timezone</label>
+						<Select
+							className="form-control"
+							field="timezone"
+							options={[{
+								label: `PST: ${moment.tz("America/Los_Angeles").format("MM-DD-YY HH:mm")}`,
+								value: "America/Los_Angeles"
+							}, {
+								label: `AZ: ${moment.tz("America/Phoenix").format("MM-DD-YY HH:mm")}`,
+								value: "America/Phoenix"
+							}, {
+								label: `MST: ${moment.tz("America/Denver").format("MM-DD-YY HH:mm")}`,
+								value: "America/Denver"
+							}, {
+								label: `CST: ${moment.tz("America/Chicago").format("MM-DD-YY HH:mm")}`,
+								value: "America/Chicago"
+							}, {
+								label: `EST: ${moment.tz("America/New_York").format("MM-DD-YY HH:mm")}`,
+								value: "America/New_York"
+							}, {
+								label: `AST: ${moment.tz("America/Moncton").format("MM-DD-YY HH:mm")}`,
+								value: "America/Moncton"
+							}, {
+								label: "None",
+								value: ""
+							}
+							]}
+						/>
+						<button className="btn btn-warning btn-block">Change Preferences</button>
+					</div>
 				</form>
 			)}
 		</Form>

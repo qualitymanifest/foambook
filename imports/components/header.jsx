@@ -18,7 +18,7 @@ class Header extends Component {
 					<Navbar.Brand>
 						FoamBook
 					</Navbar.Brand>
-				{this.props.notesCount &&
+				{!!this.props.notesCount &&
 					<Navbar.Text>
 						{this.props.notesCount} notes & counting!
 					</Navbar.Text>

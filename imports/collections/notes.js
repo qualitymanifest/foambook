@@ -4,6 +4,8 @@ import Moment from "moment";
 import SimpleSchema from "simpl-schema";
 import { ValidatedMethod } from "meteor/mdg:validated-method";
 
+// https://guide.meteor.com/collections.html#schemas-on-write
+
 export const Notes = new Mongo.Collection("notes");
 
 const NotesSchema = new SimpleSchema({
