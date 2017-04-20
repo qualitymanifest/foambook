@@ -55,9 +55,10 @@ class Header extends Component {
 }
 
 Header = createContainer(() => {
-	Meteor.subscribe("notes");
+	Meteor.subscribe("notes.count");
 	return {
-		notesCount: Notes.find({}).count(),
+		// don't actually need any data, just get _ids so we can count them
+		notesCount: Notes.findFromPublication("notes.count", {}, { fields: {_id : 1} }).count(),
 		user: Meteor.user() };
 }, Header);
 

@@ -80,7 +80,7 @@ const mapDispatchToProps = (dispatch) => {
 const MeteorQueryForm = createContainer(({ queryState }) => {
 	Meteor.subscribe("query.notes", queryState);
 	return {
-		notes: Notes.find(queryState).fetch()
+		notes: Notes.findFromPublication("query.notes", queryState).fetch()
 	};
 }, QueryForm);
 

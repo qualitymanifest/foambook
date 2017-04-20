@@ -52,7 +52,6 @@ class AddNoteForm extends Component {
 				dateTime: timezone ? Moment().tz(timezone).format("MM-DD-YY HH:mm") : ""
 			};
 		}
-
 		return (
 			<div className="center">
 			<Form
@@ -95,7 +94,7 @@ AddNoteForm.defaultProps = {
 const MeteorAddNoteForm = createContainer(() => {
 	Meteor.subscribe("notes", 5);
 	return {
-		notes: Notes.find({}, {
+		notes: Notes.findFromPublication("notes", {}, {
 			sort: { createdAt: -1 },
 			limit: 5
 		}).fetch(),

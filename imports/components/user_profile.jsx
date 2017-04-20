@@ -35,7 +35,7 @@ class UserProfile extends Component {
 
 	render() {
 		let defaultValues = null;
-		if (!this.props.user) {
+		if (!this.props.notes) {
 			// default props.user is "LOADING". if undefined, definitely not logged in.
 			return <div>You are not logged in!</div>;
 		}
@@ -47,7 +47,6 @@ class UserProfile extends Component {
 			const { railroad, location, timezone } = this.props.user.preferences;
 			defaultValues = { railroad, location: location.join(", "), timezone };
 		}
-
 		return (
 			<div className="center">
 				You can set default form values here so you don't have to type them in every time!
@@ -78,15 +77,15 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const MeteorUserProfile = createContainer(({ profileState }) => {
-	Meteor.subscribe("userNotes", profileState.loadNum);
+	Meteor.subscribe("notes.user", profileState.loadNum);
 	return {
 		// specifying userId again doesn't seem necessary but can prevent future bugs
 		// see "Always use specific queries to fetch data" in guide
-		notes: Notes.find({ userId: Meteor.userId() }, {
+		user: Meteor.user(),
+		notes: Notes.findFromPublication("notes.user", { userId: Meteor.userId() }, {
 			sort: { createdAt: -1 },
 			limit: profileState.loadNum
-		}).fetch(),
-		user: Meteor.user() };
+		}).fetch()};
 }, UserProfile);
 
 export default connect(({ profileState }) => ({ profileState }), mapDispatchToProps)(MeteorUserProfile);
