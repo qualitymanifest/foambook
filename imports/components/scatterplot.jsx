@@ -35,11 +35,11 @@ const tickHours = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22];
 
 class Scatterplot extends Component {
 
-	render(props) {
+	render() {
 		if (!this.props.notes.length) return null;
 		let screenWidth = this.props.uiState.screenWidth;
 		screenWidth = screenWidth > 1200 ? screenWidth * 0.6 : screenWidth * 0.95;
-		const dotRadius = screenWidth > 600 ? 8 : 3;
+		const dotRadius = screenWidth > 675 ? 8 : 3;
 		const tickMargin = screenWidth > 600 ? screenWidth * 0.04 : screenWidth * 0.08;
 		const data = addInfo(this.props.notes);
 

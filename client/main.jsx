@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { Router, Route, IndexRoute, browserHistory } from "react-router";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import { Meteor } from 'meteor/meteor'
+import { Meteor } from "meteor/meteor"
 import { Accounts } from "meteor/accounts-base";
 
 import reducers from "./reducers";
@@ -11,12 +11,11 @@ import { screenResize } from "./actions";
 import AddNoteForm from "../imports/components/add_note_form";
 import UserProfile from "../imports/components/user_profile";
 import QueryForm from "../imports/components/query_form";
+import ReadMe from "../imports/components/read_me";
 import Header from "../imports/components/header";
 
 Accounts.onLogout(() => browserHistory.push("/"));
 
-// IndexRoute is only visible if the parent / route doesn't have
-// any visible children
 const App = props => (
 	<div>
 		<Header />
@@ -30,7 +29,7 @@ window.addEventListener("resize", () => {
 	store.dispatch(screenResize(window.innerWidth));
 });
 
-store.subscribe(() => console.log(store.getState()));
+// store.subscribe(() => console.log(store.getState()));
 
 const routes = (
 	<Provider store={store}>
@@ -39,6 +38,7 @@ const routes = (
 				<IndexRoute component={QueryForm} />
 				<Route path="add_note" component={AddNoteForm} />
 				<Route path="user_profile" component={UserProfile} />
+				<Route path="read_me" component={ReadMe} />
 			</Route>
 		</Router>
 	</Provider>

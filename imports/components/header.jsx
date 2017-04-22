@@ -18,9 +18,10 @@ class Header extends Component {
 					<Navbar.Brand>
 						FoamBook
 					</Navbar.Brand>
+					{/* show current path so that mobile devices can see where they're at
 					<Navbar.Text className="visible-xs-inline-block">
 						PROFILE
-					</Navbar.Text>
+					</Navbar.Text>*/}
 					<Navbar.Toggle />
 				</Navbar.Header>
 				<Navbar.Collapse>
@@ -47,6 +48,11 @@ class Header extends Component {
 								</NavItem>
 							</LinkContainer>
 						}
+						<LinkContainer onClick={() => this.forceUpdate()} to="/read_me">
+							<NavItem>
+								<span className="glyphicon glyphicon-question-sign" />
+							</NavItem>
+						</LinkContainer>
 						<NavItem id="log-button">
 							<Accounts />
 						</NavItem>

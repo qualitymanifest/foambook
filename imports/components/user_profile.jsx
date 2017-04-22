@@ -49,8 +49,6 @@ class UserProfile extends Component {
 		}
 		return (
 			<div className="center">
-				You can set default form values here so you don't have to type them in every time!
-				Default time in time input field will reflect timezone specified here.
 				<PreferenceForm
 					onSubmit={_.debounce(this.onSubmit.bind(this), 200)}
 					defaultValues={defaultValues}
