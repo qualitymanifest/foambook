@@ -55,7 +55,7 @@ class QueryForm extends Component {
 							</form>
 						)}
 				</Form>
-				<QueryDisplay notes={this.props.notes} loading={this.props.loading} />
+				<QueryDisplay notes={this.props.notes} loading={this.props.loading} uiState={this.props.uiState} />
 			</div>
 		);
 	}
@@ -79,4 +79,4 @@ const MeteorQueryForm = createContainer(({ queryState }) => {
 	};
 }, QueryForm);
 
-export default connect(({ queryState }) => ({ queryState }), mapDispatchToProps)(MeteorQueryForm);
+export default connect(({ queryState, uiState }) => ({ queryState, uiState }), mapDispatchToProps)(MeteorQueryForm);

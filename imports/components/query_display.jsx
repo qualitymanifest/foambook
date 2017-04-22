@@ -11,7 +11,7 @@ const QueryDisplay = (props) => {
 	}
 	return (
 		<div>
-			<Scatterplot notes={props.notes} />
+			<Scatterplot notes={props.notes} uiState={props.uiState} />
 			<NotesTable notes={props.notes} />
 		</div>
 	);

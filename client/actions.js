@@ -15,3 +15,12 @@ export const changeQuery = (values) => {
 		payload: values
 	};
 };
+
+export const SCREEN_RESIZE = "SCREEN_RESIZE";
+
+export const screenResize = (width) => {
+	return {
+		type: SCREEN_RESIZE,
+		screenWidth: width
+	}
+}

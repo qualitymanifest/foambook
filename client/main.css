@@ -53,11 +53,6 @@ input {
   border-right: 1px solid #333;
 }
 
-#notesCount {
-  margin: 17px 10px;
-  font-size: 12px;
-}
-
 .glyphicon-trash {
 	color: red;
 	cursor: pointer;

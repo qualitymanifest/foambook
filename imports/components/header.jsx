@@ -19,7 +19,7 @@ class Header extends Component {
 						FoamBook
 					</Navbar.Brand>
 					<Navbar.Text className="visible-xs-inline-block">
-						Mobile app route...
+						PROFILE
 					</Navbar.Text>
 					<Navbar.Toggle />
 				</Navbar.Header>

@@ -35,8 +35,12 @@ const tickHours = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22];
 
 class Scatterplot extends Component {
 
-	render() {
+	render(props) {
 		if (!this.props.notes.length) return null;
+		let screenWidth = this.props.uiState.screenWidth;
+		screenWidth = screenWidth > 1200 ? screenWidth * 0.6 : screenWidth * 0.95;
+		const dotRadius = screenWidth > 600 ? 8 : 3;
+		const tickMargin = screenWidth > 600 ? screenWidth * 0.04 : screenWidth * 0.08;
 		const data = addInfo(this.props.notes);
 
 		const div = ReactFauxDOM.createElement("div");
@@ -44,9 +48,13 @@ class Scatterplot extends Component {
 /* ---------------------------------------------------- */
 /* ---------------------------------------------------- */
 
-		const margin = { top: 20, right: 20, bottom: 60, left: 60 };
-		const width = 960 - margin.left - margin.right;
-		const height = 500 - margin.top - margin.bottom;
+		const margin = {
+			top: screenWidth * 0.02,
+			right: screenWidth * 0.02,
+			bottom: tickMargin,
+			left: tickMargin };
+		const width = screenWidth - margin.left - margin.right;
+		const height = (Math.floor(screenWidth / 2)) - margin.top - margin.bottom;
 
 		const x = d3.scaleLinear()
 			.domain([0, 1439])
@@ -89,7 +97,7 @@ class Scatterplot extends Component {
 			.enter().append("circle")
 				.attr("cx", d => x(d.time))
 				.attr("cy", d => y(d.weekday))
-				.attr("r", 8)
+				.attr("r", dotRadius)
 				.append("title")
 					.text(d => d.symbol);
 

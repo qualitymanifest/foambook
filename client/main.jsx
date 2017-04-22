@@ -7,6 +7,7 @@ import { Meteor } from 'meteor/meteor'
 import { Accounts } from "meteor/accounts-base";
 
 import reducers from "./reducers";
+import { screenResize } from "./actions";
 import AddNoteForm from "../imports/components/add_note_form";
 import UserProfile from "../imports/components/user_profile";
 import QueryForm from "../imports/components/query_form";
@@ -24,6 +25,12 @@ const App = props => (
 );
 
 const store = createStore(reducers);
+
+window.addEventListener("resize", () => {
+	store.dispatch(screenResize(window.innerWidth));
+});
+
+store.subscribe(() => console.log(store.getState()));
 
 const routes = (
 	<Provider store={store}>
