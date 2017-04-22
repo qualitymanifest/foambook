@@ -25,7 +25,7 @@ export const NotesInsert = new ValidatedMethod({
 		const note = Object.assign(
 			{},
 			train,
-			{ userId: Meteor.userId(), createdAt: Moment().format("x") }
+			{ userId: Meteor.userId(), createdAt: Number(Moment().format("x")) }
 		);
 		Notes.insert(note);
 	}

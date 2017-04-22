@@ -61,7 +61,7 @@ class AddNoteForm extends Component {
 				using prevalidate to uppercase, but that ran the function on every keystroke and would
 				move the text cursor if you tried to update the middle of the word. */
 				validate={values => submitValidation(
-					_.mapValues(values, value => value && typeof value === "string" ? value.toUpperCase() : null)
+					_.mapValues(values, val => val && typeof val === "string" ? val.toUpperCase() : null)
 				)}
 			>
 				{({ submitForm }) => (
@@ -75,7 +75,10 @@ class AddNoteForm extends Component {
 								<Text className="form-control" field="symbol" id="symbol" placeholder="SYMBOL" autoFocus />
 								<label>Date/Time</label>
 								<DateTime className="form-control" field="dateTime" placeholder="MM-DD-YY 23:59" />
-								<button className="btn btn-primary btn-block">Submit</button>
+								<button className="btn btn-primary btn-block">
+									<span className="glyphicon glyphicon-pencil" />
+									Submit
+								</button>
 							</div>
 						</form>
 					)}

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import ReactFauxDOM from "react-faux-dom";
 import * as d3 from "d3";
-import _ from "lodash";
 import Moment from "moment-timezone";
 
 Moment.tz.setDefault("Etc/UTC");
@@ -45,7 +44,7 @@ class Scatterplot extends Component {
 /* ---------------------------------------------------- */
 /* ---------------------------------------------------- */
 
-		const margin = { top: 20, right: 15, bottom: 60, left: 60 };
+		const margin = { top: 20, right: 20, bottom: 60, left: 60 };
 		const width = 960 - margin.left - margin.right;
 		const height = 500 - margin.top - margin.bottom;
 

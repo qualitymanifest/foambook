@@ -18,14 +18,17 @@ class Header extends Component {
 					<Navbar.Brand>
 						FoamBook
 					</Navbar.Brand>
-				{!!this.props.notesCount &&
-					<Navbar.Text>
-						{this.props.notesCount} notes & counting!
+					<Navbar.Text className="visible-xs-inline-block">
+						Mobile app route...
 					</Navbar.Text>
-				}
 					<Navbar.Toggle />
 				</Navbar.Header>
 				<Navbar.Collapse>
+					{!!this.props.notesCount &&
+						<Navbar.Text id="notesCount">
+							{this.props.notesCount} notes & counting!
+						</Navbar.Text>
+					}
 					<Nav pullRight>
 						<IndexLinkContainer onClick={() => this.forceUpdate()} to="/">
 							<NavItem>

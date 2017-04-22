@@ -12,3 +12,5 @@
 	- separate datetime input for mobile - https://goshakkk.name/different-mobile-desktop-tablet-layouts-react/
 
 - put query params in url & parse from url, to ease search result sharing
+
+- query efficiency: only pull in fields that aren't part of the query, since if the query matches those documents, then those fields are going to match the query

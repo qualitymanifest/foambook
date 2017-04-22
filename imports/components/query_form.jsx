@@ -8,9 +8,8 @@ import _ from "lodash";
 
 import { Notes } from "../collections/notes";
 import { changeQuery } from "../../client/actions";
-import NotesTable from "./notes_table";
 import { queryValidation, cleanLocation } from "../validation";
-import Scatterplot from "./scatterplot";
+import QueryDisplay from "./query_display";
 
 class QueryForm extends Component {
 
@@ -27,10 +26,6 @@ class QueryForm extends Component {
 		if (values.symbol) {
 			queryValues.symbol = values.symbol.toUpperCase();
 		}
-		// temp solution for making sure omitting values doesnt show entire collection
-		if (_.values(queryValues).length === 0) {
-			//queryValues.railroad = null;
-		}
 		this.props.changeQuery(queryValues);
 	}
 	render() {
@@ -39,7 +34,7 @@ class QueryForm extends Component {
 				<Form
 					onSubmit={_.debounce(this.onSubmit.bind(this), 200)}
 					validate={values => queryValidation(
-						_.mapValues(values, value => value && typeof value === "string" ? value.toUpperCase() : null)
+						_.mapValues(values, val => val && typeof val === "string" ? val.toUpperCase() : null)
 					)}
 					defaultValues={this.props.queryState ? this.props.queryState : null}
 				>
@@ -60,8 +55,7 @@ class QueryForm extends Component {
 							</form>
 						)}
 				</Form>
-				<Scatterplot notes={this.props.notes} />
-				<NotesTable notes={this.props.notes} />
+				<QueryDisplay notes={this.props.notes} loading={this.props.loading} />
 			</div>
 		);
 	}
@@ -78,11 +72,11 @@ const mapDispatchToProps = (dispatch) => {
 
 
 const MeteorQueryForm = createContainer(({ queryState }) => {
-	Meteor.subscribe("query.notes", queryState);
+	const handle = Meteor.subscribe("notes.query", queryState);
 	return {
-		notes: Notes.findFromPublication("query.notes", queryState).fetch()
+		notes: Notes.findFromPublication("notes.query", queryState).fetch(),
+		loading: !handle.ready()
 	};
 }, QueryForm);
-
 
 export default connect(({ queryState }) => ({ queryState }), mapDispatchToProps)(MeteorQueryForm);

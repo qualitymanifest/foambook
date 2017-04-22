@@ -85,7 +85,7 @@ const MeteorUserProfile = createContainer(({ profileState }) => {
 		notes: Notes.findFromPublication("notes.user", { userId: Meteor.userId() }, {
 			sort: { createdAt: -1 },
 			limit: profileState.loadNum
-		}).fetch()};
+		}).fetch() };
 }, UserProfile);
 
 export default connect(({ profileState }) => ({ profileState }), mapDispatchToProps)(MeteorUserProfile);

@@ -13,7 +13,7 @@ export default (props) => {
 			onSubmit={props.onSubmit}
 			defaultValues={props.defaultValues}
 			validate={values => preferenceValidation(
-				_.mapValues(values, value => value && typeof value === "string"  ? value.toUpperCase() : null)
+				_.mapValues(values, val => val && typeof val === "string" ? val.toUpperCase() : null)
 			)}
 		>
 			{({ submitForm }) => (
