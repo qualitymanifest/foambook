@@ -84,7 +84,7 @@ class AddNoteForm extends Component {
 					)}
 
 			</Form>
-			<NotesTable notes={this.props.notes} />
+			<NotesTable notes={this.props.notes} caption="Recent Submissions" />
 			</div>
 		);
 	}

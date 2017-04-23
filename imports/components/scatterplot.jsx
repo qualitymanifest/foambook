@@ -1,24 +1,10 @@
 import React, { Component } from "react";
 import ReactFauxDOM from "react-faux-dom";
 import * as d3 from "d3";
-import Moment from "moment-timezone";
-
-Moment.tz.setDefault("Etc/UTC");
 
 // https://mikewilliamson.wordpress.com/2016/06/03/d3-and-react-3-ways/
 // http://c3js.org/samples/chart_scatter.html
 // http://c3js.org/reference.html
-
-const addInfo = (notes) => {
-	const newNotes = notes.map((note) => {
-		const noteMoment = Moment(note.dateTime);
-		const newNote = Object.assign({}, note);
-		newNote.time = (noteMoment.hours() * 60) + noteMoment.minutes()
-		newNote.weekday = noteMoment.isoWeekday();
-		return newNote;
-	});
-	return newNotes;
-};
 
 const days = {
 	1: "Mo",
@@ -41,7 +27,7 @@ class Scatterplot extends Component {
 		screenWidth = screenWidth > 1200 ? screenWidth * 0.6 : screenWidth * 0.95;
 		const dotRadius = screenWidth > 675 ? 8 : 3;
 		const tickMargin = screenWidth > 600 ? screenWidth * 0.04 : screenWidth * 0.08;
-		const data = addInfo(this.props.notes);
+		const data = this.props.notes;
 
 		const div = ReactFauxDOM.createElement("div");
 		div.setAttribute("id", "chart");

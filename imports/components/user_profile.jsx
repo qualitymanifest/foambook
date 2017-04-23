@@ -22,7 +22,7 @@ class UserProfile extends Component {
 			if (err) {
 				alert(err);
 			}
-		})
+		});
 	}
 
 	deleteFunc(noteId) {
@@ -53,7 +53,10 @@ class UserProfile extends Component {
 					onSubmit={_.debounce(this.onSubmit.bind(this), 200)}
 					defaultValues={defaultValues}
 				/>
-				<NotesTable notes={this.props.notes} deleteFunc={this.deleteFunc.bind(this)} />
+				<NotesTable 
+					notes={this.props.notes} 
+					deleteFunc={this.deleteFunc.bind(this)}
+					caption="Your Recent Submissions" />
 				{	!!this.props.notes.length &&
 					<button className="btn btn-primary" onClick={this.props.paginate} >Load More</button>
 				}

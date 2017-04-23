@@ -13,15 +13,19 @@ const NotesTable = (props) => {
 				<td>{location.join(", ")}</td>
 				<td>{symbol}</td>
 				<td>{moment(dateTime).format("MM-DD-YY HH:mm")}</td>
-				{props.deleteFunc && 
+				{ props.deleteFunc &&
 					<td>
-						<span onClick={() => props.deleteFunc(_id)} className="glyphicon glyphicon-trash" />
-					</td>}
+						<span onClick={() => props.deleteFunc(_id)}
+							className="glyphicon glyphicon-trash"
+						/>
+					</td>
+				}
 			</tr>
 		);
 	});
 	return (
 		<table className="table table-striped table-condensed table-responsive">
+			<caption>{props.caption}</caption>
 			<thead>
 				<tr>
 					<th>RR</th>

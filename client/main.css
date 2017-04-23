@@ -87,6 +87,10 @@ span {
 	margin: 0px 10px;
 }
 
+caption {
+  text-align: center;
+}
+
 /* BEGIN SPINNER */
 #spinner {
   height: 60px;

@@ -29,6 +29,10 @@ class QueryForm extends Component {
 		this.props.changeQuery(queryValues);
 	}
 	render() {
+		const queryState = this.props.queryState ? Object.assign({}, this.props.queryState) : {};
+		if (queryState.location) {
+			queryState.location = queryState.location.join(", ")
+		}
 		return (
 			<div className="center">
 				<Form
@@ -36,7 +40,7 @@ class QueryForm extends Component {
 					validate={values => queryValidation(
 						_.mapValues(values, val => val && typeof val === "string" ? val.toUpperCase() : null)
 					)}
-					defaultValues={this.props.queryState ? this.props.queryState : null}
+					defaultValues={queryState}
 				>
 					{({ submitForm }) => (
 							<form onSubmit={submitForm}>
