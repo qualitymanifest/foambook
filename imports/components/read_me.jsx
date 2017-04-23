@@ -15,8 +15,8 @@ export default ReadMe = () => {
 			<ul>
 				<li>Date must be within the last five years.</li>
 				<li>When entering a date/time, you don't have to add the dashes/spaces/semicolon, just type the numbers and they will be added for you</li>
-				<li><strong>Enter times for whatever the time is where that train is</strong>. Usually, this will be your own time. However, if you are in New York and it's 1700 hours</li>
-				<li>and you are listening on railroadradio to trains in Arizona where it's 1400 hours, please remember to use the Arizona time when you are submitting!</li>
+				<li><strong>Enter times for whatever the time is where that train is</strong>. Usually, this will be your own time. However, if you are in New York and it's 1700 hours
+				 and you are listening to railroadradio in Arizona where it's 1400 hours, please remember to use the Arizona time when you are submitting!</li>
 				<li>Location must include a two-letter state and either a city, or a city and an additional location like a yard name or siding name. Examples:
 					<ul>
 						<li><span className="glyphicon glyphicon-thumbs-up" />TUCSON, AZ</li>
@@ -35,7 +35,7 @@ export default ReadMe = () => {
 			location filled out, and time configured to the timezone you will be submitting for.</p>
 
 			<p className="lead">This is very much a work in progress!</p>
-			<p>If you experience any bugs, please let me know either by submitting an issue at <a href="https://github.com/qualitymanifest/foambook">the github repo</a> 
+			<p>If you experience any bugs, please let me know either by submitting an issue at <a href="https://github.com/qualitymanifest/foambook">the github repo </a>
 			 or by sending an email to (the username of that github repo)@gmail.com. If you can pop open your browser console and take a screenshot of the error, even better. 
 			 I would also be happy to hear feature requests but for the time being I am mostly going to focus on making things faster and more efficient.
 			 A few features I do plan on implementing:</p>

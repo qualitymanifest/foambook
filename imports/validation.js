@@ -9,7 +9,7 @@ const states = ["AL", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "ID"
 	"NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
 	"SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"];
 
-const upSymbol = /^[ACGIKMOQUZ][A-Z1-4]{4}[BCELPXR]?$/;
+const upSymbol = /^([ACIKMOQUZ]|G[SELS])[A-Z1-4]{4}[BCELPXR]?$/;
 const bnsfSymbol = /^[BCEGHMQSUVXZ][A-Z]{6}[1-9]?$/;
 const csxSymbol = /^[A-Z][0-9]{3}$/;
 const nsSymbol = /^([A-Z]{1,2}\d{1,2}|\d{3}|\d{2}[A-Z])$/;

@@ -25,9 +25,9 @@ class Header extends Component {
 					<Navbar.Toggle />
 				</Navbar.Header>
 				<Navbar.Collapse>
-					{!!this.props.notesCount &&
+					{!this.props.loading &&
 						<Navbar.Text id="notesCount">
-							{this.props.notesCount} notes & counting!
+							{this.props.notesCount.reduce((a, b) => a + b.notesCount, 0)} notes & counting!
 						</Navbar.Text>
 					}
 					<Nav pullRight>
@@ -64,11 +64,12 @@ class Header extends Component {
 }
 
 Header = createContainer(() => {
-	Meteor.subscribe("notes.count");
+	const handle = Meteor.subscribe("user.notesCount");
 	return {
 		// don't actually need any data, just get _ids so we can count them
-		notesCount: Notes.findFromPublication("notes.count", {}, { fields: {_id : 1} }).count(),
-		user: Meteor.user() };
+		notesCount: Meteor.users.findFromPublication("user.notesCount", {}, { fields: { notesCount: 1 } }).fetch(),
+		user: Meteor.user(),
+		loading: !handle.ready() };
 }, Header);
 
 export default Header;
