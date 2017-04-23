@@ -71,13 +71,13 @@ export const valLocation = (location) => {
 	const locArray = cleanLocation(location);
 	// this detects lack of commas or insufficient details
 	if (locArray.length < 2) {
-		return "Must include city/yard/city&yard + state, seperated by commas";
+		return "Must include City and State, seperated by a comma";
 	}
 	if (!Array.from(locArray.map(el => states.includes(el))).includes(true)) {
 		return "Must include a two letter state, i.e. AZ";
 	}
-	if (locArray.length > 3) {
-		return "Too specific - use city/yard/city&yard + state only";
+	if (locArray.length > 2) {
+		return "Too specific. Use City, State Only";
 	}
 	return true;
 };

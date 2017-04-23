@@ -10,8 +10,4 @@
 
 - put query params in url & parse from url, to ease search result sharing
 
-- query efficiency: only pull in fields that aren't part of the query, since if the query matches those documents, then those fields are going to match the query
-
-# issues
-
-- currently support submitting 3-part locations, but no way to query for 2 parts of them. fix query or only allow 2-part locations
+- query efficiency: only pull in fields that aren't part of the query, since if the query matches those documents, you already know what those fields are

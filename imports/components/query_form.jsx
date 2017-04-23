@@ -31,7 +31,7 @@ class QueryForm extends Component {
 	render() {
 		const queryState = this.props.queryState ? Object.assign({}, this.props.queryState) : {};
 		if (queryState.location) {
-			queryState.location = queryState.location.join(", ")
+			queryState.location = queryState.location.join(", ");
 		}
 		return (
 			<div className="center">

@@ -10,7 +10,7 @@ export const Notes = new Mongo.Collection("notes");
 
 const NotesSchema = new SimpleSchema({
 	railroad: { type: String, max: 10 },
-	location: { type: Array, minCount: 2, maxCount: 3 },
+	location: { type: Array, minCount: 2, maxCount: 2 },
 	"location.$": { type: String, max: 20 },
 	symbol: { type: String, max: 10 },
 	dateTime: { type: Date }
@@ -50,7 +50,7 @@ export const NotesDelete = new ValidatedMethod({
 
 const PreferenceSchema = new SimpleSchema({
 	railroad: { type: String, max: 10, optional: true },
-	location: { type: Array, minCount: 2, maxCount: 3, optional: true },
+	location: { type: Array, minCount: 2, maxCount: 2, optional: true },
 	"location.$": { type: String, max: 20 },
 	timezone: { type: String, max: 20 }
 });

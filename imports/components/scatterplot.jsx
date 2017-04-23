@@ -3,8 +3,6 @@ import ReactFauxDOM from "react-faux-dom";
 import * as d3 from "d3";
 
 // https://mikewilliamson.wordpress.com/2016/06/03/d3-and-react-3-ways/
-// http://c3js.org/samples/chart_scatter.html
-// http://c3js.org/reference.html
 
 const days = {
 	1: "Mo",
@@ -23,6 +21,7 @@ class Scatterplot extends Component {
 
 	render() {
 		if (!this.props.notes.length) return null;
+		
 		let screenWidth = this.props.uiState.screenWidth;
 		screenWidth = screenWidth > 1200 ? screenWidth * 0.6 : screenWidth * 0.95;
 		const dotRadius = screenWidth > 675 ? 8 : 3;
