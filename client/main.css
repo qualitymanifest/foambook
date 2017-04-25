@@ -4,39 +4,51 @@ body {
 	background-color: #EEF1EF;
 }
 
+th, tr {
+  text-align: center;
+}
+
+input {
+  text-transform : uppercase;
+}
+
+circle {
+  fill: red;
+  opacity: 0.3;
+}
+
+span {
+  margin: 0px 10px;
+}
+
+caption {
+  text-align: center;
+}
+
+#log-button {
+  /* since the button was 6px taller than the text navitems,
+  it was creating a funny line below the .active class,
+  so lower padding accordingly */
+  padding : 12px;
+}
+
 .FormError {
 	color: red;
 }
 
 .login-display-name {
+  /* default accounts name does nothing - hide that so that
+  we can make user name a link to profile */
 	display : none !important;
 }
 
 .center {
-  /* this feels ghetto but it works, the goal was to
-  center the form itself not the form content, so this is
-  a div wrapping the form */
   text-align: center;
 }
 
 .select {
 	width: auto;
 	margin: 0px auto 5px auto;
-}
-
-#log-button {
-	/* since the button was 6px taller than the text navitems,
-	it was creating a funny line below the .active class,
- 	so lower padding accordingly */
-	padding : 12px;
-}
-
-th, tr {
-	text-align: center;
-}
-
-input {
-	text-transform : uppercase;
 }
 
 .in a, .collapsing a {
@@ -74,25 +86,12 @@ input {
   color: red;
 }
 
-circle {
-	fill: red;
-	opacity: 0.3;
-}
-
 .btn {
 	margin-top: 10px;
 }
 
-span {
-	margin: 0px 10px;
-}
-
-caption {
-  text-align: center;
-}
-
 /* BEGIN SPINNER */
-#spinner {
+.spinner {
   height: 60px;
   width: 60px;
   position: relative;

@@ -18,7 +18,7 @@ const addInfo = (notes) => {
 
 const QueryDisplay = (props) => {
 	if (props.loading) {
-		return <div id="spinner" />;
+		return <div className="spinner" />;
 	}
 	if (!props.notes.length) {
 		return <div style={{ clear: "both" }}>There were no matches to that query</div>;

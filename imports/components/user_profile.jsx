@@ -17,7 +17,12 @@ class UserProfile extends Component {
 		if (valuesCopy.railroad) {
 			valuesCopy.railroad = valuesCopy.railroad.toUpperCase();
 		}
-		valuesCopy.location = cleanLocation(valuesCopy.location);
+		if (valuesCopy.location) {
+			valuesCopy.location = cleanLocation(valuesCopy.location);
+		}
+		else {
+			delete valuesCopy.location;
+		}
 		UserUpdate.call(valuesCopy, (err) => {
 			if (err) {
 				alert(err);
@@ -35,17 +40,21 @@ class UserProfile extends Component {
 
 	render() {
 		let defaultValues = null;
-		if (!this.props.notes) {
+		if (!this.props.user) {
 			// default props.user is "LOADING". if undefined, definitely not logged in.
-			return <div>You are not logged in!</div>;
+			return <div className="center">You are not logged in!</div>;
 		}
 		if (this.props.user === "LOADING") {
-			return <div id="spinner" />;
+			return <div className="spinner" />;
 		}
 		if (this.props.user.preferences) {
 			// user is logged in, and has preferences. create defaults object for form!
 			const { railroad, location, timezone } = this.props.user.preferences;
-			defaultValues = { railroad, location: location.join(", "), timezone };
+			defaultValues = { 
+				railroad, 
+				location: location ? location.join(", ") : "", 
+				timezone 
+			};
 		}
 		return (
 			<div className="center">

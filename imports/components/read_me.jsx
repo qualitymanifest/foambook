@@ -17,8 +17,8 @@ export default ReadMe = () => {
 				<li>When entering a date/time, you don't have to add the dashes/spaces/semicolon, just type the numbers and they will be added for you.</li>
 				<li><strong>Enter times for whatever the time is where that train is</strong>. Usually, this will be your own time. However, if you are in New York and it's 1700 hours
 				 and you are listening to railroadradio in Arizona where it's 1400 hours, please remember to use the Arizona time when you are submitting!</li>
-				<li>Location must include a city and a two-letter state. If you live in a place like Chicago where trains take all day getting across town, you may want to substitute
-				 the city for a yard name, to be more specific.
+				<li>Location must include a city and a two-letter state. Nothing more, nothing less. If you live in a place like Chicago where trains take all day getting across town,
+				 you may want to substitute the city for a yard name, to be more specific.
 					<ul>
 						<li><span className="glyphicon glyphicon-thumbs-up" />TUCSON, AZ</li>
 						<li><span className="glyphicon glyphicon-thumbs-up" />BARR YARD, IL</li>

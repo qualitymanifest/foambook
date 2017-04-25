@@ -30,7 +30,6 @@ class AddNoteForm extends Component {
 				alert(err);
 			}
 		});
-
 	}
 
 	render() {
@@ -41,14 +40,14 @@ class AddNoteForm extends Component {
 			return <div>Please log in to submit train notes</div>;
 		}
 		if (this.props.user === "LOADING") {
-			return <div id="spinner" />;
+			return <div className="spinner" />;
 		}
 		if (this.props.user.preferences) {
 			// user is logged in, and has preferences. create defaults object for form!
 			const { railroad, location, timezone } = this.props.user.preferences;
 			defaultValues = {
 				railroad,
-				location: location.join(", "),
+				location: location ? location.join(", ") : "",
 				dateTime: timezone ? Moment().tz(timezone).format("MM-DD-YY HH:mm") : ""
 			};
 		}
