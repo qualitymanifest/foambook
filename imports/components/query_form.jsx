@@ -76,9 +76,13 @@ const mapDispatchToProps = (dispatch) => {
 
 
 const MeteorQueryForm = createContainer(({ queryState }) => {
-	const handle = Meteor.subscribe("notes.query", queryState);
+	let usableQueryState = Object.assign({}, queryState);
+	if (queryState.location) {
+		usableQueryState.location = { $all: queryState.location };
+	}
+	const handle = Meteor.subscribe("notes.query", usableQueryState);
 	return {
-		notes: Notes.findFromPublication("notes.query", queryState).fetch(),
+		notes: Notes.findFromPublication("notes.query", usableQueryState).fetch(),
 		loading: !handle.ready()
 	};
 }, QueryForm);

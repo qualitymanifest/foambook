@@ -17,16 +17,17 @@ export default ReadMe = () => {
 				<li>When entering a date/time, you don't have to add the dashes/spaces/semicolon, just type the numbers and they will be added for you.</li>
 				<li><strong>Enter times for whatever the time is where that train is</strong>. Usually, this will be your own time. However, if you are in New York and it's 1700 hours
 				 and you are listening to railroadradio in Arizona where it's 1400 hours, please remember to use the Arizona time when you are submitting!</li>
-				<li>Location must include a city and a two-letter state. Nothing more, nothing less. If you live in a place like Chicago where trains take all day getting across town,
-				 you may want to substitute the city for a yard name, to be more specific.
+				<li>Location must start with a city and end with a two-letter state. Optionally, you can include a third parameter (e.g. yard name or siding name) in between the city and state.
 					<ul>
-						<li><span className="glyphicon glyphicon-thumbs-up" />TUCSON, AZ</li>
-						<li><span className="glyphicon glyphicon-thumbs-up" />BARR YARD, IL</li>
+						<li><span className="glyphicon glyphicon-thumbs-up" />PORTLAND, OR</li>
+						<li><span className="glyphicon glyphicon-thumbs-up" />PORTLAND, LAKE YARD, OR</li>
 					</ul>
 					<ul>
-						<li><span className="glyphicon glyphicon-thumbs-down" />TUCSON</li>
-						<li><span className="glyphicon glyphicon-thumbs-down" />AZ</li>
-						<li><span className="glyphicon glyphicon-thumbs-down" />CHICAGO, BARR YARD, IL</li>
+						<li><span className="glyphicon glyphicon-thumbs-down" />PORTLAND <em>(missing state)</em></li>
+						<li><span className="glyphicon glyphicon-thumbs-down" />OR <em>(missing city)</em></li>
+						<li><span className="glyphicon glyphicon-thumbs-down" />PORTLAND OR <em>(missing comma)</em></li>
+						<li><span className="glyphicon glyphicon-thumbs-down" />PORTLAND, OREGON <em>(use 2 digit state abbreviation)</em></li>
+						<li><span className="glyphicon glyphicon-thumbs-down" />PORTLAND, OR, LAKE YARD <em>(state must go last)</em></li>
 					</ul>
 				</li>
 			</ul>
@@ -37,7 +38,7 @@ export default ReadMe = () => {
 
 			<p className="lead">This is very much a work in progress!</p>
 			<p>If you experience any bugs, please let me know either by submitting an issue at <a href="https://github.com/qualitymanifest/foambook">the github repo </a>
-			 or by sending an email to (the username of that github repo)@gmail.com. If you can pop open your browser console and take a screenshot of the error, even better. 
+			 or by sending an email to qualityfiltering@gmail.com. If you can pop open your browser console and take a screenshot of the error, even better. 
 			 I would also be happy to hear feature requests but for the time being I am mostly going to focus on making things more efficient.
 			 A few features I do plan on implementing:</p>
 			 <ul>

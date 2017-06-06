@@ -50,14 +50,14 @@ class UserProfile extends Component {
 		if (this.props.user.preferences) {
 			// user is logged in, and has preferences. create defaults object for form!
 			const { railroad, location, timezone } = this.props.user.preferences;
-			defaultValues = { 
-				railroad, 
-				location: location ? location.join(", ") : "", 
-				timezone 
+			defaultValues = {
+				railroad,
+				location: location ? location.join(", ") : "",
+				timezone
 			};
 		}
 		return (
-			<div className="center">
+			<div className="text-center">
 				<PreferenceForm
 					onSubmit={_.debounce(this.onSubmit.bind(this), 200)}
 					defaultValues={defaultValues}
