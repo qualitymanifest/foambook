@@ -84,7 +84,7 @@ class Scatterplot extends Component {
 				.attr("cy", d => y(d.weekday))
 				.attr("r", dotRadius)
 				.append("title")
-					.text(d => d.symbol);
+					.text(d => d.dateTimeReadable);
 
 /* ---------------------------------------------------- */
 /* ---------------------------------------------------- */

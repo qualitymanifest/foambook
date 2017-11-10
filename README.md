@@ -1,8 +1,9 @@
 # todo:
-- if there are no query parameters, return a list of unique locations. locations should be links that, when clicked, populate search field, and return results
-	- to create list of unique locations, seems to be two choices: figure out how to use mongodb's `.distinct()` within meteor, or create a cron job that, every x hours, queries for distinct locations, and populates a collection of distinct locations
-
-- if only query parameter is location, include a list of unique symbols in results. maybe create this list on client side...?
+- change query page:
+	- remove table of query results
+	- change from a form to a list of locations organized by state, with the amount of notes for each location shown alongside.
+	-	when a location is clicked, show a list of symbols separated by railroad, with amount of notes for each symbol shown alongside
+	- finally, when a symbol is clicked, show scatterplot
 
 - allow filtering by date range 
 

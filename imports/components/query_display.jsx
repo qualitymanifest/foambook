@@ -10,6 +10,7 @@ const addInfo = (notes) => {
 		const noteMoment = Moment(note.dateTime);
 		const newNote = Object.assign({}, note);
 		newNote.time = (noteMoment.hours() * 60) + noteMoment.minutes()
+		newNote.dateTimeReadable = Moment(note.dateTime).format("MM-DD-YY HH:mm")
 		newNote.weekday = noteMoment.isoWeekday();
 		return newNote;
 	});
@@ -24,10 +25,7 @@ const QueryDisplay = (props) => {
 		return <div style={{ clear: "both" }}>There were no matches to that query</div>;
 	}
 	return (
-		<div>
-			<Scatterplot notes={addInfo(props.notes)} uiState={props.uiState} />
-			<NotesTable notes={props.notes} />
-		</div>
+		<Scatterplot notes={addInfo(props.notes)} uiState={props.uiState} />
 	);
 };
 

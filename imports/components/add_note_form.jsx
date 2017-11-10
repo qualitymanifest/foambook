@@ -5,7 +5,6 @@ import _ from "lodash";
 import { createContainer } from "meteor/react-meteor-data";
 import Moment from "moment-timezone";
 
-//import { Notes } from "../collections/notes";
 import { Notes, NotesInsert } from "../collections/notes";
 import { submitValidation, cleanLocation } from "../validation";
 import DateTime from "./dateTime";
@@ -22,8 +21,6 @@ class AddNoteForm extends Component {
 		valuesCopy.location = cleanLocation(valuesCopy.location.toUpperCase());
 		valuesCopy.symbol = valuesCopy.symbol.toUpperCase();
 		valuesCopy.dateTime = Moment(valuesCopy.dateTime, "MM-DD-YY HH:mm").toDate();
-	// clear out symbol and date fields
-	// assuming user isn't constantly changing rr/loc, focus on symbol
 		document.querySelector("#symbol").focus();
 		NotesInsert.call(valuesCopy, (err) => {
 			if (err) {
@@ -67,9 +64,9 @@ class AddNoteForm extends Component {
 						<form onSubmit={submitForm}>
 							<div className="form-group col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-5">
 								<label>Railroad</label>
-								<Text className="form-control" field="railroad" placeholder="UP | ??" />
+								<Text className="form-control" field="railroad" placeholder="CSX" />
 								<label>Location</label>
-								<Text className="form-control" field="location" placeholder="Tucson, AZ" />
+								<Text className="form-control" field="location" placeholder="PITTSBURGH, PA" />
 								<label>Symbol</label>
 								<Text className="form-control" field="symbol" id="symbol" placeholder="SYMBOL" autoFocus />
 								<label>Date/Time</label>

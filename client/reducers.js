@@ -12,7 +12,7 @@ const pageLoadReducer = (state = INITIAL_PAGE_LOAD, action) => {
 	}
 };
 
-const INITIAL_QUERY = { location: ["PITTSBURGH", "PA"] };
+const INITIAL_QUERY = {};
 
 const queryReducer = (state = INITIAL_QUERY, action) => {
 	switch (action.type) {

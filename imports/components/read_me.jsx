@@ -3,15 +3,7 @@ import React from "react";
 export default ReadMe = () => {
 	return (
 		<div>
-			<p className="lead">A few notes on searching:</p>
-			<ul>
-				<li>You have to provide a railroad if you are going to search for a symbol. This may change.</li>
-				<li>You can search for a railroad without any other search terms. This will change in the future.</li>
-				<li>You can search for a location without any other search terms.</li>
-				<li>You cannot execute a search with no search terms.</li>
-			</ul>
-
-			<p className="lead">A few notes on submitting:</p>
+			<p className="lead">A few tips on submitting notes:</p>
 			<ul>
 				<li>Date must be within the last five years.</li>
 				<li>When entering a date/time, you don't have to add the dashes/spaces/semicolon, just type the numbers and they will be added for you.</li>
@@ -40,11 +32,10 @@ export default ReadMe = () => {
 			<p>If you experience any bugs, please let me know either by submitting an issue at <a href="https://github.com/qualitymanifest/foambook">the github repo </a>
 			 or by sending an email to qualityfiltering@gmail.com. If you can pop open your browser console and take a screenshot of the error, even better. 
 			 I would also be happy to hear feature requests but for the time being I am mostly going to focus on making things more efficient.
-			 A few features I do plan on implementing:</p>
+			 A few changes I do plan on making:</p>
 			 <ul>
 			 	<li>Option to specify time range of search results</li>
-			 	<li>Hide the search terms you used from the search results (i.e. if you specified a railroad, don't show railroad in the results table, since you already know which railroad it is)</li>
-			 	<li>Instead, show useful info like day of the week</li>
+			 	<li>Improve the query page by changing it from a form to a list of all locations, that when clicked, show all symbols within a location</li>
 			 	<li>Attempt to "un-stack" search results on the scatterplot, and allow you to see their data by hovering your mouse over them</li>
 			</ul>
 

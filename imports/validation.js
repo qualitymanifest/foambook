@@ -17,6 +17,17 @@ const cpSymbol = /^2?\d{3}$/; // extras might be 2NNN?
 const cnSymbol = /^[A-Z]{1}\d{3,5}$/;
 const kcsSymbol = /^[ACDGHILMORSUWX][A-Z]{4}$/;
 
+const symbolsArr = [ upSymbol,bnsfSymbol, csxSymbol, nsSymbol, cpSymbol, cnSymbol, kcsSymbol ];
+
+const valQuerySymbol = (symbolPassedIn) => {
+	for (let symbolRegex of symbolsArr) {
+		if (symbolRegex.test(symbolPassedIn)) {
+			return true;
+		}
+	}
+	return false;
+}
+
 export const valSymbol = (symbol, railroad) => {
 	switch (railroad) {
 		case "UP":
@@ -110,12 +121,10 @@ export const submitValidation = (values) => {
 };
 
 export const queryValidation = (values) => {
-	const { railroad, location, symbol } = values;
-	// predicting problems with this if there is no location
+	const { location, symbol } = values;
 	const locationTest = valLocation(location);
 	return {
-		railroad: railroad && !validRR.test(railroad) ? "Please enter a valid RR" : null,
-		location: location && locationTest !== true ? locationTest : null,
-		symbol: symbol && !valSymbol(symbol, railroad) ? "Invalid symbol" : null
+		location: !location ? "Please enter a location" : locationTest !== true ? locationTest : null,
+		symbol: !symbol ? "Please enter a symbol" : !valQuerySymbol(symbol) ? "Invalid symbol" : null
 	};
 };

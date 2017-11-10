@@ -6,20 +6,17 @@ import Moment from "moment-timezone";
 import { Form, Text } from "react-form";
 import _ from "lodash";
 
-import { Notes } from "../collections/notes";
+import { Notes, Locations } from "../collections/notes";
 import { changeQuery } from "../../client/actions";
 import { queryValidation, cleanLocation } from "../validation";
 import QueryDisplay from "./query_display";
 
 class QueryForm extends Component {
 
-	onSubmit(values) {
+	onSubmit(values, state, props) {
 		// temp solution for uppercasing values and not including them if
 		// they are an empty string
 		const queryValues = {};
-		if (values.railroad) {
-			queryValues.railroad = values.railroad.toUpperCase();
-		}
 		if (values.location) {
 			queryValues.location = cleanLocation(values.location.toUpperCase());
 		}
@@ -42,13 +39,11 @@ class QueryForm extends Component {
 					)}
 					defaultValues={queryState}
 				>
-					{({ submitForm }) => (
+					{({ submitForm, setValue, resetForm}) => (
 							<form onSubmit={submitForm}>
 								<div className="form-group col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-5">
-									<label>Railroad</label>
-									<Text className="form-control" field="railroad" placeholder="UP | ??" />
 									<label>Location</label>
-									<Text className="form-control" field="location" placeholder="Tucson, AZ" />
+									<Text className="form-control" id="loc" field="location" placeholder="Tucson, AZ" />
 									<label>Symbol</label>
 									<Text className="form-control" field="symbol" placeholder="SYMBOL" />
 									<button className="btn btn-primary btn-block">
@@ -59,7 +54,7 @@ class QueryForm extends Component {
 							</form>
 						)}
 				</Form>
-				<QueryDisplay notes={this.props.notes} loading={this.props.loading} uiState={this.props.uiState} />
+				{ Object.keys(queryState).length === 2 && <QueryDisplay notes={this.props.notes} loading={this.props.notesLoading} uiState={this.props.uiState} /> }
 			</div>
 		);
 	}
@@ -80,10 +75,10 @@ const MeteorQueryForm = createContainer(({ queryState }) => {
 	if (queryState.location) {
 		usableQueryState.location = { $all: queryState.location };
 	}
-	const handle = Meteor.subscribe("notes.query", usableQueryState);
+	const notesHandle = Meteor.subscribe("notes.query", usableQueryState);
 	return {
 		notes: Notes.findFromPublication("notes.query", usableQueryState).fetch(),
-		loading: !handle.ready()
+		notesLoading: !notesHandle.ready(),
 	};
 }, QueryForm);
 
