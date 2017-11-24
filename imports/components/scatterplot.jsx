@@ -41,6 +41,10 @@ class Scatterplot extends Component {
 		const width = screenWidth - margin.left - margin.right;
 		const height = (Math.floor(screenWidth / 2)) - margin.top - margin.bottom;
 
+		const colorScale = d3.scaleLinear()
+			.domain([this.props.oldest, this.props.newest])
+			.range([0, 50])
+
 		const x = d3.scaleLinear()
 			.domain([0, 1439])
 			.range([0, width]);
@@ -83,6 +87,7 @@ class Scatterplot extends Component {
 				.attr("cx", d => x(d.time))
 				.attr("cy", d => y(d.weekday))
 				.attr("r", dotRadius)
+				.attr("fill", d => `hsl(356, 100%, ${colorScale(d.dateTime)}%)`)
 				.append("title")
 					.text(d => d.dateTimeReadable);
 
