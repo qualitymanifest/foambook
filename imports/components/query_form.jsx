@@ -1,6 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import React, { Component } from "react";
-import { createContainer } from "meteor/react-meteor-data";
+import { withTracker } from "meteor/react-meteor-data";
 import { connect } from "react-redux";
 import Moment from "moment-timezone";
 import { Form, Text } from "react-form";
@@ -70,7 +70,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-const MeteorQueryForm = createContainer(({ queryState }) => {
+const MeteorQueryForm = withTracker(({ queryState }) => {
 	let usableQueryState = Object.assign({}, queryState);
 	if (queryState.location) {
 		usableQueryState.location = { $all: queryState.location };
@@ -80,6 +80,6 @@ const MeteorQueryForm = createContainer(({ queryState }) => {
 		notes: Notes.findFromPublication("notes.query", usableQueryState).fetch(),
 		notesLoading: !notesHandle.ready(),
 	};
-}, QueryForm);
+})(QueryForm);
 
 export default connect(({ queryState, uiState }) => ({ queryState, uiState }), mapDispatchToProps)(MeteorQueryForm);

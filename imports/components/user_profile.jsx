@@ -1,6 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import React, { Component } from "react";
-import { createContainer } from "meteor/react-meteor-data";
+import { withTracker } from "meteor/react-meteor-data";
 import { connect } from "react-redux";
 import _ from "lodash";
 
@@ -86,7 +86,7 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-const MeteorUserProfile = createContainer(({ profileState }) => {
+const MeteorUserProfile = withTracker(({ profileState }) => {
 	Meteor.subscribe("notes.user", profileState.loadNum);
 	return {
 		// specifying userId again doesn't seem necessary but can prevent future bugs
@@ -96,6 +96,6 @@ const MeteorUserProfile = createContainer(({ profileState }) => {
 			sort: { createdAt: -1 },
 			limit: profileState.loadNum
 		}).fetch() };
-}, UserProfile);
+})(UserProfile);
 
 export default connect(({ profileState }) => ({ profileState }), mapDispatchToProps)(MeteorUserProfile);

@@ -2,7 +2,7 @@ import { Meteor } from "meteor/meteor";
 import React, { Component } from "react";
 import { Form, Text } from "react-form";
 import _ from "lodash";
-import { createContainer } from "meteor/react-meteor-data";
+import { withTracker } from "meteor/react-meteor-data";
 import Moment from "moment-timezone";
 
 import { Notes, NotesInsert } from "../collections/notes";
@@ -13,7 +13,6 @@ import NotesTable from "./notes_table";
 Moment.tz.setDefault("Etc/UTC");
 
 class AddNoteForm extends Component {
-
 
 	onSubmit(values) {
 		const valuesCopy = Object.assign({}, values);
@@ -90,7 +89,7 @@ AddNoteForm.defaultProps = {
 	user: "LOADING"
 };
 
-const MeteorAddNoteForm = createContainer(() => {
+const MeteorAddNoteForm = withTracker(() => {
 	Meteor.subscribe("notes", 5);
 	return {
 		notes: Notes.findFromPublication("notes", {}, {
@@ -99,6 +98,6 @@ const MeteorAddNoteForm = createContainer(() => {
 		}).fetch(),
 		user: Meteor.user()
 	};
-}, AddNoteForm);
+})(AddNoteForm);
 
 export default MeteorAddNoteForm;

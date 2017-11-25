@@ -1,6 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import React, { Component } from "react";
-import { createContainer } from "meteor/react-meteor-data";
+import { withTracker } from "meteor/react-meteor-data";
 import { Navbar, NavItem, Nav } from "react-bootstrap";
 import { IndexLinkContainer, LinkContainer } from "react-router-bootstrap";
 
@@ -63,13 +63,13 @@ class Header extends Component {
 	}
 }
 
-Header = createContainer(() => {
+Header = withTracker(() => {
 	const handle = Meteor.subscribe("user.notesCount");
 	return {
 		// don't actually need any data, just get _ids so we can count them
 		notesCount: Meteor.users.findFromPublication("user.notesCount", {}, { fields: { notesCount: 1 } }).fetch(),
 		user: Meteor.user(),
 		loading: !handle.ready() };
-}, Header);
+})(Header);
 
 export default Header;

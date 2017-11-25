@@ -5,7 +5,7 @@ import Moment from "moment-timezone";
 
 Moment.tz.setDefault("Etc/UTC");
 
-const process = (notes) => {
+const processNotes = (notes) => {
 	let oldest = Moment(notes[0].dateTime);
 	let newest = Moment(notes[0].dateTime);
 	const newNotes = [];
@@ -33,15 +33,17 @@ const QueryDisplay = (props) => {
 	if (!props.notes.length) {
 		return <div style={{ clear: "both" }}>There were no matches to that query</div>;
 	}
-	const processed = process(props.notes);
+	const processed = processNotes(props.notes);
 	return (
 		<div>
 			<Scatterplot notes={processed.notes} oldest={processed.oldest} newest={processed.newest} uiState={props.uiState} />
-			<div id="dateRange">
-				<p>{Moment(processed.oldest).format("MM-DD-YY")}</p>
-				<p id="dateRangeColors"></p>
-				<p>{Moment(processed.newest).format("MM-DD-YY")}</p>
-			</div>
+			{ processed.notes.length > 1 && 
+				<div id="dateRange">
+					<p>{Moment(processed.oldest).format("MM-DD-YY")}</p>
+					<p id="dateRangeColors"></p>
+					<p>{Moment(processed.newest).format("MM-DD-YY")}</p>
+				</div>
+			}
 			<p className="smallPrint">Hover over dots for exact date/time</p>
 		</div>
 	);
