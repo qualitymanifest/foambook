@@ -43,9 +43,9 @@ class QueryForm extends Component {
 							<form onSubmit={submitForm}>
 								<div className="form-group col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-5">
 									<label>Location</label>
-									<Text className="form-control" id="loc" field="location" placeholder="Tucson, AZ" />
+									<Text className="form-control" id="loc" field="location" placeholder="e.g. Tucson, AZ" />
 									<label>Symbol</label>
-									<Text className="form-control" field="symbol" placeholder="SYMBOL" />
+									<Text className="form-control" field="symbol" placeholder="e.g. QEWWC" />
 									<button className="btn btn-primary btn-block">
 										<span className="glyphicon glyphicon-search" />
 										Search

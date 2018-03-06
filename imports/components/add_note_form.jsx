@@ -63,11 +63,11 @@ class AddNoteForm extends Component {
 						<form onSubmit={submitForm}>
 							<div className="form-group col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-5">
 								<label>Railroad</label>
-								<Text className="form-control" field="railroad" placeholder="CSX" />
+								<Text className="form-control" field="railroad" placeholder="E.G. CSX" />
 								<label>Location</label>
-								<Text className="form-control" field="location" placeholder="PITTSBURGH, PA" />
+								<Text className="form-control" field="location" placeholder="E.G. PITTSBURGH, PA" />
 								<label>Symbol</label>
-								<Text className="form-control" field="symbol" id="symbol" placeholder="SYMBOL" autoFocus />
+								<Text className="form-control" field="symbol" id="symbol" placeholder="E.G. Q138" autoFocus />
 								<label>Date/Time</label>
 								<DateTime className="form-control" field="dateTime" placeholder="MM-DD-YY 23:59" />
 								<button className="btn btn-primary btn-block">
@@ -79,7 +79,7 @@ class AddNoteForm extends Component {
 					)}
 
 			</Form>
-			<NotesTable notes={this.props.notes} caption="Recent Submissions" />
+			<NotesTable notes={this.props.notes} caption="Recent Submissions - All Users" />
 			</div>
 		);
 	}

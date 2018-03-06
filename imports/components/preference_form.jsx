@@ -20,9 +20,9 @@ export default (props) => {
 				<form onSubmit={submitForm}>
 					<div className="form-group col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-5">
 						<label>Default Railroad</label>
-						<Text className="form-control" field="railroad" placeholder="RAILROAD" />
+						<Text className="form-control" field="railroad" placeholder="E.G. CSX" />
 						<label>Default Location</label>
-						<Text className="form-control" field="location" placeholder="LOCATION" />
+						<Text className="form-control" field="location" placeholder="E.G. PITTSBURGH, PA" />
 						<label>Default Timezone</label>
 						<Select
 							className="form-control"

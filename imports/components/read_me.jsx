@@ -2,7 +2,7 @@ import React from "react";
 
 export default ReadMe = () => {
 	return (
-		<div>
+		<div id="readMe">
 			<p className="lead">A few tips on submitting notes:</p>
 			<ul>
 				<li>Date must be within the last five years.</li>
@@ -16,7 +16,6 @@ export default ReadMe = () => {
 					</ul>
 					<ul>
 						<li><span className="glyphicon glyphicon-thumbs-down" />PORTLAND <em>(missing state)</em></li>
-						<li><span className="glyphicon glyphicon-thumbs-down" />OR <em>(missing city)</em></li>
 						<li><span className="glyphicon glyphicon-thumbs-down" />PORTLAND OR <em>(missing comma)</em></li>
 						<li><span className="glyphicon glyphicon-thumbs-down" />PORTLAND, OREGON <em>(use 2 digit state abbreviation)</em></li>
 						<li><span className="glyphicon glyphicon-thumbs-down" />PORTLAND, OR, LAKE YARD <em>(state must go last)</em></li>
@@ -24,19 +23,17 @@ export default ReadMe = () => {
 				</li>
 			</ul>
 			<p className="lead">To delete notes or set your preferences:</p>
-			<p>Sign in and click on your username (this will be whatever your name is on gmail). To delete a note click on the trash icon on the right
-			side of the notes table. You can also set form defaults so that whenever you go to submit a train, you can already have the railroad and 
+			<p>Sign in and then click on your username. To delete a note click on the trash icon on the right
+			side of the notes table. You can also set form defaults so that whenever you go to submit a train, you automatically have the railroad and 
 			location filled out, and time configured to the timezone you will be submitting for.</p>
 
 			<p className="lead">This is very much a work in progress!</p>
 			<p>If you experience any bugs, please let me know either by submitting an issue at <a href="https://github.com/qualitymanifest/foambook">the github repo </a>
-			 or by sending an email to qualityfiltering@gmail.com. If you can pop open your browser console and take a screenshot of the error, even better. 
-			 I would also be happy to hear feature requests but for the time being I am mostly going to focus on making things more efficient.
+			 or by sending an email to qualityfiltering@gmail.com. I would also be happy to hear feature requests but for the time being I am mostly going to focus on making things more efficient.
 			 A few changes I do plan on making:</p>
 			 <ul>
-			 	<li>Option to specify time range of search results</li>
+			 	<li>Option to filter search results by year</li>
 			 	<li>Improve the query page by changing it from a form to a list of all locations, that when clicked, show all symbols within a location</li>
-			 	<li>Attempt to "un-stack" search results on the scatterplot, and allow you to see their data by hovering your mouse over them</li>
 			</ul>
 
 		</div>

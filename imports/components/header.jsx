@@ -45,6 +45,7 @@ class Header extends Component {
 							<LinkContainer onClick={() => this.forceUpdate()} to="/user_profile">
 								<NavItem>
 									{this.props.user.profile.name}
+									<span className="glyphicon glyphicon-user" />
 								</NavItem>
 							</LinkContainer>
 						}
