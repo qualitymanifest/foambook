@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router, Route, IndexRoute, browserHistory } from "react-router";
+import { BrowserRouter, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { Meteor } from "meteor/meteor"
@@ -14,14 +14,8 @@ import QueryForm from "../imports/components/query_form";
 import ReadMe from "../imports/components/read_me";
 import Header from "../imports/components/header";
 
-Accounts.onLogout(() => browserHistory.push("/"));
-
-const App = props => (
-	<div>
-		<Header />
-		{props.children}
-	</div>
-);
+// CHANGED FROM browserHistory.push
+//Accounts.onLogout(() => browserHistory.push("/"));
 
 const store = createStore(reducers);
 
@@ -31,6 +25,23 @@ window.addEventListener("resize", () => {
 
 // store.subscribe(() => console.log(store.getState()));
 
+
+const routes = (
+	<Provider store={store}>
+		<BrowserRouter>
+			<div>
+				<Header />
+				<Route exact path="/" component={QueryForm} />
+				<Route path="/add_note" component={AddNoteForm} />
+				<Route path="/user_profile" component={UserProfile} />
+				<Route path="/read_me" component={ReadMe} />
+			</div>
+		</BrowserRouter>
+	</Provider>
+);
+
+
+/*
 const routes = (
 	<Provider store={store}>
 		<Router history={browserHistory}>
@@ -43,6 +54,7 @@ const routes = (
 		</Router>
 	</Provider>
 );
+*/
 
 Meteor.startup(() => {
 	ReactDOM.render(routes, document.querySelector("#render-target"));
