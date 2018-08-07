@@ -7,6 +7,8 @@
 
 - allow filtering by date range 
 
+- fix header highlighting for "active" buttons (broke on move to RRV4)
+
 
 # backburner improvements:
 - d3:

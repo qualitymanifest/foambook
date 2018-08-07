@@ -12,6 +12,7 @@ import { Notes } from "../collections/notes";
 
 class Header extends Component {
 	render() {
+		console.log("RENDERING HEADER")
 		return (
 			<Navbar inverse collapseOnSelect fixedTop>
 				<Navbar.Header>
@@ -71,6 +72,7 @@ Header = withTracker(() => {
 		notesCount: Meteor.users.findFromPublication("user.notesCount", {}, { fields: { notesCount: 1 } }).fetch(),
 		user: Meteor.user(),
 		loading: !handle.ready() };
+		pure: false
 })(Header);
 
 export default Header;
