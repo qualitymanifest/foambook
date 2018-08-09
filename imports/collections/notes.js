@@ -11,8 +11,8 @@ export const Metadata = new Mongo.Collection("metadata");
 
 const NotesSchema = new SimpleSchema({
 	railroad: { type: String, max: 10 },
-	location: { type: Array, minCount: 2, maxCount: 3 },
-	"location.$": { type: String, max: 20 },
+	city: { type: String, max: 30 },
+	state: { type: String, max: 2 },
 	symbol: { type: String, max: 10 },
 	dateTime: { type: Date }
 });
@@ -51,8 +51,8 @@ export const NotesDelete = new ValidatedMethod({
 
 const PreferenceSchema = new SimpleSchema({
 	railroad: { type: String, max: 10, optional: true },
-	location: { type: Array, minCount: 2, maxCount: 2, optional: true },
-	"location.$": { type: String, max: 20 },
+	city: { type: String, max: 30, optional: true },
+	state: { type: String, max: 2, optional: true },
 	timezone: { type: String, max: 20 }
 });
 export const UserUpdate = new ValidatedMethod({

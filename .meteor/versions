@@ -6,7 +6,7 @@ accounts-ui-unstyled@1.4.1
 allow-deny@1.1.0
 autoupdate@1.4.1
 babel-compiler@7.1.1
-babel-runtime@1.2.2
+babel-runtime@1.2.4
 base64@1.0.11
 binary-heap@1.0.10
 blaze@2.3.2
@@ -68,13 +68,13 @@ promise@0.11.1
 random@1.1.0
 rate-limit@1.0.9
 react-meteor-data@0.2.16
-reactive-dict@1.2.0
+reactive-dict@1.2.1
 reactive-var@1.0.11
 reload@1.2.0
 retry@1.1.0
 routepolicy@1.0.13
 service-configuration@1.0.11
-session@1.1.7
+session@1.1.8
 shell-server@0.3.1
 socket-stream-client@0.2.2
 spacebars@1.0.15

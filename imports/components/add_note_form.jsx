@@ -16,8 +16,11 @@ class AddNoteForm extends Component {
 
 	onSubmit(values) {
 		const valuesCopy = Object.assign({}, values);
+		const cleanedLocation=cleanLocation(valuesCopy.location.toUpperCase());
 		valuesCopy.railroad = valuesCopy.railroad.toUpperCase();
-		valuesCopy.location = cleanLocation(valuesCopy.location.toUpperCase());
+		valuesCopy.city = cleanedLocation.slice(0, cleanedLocation.length - 1).join(", ");
+		valuesCopy.state = cleanedLocation.slice(cleanedLocation.length - 1).join(" ");
+		delete valuesCopy.location;
 		valuesCopy.symbol = valuesCopy.symbol.toUpperCase();
 		valuesCopy.dateTime = Moment(valuesCopy.dateTime, "MM-DD-YY HH:mm").toDate();
 		document.querySelector("#symbol").focus();
@@ -40,10 +43,10 @@ class AddNoteForm extends Component {
 		}
 		if (this.props.user.preferences) {
 			// user is logged in, and has preferences. create defaults object for form!
-			const { railroad, location, timezone } = this.props.user.preferences;
+			const { railroad, city, state, timezone } = this.props.user.preferences;
 			defaultValues = {
 				railroad,
-				location: location ? location.join(", ") : "",
+				location: city && state ? city + ", " + state : "",
 				dateTime: timezone ? Moment().tz(timezone).format("MM-DD-YY HH:mm") : ""
 			};
 		}

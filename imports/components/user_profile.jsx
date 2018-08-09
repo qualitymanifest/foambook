@@ -18,11 +18,12 @@ class UserProfile extends Component {
 			valuesCopy.railroad = valuesCopy.railroad.toUpperCase();
 		}
 		if (valuesCopy.location) {
-			valuesCopy.location = cleanLocation(valuesCopy.location);
+			// location exists as a single string within the app, but as separate city/state in the db
+			valuesCopy.location = valuesCopy.location.toUpperCase().split(", ");
+			valuesCopy.city = valuesCopy.location.slice(0, valuesCopy.location.length - 1).join(", ");
+			valuesCopy.state = valuesCopy.location.slice(valuesCopy.location.length - 1).join(" ");
 		}
-		else {
-			delete valuesCopy.location;
-		}
+		delete valuesCopy.location;
 		UserUpdate.call(valuesCopy, (err) => {
 			if (err) {
 				alert(err);
@@ -49,10 +50,10 @@ class UserProfile extends Component {
 		}
 		if (this.props.user.preferences) {
 			// user is logged in, and has preferences. create defaults object for form!
-			const { railroad, location, timezone } = this.props.user.preferences;
+			const { railroad, city, state, timezone } = this.props.user.preferences;
 			defaultValues = {
 				railroad,
-				location: location ? location.join(", ") : "",
+				location: (city && state) ? city + ", " + state : "",
 				timezone
 			};
 		}
