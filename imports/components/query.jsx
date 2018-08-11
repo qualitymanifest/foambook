@@ -5,7 +5,7 @@ import queryString from "query-string";
 import { Link } from "react-router-dom";
 import { Breadcrumb } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { Notes, Metadata } from "../collections/notes";
+import { Metadata } from "../collections/notes";
 import QueryDisplay from "./query_display";
 import { metadataSorter, listLocations, listSymbols, parseQueryString } from "../queryFunctions";
 
@@ -20,10 +20,9 @@ class Query extends Component {
 		let qString = queryString.parse(location.search)
 
 		if ("city" in qString && "state" in qString && "railroad" in qString && "symbol" in qString) {
-			completeQuery = { city: qString.city, state: qString.state, railroad: qString.railroad, symbol: qString.symbol };
-			console.log(this.props.notes)
+			completeQuery = {city: qString.city, state: qString.state, railroad: qString.railroad, symbol: qString.symbol}
 				return (
-				<div>
+				<div className="center">
 					<Breadcrumb>
 						<LinkContainer to="">
 					  	<Breadcrumb.Item>Search Home</Breadcrumb.Item>
@@ -32,18 +31,17 @@ class Query extends Component {
 					  	<Breadcrumb.Item>{`${qString.city}, ${qString.state}`}</Breadcrumb.Item>
 					  </LinkContainer>
 					  <LinkContainer to={`?city=${qString.city}&state=${qString.state}&railroad=${qString.railroad}&symbol=${qString.symbol}`}>
-					  	<Breadcrumb.Item active>{`Railroad: ${qString.railroad}, Symbol: ${qString.symbol}`}</Breadcrumb.Item>
+					  	<Breadcrumb.Item active>{`${qString.railroad}: ${qString.symbol}`}</Breadcrumb.Item>
 					  </LinkContainer>
 					</Breadcrumb>
-					{ /* Holding off on the below until redux is set up on this component */}
-					{ /*<QueryDisplay notes={this.props.notes} loading={this.props.notesLoading} uiState={this.props.uiState} /> */}
+					{ <QueryDisplay query={completeQuery} /> }
 				</div>
 			)
 		}
 
 		if ("city" in qString && "state" in qString) {
 			return (
-				<div>
+				<div className="center">
 					<Breadcrumb>
 						<LinkContainer to="">
 					  	<Breadcrumb.Item>Search Home</Breadcrumb.Item>
@@ -58,7 +56,7 @@ class Query extends Component {
 		}
 
 		return (
-			<div>
+			<div className="center">
 				<Breadcrumb>
 					<Breadcrumb.Item active>Search Home</Breadcrumb.Item>
 				</Breadcrumb>
@@ -73,12 +71,9 @@ class Query extends Component {
 
 Query = withTracker(() => {
 	const metadataHandle = Meteor.subscribe("metadata", {});
-	const notesHandle = Meteor.subscribe("notes.query", completeQuery);
 	return {
 		metadata: Metadata.findFromPublication("metadata", {}).fetch(),
-		metadataReady: metadataHandle.ready(),
-		notes: Notes.findFromPublication("notes.query", completeQuery).fetch(),
-		notesLoading: !notesHandle.ready()
+		metadataReady: metadataHandle.ready()
 	};
 })(Query);
 

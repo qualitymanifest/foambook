@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Badge, Row, Col } from "react-bootstrap";
 import queryString from "query-string";
 
 // meteor publishes randomly, even if DB is sorted:
@@ -30,13 +31,13 @@ export const listLocations = (locations) => {
 	return (
 		<div>
 			{ 
-				locations.map((location) => {
+				locations.map((loc) => {
 					return (
-						<div>
-							<h1>{location.state}</h1>
+						<div key={loc.state}>
+							<h1>{loc.state}</h1>
 							{
-								location.cities.map((city) => {
-									return <div><Link to={`?city=${city.city}&state=${location.state}`}>{city.city}</Link></div>
+								loc.cities.map((city) => {
+									return <div key={city.city}><Link to={`?city=${city.city}&state=${loc.state}`}>{city.city}</Link></div>
 								})
 							}
 						</div>
@@ -58,7 +59,13 @@ const findRailroads = (metadata, searchCity, searchState) => {
 		}
 	}
 }
+/*
+const listSymbols = (symbols) => {
+	if (symbols.length >= 30) {
 
+	}
+}
+*/
 export const listSymbols = (metadata, city, state) => {
 		let railroads = findRailroads(metadata, city, state);
 		return (
@@ -66,14 +73,18 @@ export const listSymbols = (metadata, city, state) => {
 			{ 
 				railroads.map((railroad) => {
 					return (
-						<div>
+						<div key={railroad.railroad}>
 							<h1>{railroad.railroad}</h1>
 							{
 								railroad.symbols.map((symbol) => {
 									return (
-										<div>
-											<Link to={`?city=${city}&state=${state}&railroad=${railroad.railroad}&symbol=${symbol.symbol}`}>{symbol.symbol}</Link>
-											({symbol.count})
+										<div key={symbol.symbol}>
+											<Link to={`?city=${city}&state=${state}&railroad=${railroad.railroad}&symbol=${symbol.symbol}`}>
+												{symbol.symbol}
+											</Link>
+											<Badge>
+												{symbol.count}
+											</Badge>
 										</div>
 									)
 								})

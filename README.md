@@ -1,12 +1,10 @@
 # change log:
-- added new query page with list of locations / symbols
-- added breadcrumb trail to query page
-- added queryFunctions.js to provide helper functions for query.jsx
+- added unique keys to every div produced by an iterator in queryFunctions
+- fetching notes in queryDisplay
 
 
 # todo:
-- add unique keys to generated Links in query.jsx
-- put queryStrings in redux so that component will rerender
+- redux on querydisplay for uistate (and maybe query state?)
 - style query page
 - fix header highlighting for "active" buttons (broke on move to RRV4)
 - allow filtering by date range 

@@ -10,7 +10,6 @@ import reducers from "./reducers";
 import { screenResize } from "./actions";
 import AddNoteForm from "../imports/components/add_note_form";
 import UserProfile from "../imports/components/user_profile";
-import QueryForm from "../imports/components/query_form";
 import Query from "../imports/components/query";
 import ReadMe from "../imports/components/read_me";
 import Header from "../imports/components/header";
