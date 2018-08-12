@@ -119,12 +119,3 @@ export const submitValidation = (values) => {
 		dateTime: dateTest !== true ? dateTest : null
 	};
 };
-
-export const queryValidation = (values) => {
-	const { location, symbol } = values;
-	const locationTest = valLocation(location);
-	return {
-		location: !location ? "Please enter a location" : locationTest !== true ? locationTest : null,
-		symbol: !symbol ? "Please enter a symbol" : !valQuerySymbol(symbol) ? "Invalid symbol" : null
-	};
-};

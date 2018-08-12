@@ -7,7 +7,7 @@ export default ReadMe = () => {
 			<ul>
 				<li>Date must be within the last five years.</li>
 				<li>When entering a date/time, you don't have to add the dashes/spaces/semicolon, just type the numbers and they will be added for you.</li>
-				<li><strong>Enter times for whatever the time is where that train is</strong>. Usually, this will be your own time. However, if you are in New York and it's 1700 hours
+				<li><strong>Enter times for whatever the time is where that train is</strong>. Usually, this will be your own time. But, for example, if you are in New York and it's 1700 hours
 				 and you are listening to railroadradio in Arizona where it's 1400 hours, please remember to use the Arizona time when you are submitting!</li>
 				<li>Location must start with a city and end with a two-letter state. Optionally, you can include a third parameter (e.g. yard name or siding name) in between the city and state.
 					<ul>
@@ -26,15 +26,14 @@ export default ReadMe = () => {
 			<p>Sign in and then click on your username. To delete a note click on the trash icon on the right
 			side of the notes table. You can also set form defaults so that whenever you go to submit a train, you automatically have the railroad and 
 			location filled out, and time configured to the timezone you will be submitting for.</p>
-
-			<p className="lead">This is very much a work in progress!</p>
-			<p>If you experience any bugs, please let me know either by submitting an issue at <a href="https://github.com/qualitymanifest/foambook">the github repo </a>
-			 or by sending an email to qualityfiltering@gmail.com. I would also be happy to hear feature requests but for the time being I am mostly going to focus on making things more efficient.
-			 A few changes I do plan on making:</p>
-			 <ul>
-			 	<li>Option to filter search results by year</li>
-			 	<li>Improve the query page by changing it from a form to a list of all locations, that when clicked, show all symbols within a location</li>
-			</ul>
+			<p className="lead">When searching for notes:</p>
+			<p>There is one quirk to be aware of. The search options table is separate from the table that holds all the notes. Notes are updated as soon
+			as you add/delete them, but search options are updated hourly. This means that if you have submitted a note for a new location or a new symbol,
+			it won't show up in the search options until the next time that table is updated. Rest assured though, if you see your note appear in the table
+			underneath the submission form, it is in the database.</p>
+			<p className="lead">To give feedback</p>
+			<p>If you experience any bugs, or have any input, please let me know either by submitting an issue at <a href="https://github.com/qualitymanifest/foambook">the github repo </a>
+			 or by sending an email to qualityfiltering@gmail.com.</p>
 
 		</div>
 	);

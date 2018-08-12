@@ -5,9 +5,11 @@ import queryString from "query-string";
 import { Link } from "react-router-dom";
 import { Breadcrumb } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import Moment from "moment-timezone";
+
 import { Metadata } from "../collections/notes";
 import QueryDisplay from "./query_display";
-import { metadataSorter, listLocations, listSymbols, parseQueryString, testRailroadAndSymbol } from "../queryFunctions";
+import { metadataSorter, listLocations, listSymbols, parseQueryString, testRailroadAndSymbol, breadcrumbBuilder } from "../queryFunctions";
 
 let completeQuery = {};
 
@@ -19,40 +21,36 @@ class Query extends Component {
 		let metadata = metadataSorter(this.props.metadata);
 		let qString = queryString.parse(location.search)
 
-		if ("city" in qString && "state" in qString && "railroad" in qString && "symbol" in qString) {
+		if (qString.city && qString.state && qString.railroad && qString.symbol) {
+			// completeQuery is for sending into DB - not using raw query string in case errant values are present
 			completeQuery = {city: qString.city, state: qString.state, railroad: qString.railroad, symbol: qString.symbol}
+			let invalidDates = false;
+			if (qString.begin && qString.end) {
+				let begin = Moment(qString.begin, "MM-YYYY").toDate();
+				let end = Moment(qString.end, "MM-YYYY").toDate();
+				let dateRegex = /^(0[1-9]|1[1-2])-\d{4}$/
+				if (!dateRegex.test(qString.begin) || !dateRegex.test(qString.end) || begin > end) {
+					invalidDates = true;
+				}
+				// throw dateTime in regardless so we know if we have to render date in breadcrumb
+				completeQuery.dateTime = {"$gte": begin, "$lte": end}
+			}
 			let railroadAndSymbolTested = testRailroadAndSymbol(metadata, qString.city, qString.state, qString.railroad, qString.symbol);
 				return (
 				<div className="center">
-					<Breadcrumb>
-						<LinkContainer to="">
-					  	<Breadcrumb.Item>Search Home</Breadcrumb.Item>
-					  </LinkContainer>
-						<LinkContainer to={`?city=${qString.city}&state=${qString.state}`}>
-					  	<Breadcrumb.Item>{`${qString.city}, ${qString.state}`}</Breadcrumb.Item>
-					  </LinkContainer>
-					  <LinkContainer to={`?city=${qString.city}&state=${qString.state}&railroad=${qString.railroad}&symbol=${qString.symbol}`}>
-					  	<Breadcrumb.Item active>{`${qString.railroad}: ${qString.symbol}`}</Breadcrumb.Item>
-					  </LinkContainer>
-					</Breadcrumb>
+					{ completeQuery.dateTime ? breadcrumbBuilder(qString, "dates") : breadcrumbBuilder(qString, "symbol") }
 					{ 
+						invalidDates ? "Sorry, invalid date range specified" :
 						(typeof railroadAndSymbolTested === "string") ? railroadAndSymbolTested : <QueryDisplay query={completeQuery} /> 
 					}
 				</div>
 			)
 		}
 
-		if ("city" in qString && "state" in qString) {
+		if (qString.city && qString.state) {
 			return (
 				<div className="center">
-					<Breadcrumb>
-						<LinkContainer to="">
-					  	<Breadcrumb.Item>Search Home</Breadcrumb.Item>
-					  </LinkContainer>
-						<LinkContainer to={`?city=${qString.city}&state=${qString.state}`}>
-					  	<Breadcrumb.Item active>{`${qString.city}, ${qString.state}`}</Breadcrumb.Item>
-					  </LinkContainer>				
-					</Breadcrumb>
+					{ breadcrumbBuilder(qString, "city") }
 					{ listSymbols(metadata, qString.city, qString.state) }
 				</div>
 			)

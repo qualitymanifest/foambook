@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Breadcrumb } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import { Badge, Row, Col } from "react-bootstrap";
 import queryString from "query-string";
 
@@ -32,7 +34,6 @@ const badQuery = (specific) => {
 }
 
 export const listLocations = (locations) => {
-	// locations is the entire metadata array
 	return (
 		<div>
 			{ 
@@ -42,7 +43,14 @@ export const listLocations = (locations) => {
 							<h1>{loc.state}</h1>
 							{
 								loc.cities.map((city) => {
-									return <div key={city.city}><Link to={`?city=${city.city}&state=${loc.state}`}>{city.city}</Link></div>
+									return (
+										<div key={city.city}>
+											<Link to={`?city=${city.city}&state=${loc.state}`}>{city.city}</Link>
+											<Badge>
+												{city.count}
+											</Badge>
+										</div>
+									)
 								})
 							}
 						</div>
@@ -65,8 +73,8 @@ export const testRailroadAndSymbol = (metadata, searchCity, searchState, searchR
 			}
 			return badQuery("symbol");
 		}
-		return badQuery("railroad");
 	}
+	return badQuery("railroad");
 }
 
 const findRailroads = (metadata, searchCity, searchState) => {
@@ -119,4 +127,46 @@ export const listSymbols = (metadata, city, state) => {
 			}
 		</div>
 	)
+}
+
+export const breadcrumbBuilder = (qs, howComplete) => {
+	if (howComplete === "dates") {
+		return (
+			<Breadcrumb>
+				<LinkContainer to="">
+			  	<Breadcrumb.Item>Search Home</Breadcrumb.Item>
+			  </LinkContainer>
+				<LinkContainer to={`?city=${qs.city}&state=${qs.state}`}>
+			  	<Breadcrumb.Item>{`${qs.city}, ${qs.state}`}</Breadcrumb.Item>
+			  </LinkContainer>
+			  <LinkContainer to={`?city=${qs.city}&state=${qs.state}&railroad=${qs.railroad}&symbol=${qs.symbol}`}>
+			  	<Breadcrumb.Item>{`${qs.railroad}: ${qs.symbol}`}</Breadcrumb.Item>
+			  </LinkContainer>
+			  <Breadcrumb.Item active>{`${qs.begin} - ${qs.end}`}</Breadcrumb.Item>
+			</Breadcrumb>
+		)
+	}
+	if (howComplete === "symbol") {
+		return (
+			<Breadcrumb>
+				<LinkContainer to="">
+			  	<Breadcrumb.Item>Search Home</Breadcrumb.Item>
+			  </LinkContainer>
+				<LinkContainer to={`?city=${qs.city}&state=${qs.state}`}>
+			  	<Breadcrumb.Item>{`${qs.city}, ${qs.state}`}</Breadcrumb.Item>
+			  </LinkContainer>
+			  <Breadcrumb.Item active>{`${qs.railroad}: ${qs.symbol}`}</Breadcrumb.Item>
+			</Breadcrumb>
+		)
+	}
+	if (howComplete === "city") {
+		return (
+			<Breadcrumb>
+				<LinkContainer to="">
+			  	<Breadcrumb.Item>Search Home</Breadcrumb.Item>
+			  </LinkContainer>
+			  <Breadcrumb.Item active>{`${qs.city}, ${qs.state}`}</Breadcrumb.Item>	
+			</Breadcrumb>
+		)
+	}
 }
