@@ -6,6 +6,7 @@ import { createStore } from "redux";
 import { Meteor } from "meteor/meteor"
 import { Accounts } from "meteor/accounts-base";
 
+
 import reducers from "./reducers";
 import { screenResize } from "./actions";
 import AddNoteForm from "../imports/components/add_note_form";
@@ -30,11 +31,11 @@ const routes = (
 			<div>
 				<Header />
 				<Switch>
-				<Route path="/query" component={Query} />
-				<Route path="/add_note" component={AddNoteForm} />
-				<Route path="/user_profile" component={UserProfile} />
-				<Route path="/read_me" component={ReadMe} />
-				<Route path="/" component={Query} />
+					<Route path="/query" component={Query} />
+					<Route path="/add_note" component={AddNoteForm} />
+					<Route path="/user_profile" component={UserProfile} />
+					<Route path="/read_me" component={ReadMe} />
+					<Route path="/" component={Query} />
 				</Switch>
 			</div>
 		</BrowserRouter>

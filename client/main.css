@@ -41,6 +41,16 @@ caption {
   }
 }
 
+.queryList {
+  margin: 10px 20%;
+}
+
+@media screen and (max-width:699px) {
+  .queryList {
+    margin: 5px 5px;
+  }
+}
+
 .FormError {
 	color: red;
 }

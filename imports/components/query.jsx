@@ -7,7 +7,7 @@ import { Breadcrumb } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Metadata } from "../collections/notes";
 import QueryDisplay from "./query_display";
-import { metadataSorter, listLocations, listSymbols, parseQueryString } from "../queryFunctions";
+import { metadataSorter, listLocations, listSymbols, parseQueryString, testRailroadAndSymbol } from "../queryFunctions";
 
 let completeQuery = {};
 
@@ -21,6 +21,7 @@ class Query extends Component {
 
 		if ("city" in qString && "state" in qString && "railroad" in qString && "symbol" in qString) {
 			completeQuery = {city: qString.city, state: qString.state, railroad: qString.railroad, symbol: qString.symbol}
+			let railroadAndSymbolTested = testRailroadAndSymbol(metadata, qString.city, qString.state, qString.railroad, qString.symbol);
 				return (
 				<div className="center">
 					<Breadcrumb>
@@ -34,7 +35,9 @@ class Query extends Component {
 					  	<Breadcrumb.Item active>{`${qString.railroad}: ${qString.symbol}`}</Breadcrumb.Item>
 					  </LinkContainer>
 					</Breadcrumb>
-					{ <QueryDisplay query={completeQuery} /> }
+					{ 
+						(typeof railroadAndSymbolTested === "string") ? railroadAndSymbolTested : <QueryDisplay query={completeQuery} /> 
+					}
 				</div>
 			)
 		}

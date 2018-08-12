@@ -48,7 +48,7 @@ class QueryDisplay extends Component {
 						<p>{Moment(processed.newest).format("MM-DD-YY")}</p>
 					</div>
 				}
-				<p className="smallPrint">If you're on a computer, you can over over dots for exact date/time</p>
+				<p className="smallPrint">If you're on a computer, you can hover over dots for exact date/time</p>
 			</div>
 		);
 	}

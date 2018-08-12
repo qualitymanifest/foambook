@@ -26,6 +26,11 @@ export const metadataSorter = (rawMetadata) => {
 	return locations
 }
 
+const badQuery = (specific) => {
+	return "Sorry, invalid " + specific + ". Either you've followed a bad link, or you're searching for a newly created " + specific +
+	" (query categories are updated hourly)";
+}
+
 export const listLocations = (locations) => {
 	// locations is the entire metadata array
 	return (
@@ -48,6 +53,22 @@ export const listLocations = (locations) => {
 	)
 }
 
+
+export const testRailroadAndSymbol = (metadata, searchCity, searchState, searchRailroad, searchSymbol) => {
+	let railroads = findRailroads(metadata, searchCity, searchState);
+	for (let railroad of railroads) {
+		if (railroad.railroad === searchRailroad) {
+			for (let symbol of railroad.symbols) {
+				if (symbol.symbol === searchSymbol) {
+					return true;
+				}
+			}
+			return badQuery("symbol");
+		}
+		return badQuery("railroad");
+	}
+}
+
 const findRailroads = (metadata, searchCity, searchState) => {
 	for (let state of metadata) {
 		if (state.state === searchState) {
@@ -56,39 +77,42 @@ const findRailroads = (metadata, searchCity, searchState) => {
 					return city.railroads;
 				}
 			}
+			return badQuery("city");
 		}
 	}
+	return badQuery("state");
 }
-/*
-const listSymbols = (symbols) => {
-	if (symbols.length >= 30) {
 
-	}
-}
-*/
+
 export const listSymbols = (metadata, city, state) => {
 		let railroads = findRailroads(metadata, city, state);
+		if (typeof railroads === "string") {
+			return railroads;
+		}
 		return (
 		<div>
 			{ 
 				railroads.map((railroad) => {
+					let columnStyle = railroad.symbols.length > 30 ? {columnCount: 3} : {};
 					return (
 						<div key={railroad.railroad}>
 							<h1>{railroad.railroad}</h1>
-							{
-								railroad.symbols.map((symbol) => {
-									return (
-										<div key={symbol.symbol}>
-											<Link to={`?city=${city}&state=${state}&railroad=${railroad.railroad}&symbol=${symbol.symbol}`}>
-												{symbol.symbol}
-											</Link>
-											<Badge>
-												{symbol.count}
-											</Badge>
-										</div>
-									)
-								})
-							}
+							<div style={columnStyle} className="queryList">
+								{
+									railroad.symbols.map((symbol) => {
+										return (
+											<div key={symbol.symbol}>
+												<Link to={`?city=${city}&state=${state}&railroad=${railroad.railroad}&symbol=${symbol.symbol}`}>
+													{symbol.symbol}
+												</Link>
+												<Badge>
+													{symbol.count}
+												</Badge>
+											</div>
+										)
+									})
+								}
+							</div>
 						</div>
 					)
 				})
