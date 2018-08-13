@@ -14,8 +14,8 @@ const days = {
 	7: "Su"
 };
 
-const tickHours = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22];
-
+const tickHoursFull = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+const tickHoursMobile = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24];
 
 class Scatterplot extends Component {
 
@@ -24,6 +24,7 @@ class Scatterplot extends Component {
 		
 		let screenWidth = this.props.uiState.screenWidth;
 		screenWidth = screenWidth > 1200 ? screenWidth * 0.6 : screenWidth * 0.95;
+		const tickHours = screenWidth > 675 ? tickHoursFull : tickHoursMobile;
 		const dotRadius = screenWidth > 675 ? 8 : 3;
 		const tickMargin = screenWidth > 600 ? screenWidth * 0.04 : screenWidth * 0.08;
 		const data = this.props.notes;
@@ -46,15 +47,15 @@ class Scatterplot extends Component {
 			.range([0, 50])
 
 		const x = d3.scaleLinear()
-			.domain([0, 1439])
+			.domain([0, 1439]) // minutes of the day
 			.range([0, width]);
 
 		const xAxis = d3.scaleLinear()
-			.domain([0, 24])
+			.domain([0, 24]) // hours of the day
 			.range([0, width]);
 
 		const y = d3.scaleLinear()
-			.domain([1, 7])
+			.domain([1, 7]) // days of the week
 			.range([height, 0]);
 
 		const chart = d3.select(div)
@@ -72,12 +73,30 @@ class Scatterplot extends Component {
 		main.append("g")
 			.attr("transform", `translate(0,${height})`)
 			.attr("class", "main axis date")
-			.call(d3.axisBottom(xAxis).ticks(11).tickValues(tickHours));
+			.call(d3.axisBottom(xAxis).ticks(tickHours.length).tickValues(tickHours));
 
 		main.append("g")
 			.attr("transform", "translate(0,0)")
 			.attr("class", "main axis date")
 			.call(d3.axisLeft(y).ticks(7).tickFormat(d => days[d]));
+
+	  main.append("g")			
+	     .attr("class", "grid")
+	     .attr("transform", "translate(0," + height + ")")
+	     .call(d3.axisBottom(xAxis)
+	     		.ticks(tickHours.length)
+	        .tickSize(-height)
+	        .tickFormat("")
+	      )
+
+	  main.append("g")			
+	     .attr("class", "grid")
+	     .attr("transform", "translate(0,0)")
+	     .call(d3.axisLeft(y)
+	     		.ticks(7)
+	        .tickSize(-width)
+	        .tickFormat("")
+	      )
 
 		const g = main.append("g");
 

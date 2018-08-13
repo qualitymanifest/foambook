@@ -68,7 +68,7 @@ export const listLocations = (locations) => {
 				locations.map((loc) => {
 					return (
 						<div key={loc.state}>
-							<h1>{loc.state}</h1>
+							<h2>{loc.state}</h2>
 							{
 								loc.cities.map((city) => {
 									return (

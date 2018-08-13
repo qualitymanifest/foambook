@@ -48,7 +48,6 @@ class UserProfile extends Component {
 		if (this.props.user === "LOADING") {
 			return <div className="spinner" />;
 		}
-		console.log(this.props.user)
 		if (this.props.user.preferences) {
 			// user is logged in, and has preferences. create defaults object for form!
 			const { railroad, city, state, timezone } = this.props.user.preferences;

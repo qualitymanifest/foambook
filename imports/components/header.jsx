@@ -15,9 +15,11 @@ class Header extends Component {
 		return (
 			<Navbar inverse collapseOnSelect fixedTop>
 				<Navbar.Header>
-					<Navbar.Brand>
-						FoamBook
-					</Navbar.Brand>
+					<LinkContainer to="/" onClick={() => this.props.changePath("/")}>
+						<Navbar.Brand>
+							FoamBook
+						</Navbar.Brand>
+					</LinkContainer>
 					<Navbar.Toggle />
 				</Navbar.Header>
 				<Navbar.Collapse>

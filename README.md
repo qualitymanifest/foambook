@@ -1,5 +1,5 @@
 # change log:
-- fix header highlighting by storing location in redux and using that to choose to apply active className
+- add background grid to scatterplot, show 24 hours if not mobile
 
 # todo:
 - migrate to new versions of react, react-dom, react-form, react-number-format
@@ -11,4 +11,4 @@
 
 # notes:
 - check to see if withTracker is being used correctly: https://atmospherejs.com/meteor/react-meteor-data
-- loading spinner appears to stall the app occasionally when using chrome?
+- loading spinner appears to stall the app occasionally when using chrome? might just be my particular user agent, it really does not like spinners
