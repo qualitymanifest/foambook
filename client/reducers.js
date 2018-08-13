@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { INCREMENT_PAGE_LOAD, CHANGE_QUERY, SCREEN_RESIZE } from "./actions";
+import { INCREMENT_PAGE_LOAD, SCREEN_RESIZE, CHANGE_PATH } from "./actions";
 
 const INITIAL_PAGE_LOAD = { loadNum: 5 };
 
@@ -12,11 +12,9 @@ const pageLoadReducer = (state = INITIAL_PAGE_LOAD, action) => {
 	}
 };
 
-const INITIAL_QUERY = {};
-
-const queryReducer = (state = INITIAL_QUERY, action) => {
+const pathReducer = (state = {path : ""}, action) => {
 	switch (action.type) {
-		case CHANGE_QUERY:
+		case CHANGE_PATH:
 			return Object.assign({}, action.payload);
 		default:
 			return state;
@@ -40,6 +38,6 @@ const uiReducer = (state = INITIAL_UI, action) => {
 
 export default rootReducer = combineReducers({
 	profileState: pageLoadReducer,
-	queryState: queryReducer,
-	uiState: uiReducer
+	uiState: uiReducer,
+	pathState: pathReducer
 });

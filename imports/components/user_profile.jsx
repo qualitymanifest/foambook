@@ -48,6 +48,7 @@ class UserProfile extends Component {
 		if (this.props.user === "LOADING") {
 			return <div className="spinner" />;
 		}
+		console.log(this.props.user)
 		if (this.props.user.preferences) {
 			// user is logged in, and has preferences. create defaults object for form!
 			const { railroad, city, state, timezone } = this.props.user.preferences;
@@ -63,6 +64,7 @@ class UserProfile extends Component {
 					onSubmit={_.debounce(this.onSubmit.bind(this), 200)}
 					defaultValues={defaultValues}
 				/>
+				<div style={{clear: "both"}}>You have submitted {this.props.user.notesCount} notes</div>
 				<NotesTable 
 					notes={this.props.notes} 
 					deleteFunc={this.deleteFunc.bind(this)}

@@ -27,7 +27,8 @@ class Query extends Component {
 			let invalidDates = false;
 			if (qString.begin && qString.end) {
 				let begin = Moment(qString.begin, "MM-YYYY").toDate();
-				let end = Moment(qString.end, "MM-YYYY").toDate();
+				// have to add .endOf("year"), otherwise you get beginning of stated month
+				let end = Moment(qString.end, "MM-YYYY").endOf("year").toDate();
 				let dateRegex = /^(0[1-9]|1[1-2])-\d{4}$/
 				if (!dateRegex.test(qString.begin) || !dateRegex.test(qString.end) || begin > end) {
 					invalidDates = true;

@@ -6,13 +6,12 @@ export const incrementPages = () => {
 	};
 };
 
-export const CHANGE_QUERY = "CHANGE_QUERY";
+export const CHANGE_PATH = "CHANGE_PATH";
 
-export const changeQuery = (values) => {
-	console.log(values)
+export const changePath = (path) => {
 	return {
-		type: CHANGE_QUERY,
-		payload: values
+		type: CHANGE_PATH,
+		values: path
 	};
 };
 

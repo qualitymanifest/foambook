@@ -47,7 +47,16 @@ caption {
 
 @media screen and (max-width:699px) {
   .queryList {
-    margin: 5px 5px;
+    margin: 5px 0px;
+  }
+  .queryItem {
+    margin: 0px 0px 15px 0px;
+  }
+  .badge {
+    margin: 0px 0px 0px 3px;
+  }
+  .queryYear {
+    margin: 0px 5px;
   }
 }
 
@@ -141,6 +150,10 @@ caption {
 
 .smallPrint {
   font-size: 9px;
+}
+
+.smallIcon {
+  margin: 0px;
 }
 
 @-webkit-keyframes rotation {

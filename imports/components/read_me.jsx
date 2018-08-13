@@ -3,12 +3,22 @@ import React from "react";
 export default ReadMe = () => {
 	return (
 		<div id="readMe">
-			<p className="lead">A few tips on submitting notes:</p>
+			<h3>To sign up:</h3>
+			<p>You must have a gmail account, as that is what is used for authentication. Signing up is simple: First, click the "Sign in with Google" button in the upper
+			right corner. If you are on a mobile device, this button will be inside the hamburger menu (<span className="glyphicon glyphicon-menu-hamburger smallIcon"></span>).
+			A window will pop up, asking you to sign in to your google account. Once you have done this, you have an account here. The process is the same to log in once you 
+			have an account.</p>
+			<h3>To delete notes or set your preferences:</h3>
+			<p>Log in if you aren't already, and then click on your username in the upper right corner. To delete a note click on the trash icon on the right
+			side of the notes table. You can also set form defaults so that whenever you go to submit a note, you automatically have the railroad and 
+			location filled out, and time configured to the timezone you will be submitting for.</p>
+			<h3>A few tips on submitting notes:</h3>
 			<ul>
 				<li>Date must be within the last five years.</li>
 				<li>When entering a date/time, you don't have to add the dashes/spaces/semicolon, just type the numbers and they will be added for you.</li>
-				<li><strong>Enter times for whatever the time is where that train is</strong>. Usually, this will be your own time. But, for example, if you are in New York and it's 1700 hours
-				 and you are listening to railroadradio in Arizona where it's 1400 hours, please remember to use the Arizona time when you are submitting!</li>
+				<li>Times are entered using a 24-hour clock format. 2:30AM is 02:30, 2:30PM is 14:30, etc.</li>
+				<li><strong>Enter times for whatever the time is where that train is</strong>. Usually, this will be your own time. But, for example, if you are in New York and it's 17:00
+				 and you are listening to railroadradio in Arizona where it's 14:00, please remember to use the Arizona time when you are submitting!</li>
 				<li>Location must start with a city and end with a two-letter state. Optionally, you can include a third parameter (e.g. yard name or siding name) in between the city and state.
 					<ul>
 						<li><span className="glyphicon glyphicon-thumbs-up" />PORTLAND, OR</li>
@@ -20,18 +30,16 @@ export default ReadMe = () => {
 						<li><span className="glyphicon glyphicon-thumbs-down" />PORTLAND, OREGON <em>(use 2 digit state abbreviation)</em></li>
 						<li><span className="glyphicon glyphicon-thumbs-down" />PORTLAND, OR, LAKE YARD <em>(state must go last)</em></li>
 					</ul>
+					Please check to see if the location you are submitting for already exists, and follow that format. This is to prevent duplicate entries like
+					"PORTLAND, <strong>LAKE YARD</strong>, OR" and "PORTLAND, <strong>LAKE YD</strong>, OR" that must be manually merged.
 				</li>
 			</ul>
-			<p className="lead">To delete notes or set your preferences:</p>
-			<p>Sign in and then click on your username. To delete a note click on the trash icon on the right
-			side of the notes table. You can also set form defaults so that whenever you go to submit a train, you automatically have the railroad and 
-			location filled out, and time configured to the timezone you will be submitting for.</p>
-			<p className="lead">When searching for notes:</p>
-			<p>There is one quirk to be aware of. The search options table is separate from the table that holds all the notes. Notes are updated as soon
-			as you add/delete them, but search options are updated hourly. This means that if you have submitted a note for a new location or a new symbol,
-			it won't show up in the search options until the next time that table is updated. Rest assured though, if you see your note appear in the table
+			<h3>When searching for notes:</h3>
+			<p>There is one quirk to be aware of: The search options data is separate from the database collection that holds all the notes. Notes are updated as soon
+			as you add/delete them, but search options are updated <strong>hourly</strong>. This means that if you have submitted a note for a new location or a new symbol,
+			it won't show up in the search options until the next time they are updated. Rest assured though, if you see your note appear in the table
 			underneath the submission form, it is in the database.</p>
-			<p className="lead">To give feedback</p>
+			<h3>Feedback:</h3>
 			<p>If you experience any bugs, or have any input, please let me know either by submitting an issue at <a href="https://github.com/qualitymanifest/foambook">the github repo </a>
 			 or by sending an email to qualityfiltering@gmail.com.</p>
 

@@ -3,14 +3,15 @@ import React, { Component } from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import { Navbar, NavItem, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import { connect } from "react-redux";
 
 import Accounts from "./accounts";
 import { Notes } from "../collections/notes";
+import { changePath } from "../../client/actions";
 
 
 class Header extends Component {
 	render() {
-		console.log("RENDERING HEADER")
 		return (
 			<Navbar inverse collapseOnSelect fixedTop>
 				<Navbar.Header>
@@ -26,25 +27,29 @@ class Header extends Component {
 						</Navbar.Text>
 					}
 					<Nav pullRight>
-						<LinkContainer exact to="/">
+						<LinkContainer onClick={() => this.props.changePath("/")} className={this.props.pathState === "/" ? "active" : ""}
+							exact to="/">
 							<NavItem>
 								Search
 							</NavItem>
 						</LinkContainer>
-						<LinkContainer to="/add_note">
+						<LinkContainer onClick={() => this.props.changePath("/add_note")} className={this.props.pathState === "/add_note" ? "active" : ""}
+							to="/add_note">
 							<NavItem>
 								Submit
 							</NavItem>
 						</LinkContainer>
 						{this.props.user &&
-							<LinkContainer to="/user_profile">
+							<LinkContainer onClick={() => this.props.changePath("/user_profile")} className={this.props.pathState === "/user_profile" ? "active" : ""}
+								to="/user_profile">
 								<NavItem>
 									{this.props.user.profile.name}
 									<span className="glyphicon glyphicon-user" />
 								</NavItem>
 							</LinkContainer>
 						}
-						<LinkContainer to="/read_me">
+						<LinkContainer onClick={() => this.props.changePath("/read_me")} className={this.props.pathState === "/read_me" ? "active" : ""}
+							to="/read_me">
 							<NavItem>
 								<span className="glyphicon glyphicon-question-sign" />
 							</NavItem>
@@ -59,7 +64,16 @@ class Header extends Component {
 	}
 }
 
-Header = withTracker(() => {
+const mapDispatchToProps = (dispatch) => {
+	// put query in state so that it will be the same when user navigates back
+	return {
+		changePath: (path) => {
+			dispatch(changePath(path));
+		}
+	};
+};
+
+Header = withTracker(({ pathState }) => {
 	const handle = Meteor.subscribe("user.notesCount");
 	return {
 		// don't actually need any data, just get _ids so we can count them
@@ -68,4 +82,4 @@ Header = withTracker(() => {
 		loading: !handle.ready() }
 })(Header);
 
-export default Header;
+export default connect(({ pathState }) => ({ pathState }), mapDispatchToProps)(Header);

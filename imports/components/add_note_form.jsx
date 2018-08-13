@@ -36,7 +36,7 @@ class AddNoteForm extends Component {
 		let defaultValues = null;
 		if (!this.props.user) {
 			// default props.user is "LOADING". if undefined, definitely not logged in.
-			return <div>Please log in to submit train notes</div>;
+			return <div className="center">Please log in to submit train notes</div>;
 		}
 		if (this.props.user === "LOADING") {
 			return <div className="spinner" />;

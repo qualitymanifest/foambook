@@ -4,6 +4,9 @@ import { Breadcrumb } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Badge, Row, Col } from "react-bootstrap";
 import queryString from "query-string";
+import Moment from "moment-timezone";
+
+Moment.tz.setDefault("Etc/UTC");
 
 // meteor publishes randomly, even if DB is sorted:
 export const metadataSorter = (rawMetadata) => {
@@ -28,6 +31,31 @@ export const metadataSorter = (rawMetadata) => {
 	return locations
 }
 
+export const processNotes = (notes) => {
+	let oldest = Moment(notes[0].dateTime);
+	let newest = Moment(notes[0].dateTime);
+	let years = [];
+	const newNotes = [];
+	for (let note of notes) {
+		let newNote = Object.assign({}, note);
+		let noteMoment = Moment(note.dateTime);
+		newNote.time = (noteMoment.hours() * 60) + noteMoment.minutes()
+		newNote.dateTimeReadable = Moment(note.dateTime).format("MM-DD-YY HH:mm")
+		newNote.weekday = noteMoment.isoWeekday();
+		newNotes.push(newNote);
+		if (noteMoment < oldest) {
+			oldest = noteMoment
+		}
+		else if (noteMoment > newest) {
+			newest = noteMoment;
+		}
+		if (!years.includes(noteMoment.year())) {
+			years.push(noteMoment.year());
+		}
+	}
+	return {notes: newNotes, oldest: oldest, newest: newest, years: years.sort()};
+}
+
 const badQuery = (specific) => {
 	return "Sorry, invalid " + specific + ". Either you've followed a bad link, or you're searching for a newly created " + specific +
 	" (query categories are updated hourly)";
@@ -44,11 +72,13 @@ export const listLocations = (locations) => {
 							{
 								loc.cities.map((city) => {
 									return (
-										<div key={city.city}>
-											<Link to={`?city=${city.city}&state=${loc.state}`}>{city.city}</Link>
-											<Badge>
-												{city.count}
-											</Badge>
+										<div className="queryItem" key={city.city}>
+											<Link to={`?city=${city.city}&state=${loc.state}`}>
+												{city.city}
+												<Badge>
+													{city.count}
+												</Badge>
+											</Link>
 										</div>
 									)
 								})
@@ -109,13 +139,13 @@ export const listSymbols = (metadata, city, state) => {
 								{
 									railroad.symbols.map((symbol) => {
 										return (
-											<div key={symbol.symbol}>
+											<div className="queryItem" key={symbol.symbol}>
 												<Link to={`?city=${city}&state=${state}&railroad=${railroad.railroad}&symbol=${symbol.symbol}`}>
 													{symbol.symbol}
+													<Badge>
+														{symbol.count}
+													</Badge>
 												</Link>
-												<Badge>
-													{symbol.count}
-												</Badge>
 											</div>
 										)
 									})

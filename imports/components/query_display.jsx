@@ -7,33 +7,9 @@ import { Link } from "react-router-dom";
 
 import { Notes } from "../collections/notes";
 import Scatterplot from "./scatterplot";
+import { processNotes } from "../queryFunctions";
 
 Moment.tz.setDefault("Etc/UTC");
-
-const processNotes = (notes) => {
-	let oldest = Moment(notes[0].dateTime);
-	let newest = Moment(notes[0].dateTime);
-	let years = [];
-	const newNotes = [];
-	for (let note of notes) {
-		let newNote = Object.assign({}, note);
-		let noteMoment = Moment(note.dateTime);
-		newNote.time = (noteMoment.hours() * 60) + noteMoment.minutes()
-		newNote.dateTimeReadable = Moment(note.dateTime).format("MM-DD-YY HH:mm")
-		newNote.weekday = noteMoment.isoWeekday();
-		newNotes.push(newNote);
-		if (noteMoment < oldest) {
-			oldest = noteMoment
-		}
-		else if (noteMoment > newest) {
-			newest = noteMoment;
-		}
-		if (!years.includes(noteMoment.year())) {
-			years.push(noteMoment.year());
-		}
-	}
-	return {notes: newNotes, oldest: oldest, newest: newest, years: years.sort()};
-}
 
 class QueryDisplay extends Component {
 	render() {
@@ -52,7 +28,7 @@ class QueryDisplay extends Component {
 						Filter by year:
 							{ processed.years.map((year) => {
 								return (
-									<Link key={year}
+									<Link className="queryYear" key={year}
 										to={`?city=${query.city}&state=${query.state}&railroad=${query.railroad}&symbol=${query.symbol}&begin=01-${year}&end=12-${year}`}
 									>
 										{`  ${year}  `}
