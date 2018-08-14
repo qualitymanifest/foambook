@@ -70,6 +70,14 @@ class Scatterplot extends Component {
 			.attr("height", height)
 			.attr("class", "main");
 
+
+
+		const tip = d3.select("body").append("div")	
+    .attr("class", "tooltip")				
+    .style("opacity", 0);
+
+
+
 		main.append("g")
 			.attr("transform", `translate(0,${height})`)
 			.attr("class", "main axis date")
@@ -84,7 +92,7 @@ class Scatterplot extends Component {
 	     .attr("class", "grid")
 	     .attr("transform", "translate(0," + height + ")")
 	     .call(d3.axisBottom(xAxis)
-	     		.ticks(tickHours.length)
+	     		.ticks(tickHoursFull.length)
 	        .tickSize(-height)
 	        .tickFormat("")
 	      )
@@ -107,8 +115,19 @@ class Scatterplot extends Component {
 				.attr("cy", d => y(d.weekday))
 				.attr("r", dotRadius)
 				.attr("fill", d => `hsl(356, 100%, ${colorScale(d.dateTime)}%)`)
-				.append("title")
-					.text(d => d.dateTimeReadable);
+				.on("mouseover", function(d) {		
+          tip.transition()		
+            .duration(200)		
+            .style("opacity", .9);		
+          tip.html(d.dateTimeReadable)	
+            .style("left", (d3.event.pageX) + "px")		
+            .style("top", (d3.event.pageY - 32) + "px");	
+        })					
+        .on("mouseout", function(d) {		
+          tip.transition()		
+            .duration(300)		
+            .style("opacity", 0);	
+        });
 
 /* ---------------------------------------------------- */
 /* ---------------------------------------------------- */

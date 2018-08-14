@@ -43,7 +43,7 @@ class QueryDisplay extends Component {
 				<p className="smallPrint">If you're on a computer, you can hover over dots to see exact date/time</p>
 				{ processed.notes.length > 1 && 
 					<div>
-						<p className="smallPrint">Dark dots are oldest, red are newest.</p>
+						<p className="smallPrint">Dot color indicates age: Gray are oldest, red are newest. Date range:</p>
 						<div id="dateRange">
 							<p>{Moment(processed.oldest).format("MM-DD-YY")}</p>
 							<p id="dateRangeColors"></p>

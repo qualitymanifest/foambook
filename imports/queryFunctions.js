@@ -134,7 +134,7 @@ export const listSymbols = (metadata, city, state) => {
 					let columnStyle = railroad.symbols.length > 30 ? {columnCount: 3} : {};
 					return (
 						<div key={railroad.railroad}>
-							<h1>{railroad.railroad}</h1>
+							<h2>{railroad.railroad}</h2>
 							<div style={columnStyle} className="queryList">
 								{
 									railroad.symbols.map((symbol) => {
