@@ -25,7 +25,7 @@ class Scatterplot extends Component {
 		let screenWidth = this.props.uiState.screenWidth;
 		screenWidth = screenWidth > 1200 ? screenWidth * 0.6 : screenWidth * 0.95;
 		const tickHours = screenWidth > 675 ? tickHoursFull : tickHoursMobile;
-		const dotRadius = screenWidth > 675 ? 8 : 3;
+		const dotRadius = screenWidth > 675 ? 8 : 4;
 		const tickMargin = screenWidth > 600 ? screenWidth * 0.04 : screenWidth * 0.08;
 		const data = this.props.notes;
 
@@ -70,13 +70,9 @@ class Scatterplot extends Component {
 			.attr("height", height)
 			.attr("class", "main");
 
-
-
 		const tip = d3.select("body").append("div")	
     .attr("class", "tooltip")				
     .style("opacity", 0);
-
-
 
 		main.append("g")
 			.attr("transform", `translate(0,${height})`)

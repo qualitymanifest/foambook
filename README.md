@@ -1,7 +1,6 @@
 # change log:
-- better tooltips (previously used html title attribute)
-- add canadian province support
-- update read_me.jsx
+- add color indications on counts
+- add railroad navigation
 
 # todo:
 - migrate to new versions of react, react-dom, react-form, react-number-format

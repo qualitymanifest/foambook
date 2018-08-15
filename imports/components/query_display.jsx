@@ -28,7 +28,7 @@ class QueryDisplay extends Component {
 						Filter by year:
 							{ processed.years.map((year) => {
 								return (
-									<Link className="queryYear" key={year}
+									<Link className="queryFilterOption" key={year}
 										to={`?city=${query.city}&state=${query.state}&railroad=${query.railroad}&symbol=${query.symbol}&begin=01-${year}&end=12-${year}`}
 									>
 										{`  ${year}  `}
@@ -41,16 +41,14 @@ class QueryDisplay extends Component {
 				}
 				<Scatterplot notes={processed.notes} oldest={processed.oldest} newest={processed.newest} uiState={this.props.uiState} />
 				<p className="smallPrint">If you're on a computer, you can hover over dots to see exact date/time</p>
-				{ processed.notes.length > 1 && 
-					<div>
-						<p className="smallPrint">Dot color indicates age: Gray are oldest, red are newest. Date range:</p>
-						<div id="dateRange">
-							<p>{Moment(processed.oldest).format("MM-DD-YY")}</p>
-							<p id="dateRangeColors"></p>
-							<p>{Moment(processed.newest).format("MM-DD-YY")}</p>
-						</div>
+				<div>
+					<p className="smallPrint">Dot color indicates age: Gray are oldest, red are newest. Date range:</p>
+					<div id="dateRange">
+						<p>{Moment(processed.oldest).format("MM-DD-YY")}</p>
+						<p id="dateRangeColors"></p>
+						<p>{Moment(processed.newest).format("MM-DD-YY")}</p>
 					</div>
-				}
+				</div>
 			</div>
 		);
 	}

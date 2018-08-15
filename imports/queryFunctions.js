@@ -7,6 +7,8 @@ import queryString from "query-string";
 import Moment from "moment-timezone";
 
 Moment.tz.setDefault("Etc/UTC");
+const monthAgo = Moment().subtract(1, 'month');
+const yearAgo = Moment().subtract(1, 'year');
 
 // meteor publishes randomly, even if DB is sorted:
 export const metadataSorter = (rawMetadata) => {
@@ -75,7 +77,7 @@ export const listLocations = (locations) => {
 										<div className="queryItem" key={city.city}>
 											<Link to={`?city=${city.city}&state=${loc.state}`}>
 												{city.city}
-												<Badge>
+												<Badge className={city.mostRecent > monthAgo ? "pastMonth" : city.mostRecent > yearAgo ? "pastYear" : "olderThanYear"}>
 													{city.count}
 												</Badge>
 											</Link>
@@ -87,6 +89,9 @@ export const listLocations = (locations) => {
 					)
 				})
 			}
+			<br />
+			<p className="smallPrint">Numbers to the right of the city are the amount of notes</p>
+			<p className="smallPrint">Color indicates age of last submission. Bright red: past month. Dark red: past year. Gray: older</p>
 		</div>
 	)
 }
@@ -121,19 +126,32 @@ const findRailroads = (metadata, searchCity, searchState) => {
 	return badQuery("state");
 }
 
+const railroadSelector = (railroads) => {
+	return (
+		<div>
+			Jump to railroad: 
+			{ railroads.map((railroad) => {	
+				return <a href={`#${railroad.railroad}`} key={`#${railroad.railroad}`} className="queryFilterOption"> {railroad.railroad} </a>	}) 
+			}
+		</div>
+	)
+}
+
 
 export const listSymbols = (metadata, city, state) => {
 		let railroads = findRailroads(metadata, city, state);
-		if (typeof railroads === "string") {
+		if (typeof railroads === "string") { // then it's an error
 			return railroads;
 		}
 		return (
 		<div>
+			{ railroads.length > 1 ? railroadSelector(railroads) : "" }
 			{ 
 				railroads.map((railroad) => {
 					let columnStyle = railroad.symbols.length > 30 ? {columnCount: 3} : {};
 					return (
 						<div key={railroad.railroad}>
+							<div className="clearNavbar" id={railroad.railroad}/>
 							<h2>{railroad.railroad}</h2>
 							<div style={columnStyle} className="queryList">
 								{
@@ -142,7 +160,7 @@ export const listSymbols = (metadata, city, state) => {
 											<div className="queryItem" key={symbol.symbol}>
 												<Link to={`?city=${city}&state=${state}&railroad=${railroad.railroad}&symbol=${symbol.symbol}`}>
 													{symbol.symbol}
-													<Badge>
+													<Badge className={symbol.mostRecent > monthAgo ? "pastMonth" : symbol.mostRecent > yearAgo ? "pastYear" : "olderThanYear"}>
 														{symbol.count}
 													</Badge>
 												</Link>
@@ -155,6 +173,9 @@ export const listSymbols = (metadata, city, state) => {
 					)
 				})
 			}
+			<br />
+			<p className="smallPrint">Numbers to the right of the symbol are the amount of notes</p>
+			<p className="smallPrint">Color indicates age of last submission. Bright red: past month. Dark red: past year. Gray: older</p>
 		</div>
 	)
 }

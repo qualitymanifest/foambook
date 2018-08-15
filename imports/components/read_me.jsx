@@ -39,9 +39,8 @@ export default ReadMe = () => {
 			as you add/delete them, but search options are updated <strong>hourly</strong>. This means that if you have submitted a note for a new location or a new symbol,
 			it won't show up in the search options until the next time they are updated. Rest assured though, if you see your note appear in the table
 			underneath the submission form, it is in the database.</p>
-			<p>Given that these notes are user-submitted, not official RR data, the absence of notes from a particular day or time does not mean that train
-			does not operate then. It could mean that the user who submits those notes is asleep or at work. That said, clear patterns are a positive inidicator
-			that that train is typically at that location at that time.</p>
+			<p>Given that these notes are user-submitted, not official RR data, the absence of notes from a particular day or time does not necessarily mean that that train
+			does not operate then. That said, clear patterns are a positive inidicator that that train is typically at that location at that time.</p>
 			<p>The best general source of symbol data I have found is at <a href="http://railroadfan.com/wiki/index.php/Main_Page">railroadfan.com/wiki</a> - it contains origins, destinations, 
 			operating frequencies, and sometimes other information. It's not perfect, but it's usually accurate and it seems to be updated fairly regularly.</p>
 			<h3>Feedback:</h3>
