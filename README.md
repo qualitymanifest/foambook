@@ -1,9 +1,8 @@
 # change log:
-- add query navigation accordions
-- media queries to size forms and tables
+- Fix error message when improper location is entered in full query string
+- Change query string parameter for date filtering
 
 # todo:
-- if a bad city or state is entered with a good railroad and symbol, "bad railroad" error shows
 - migrate to new versions of react, react-dom, react-form, react-number-format
 
 

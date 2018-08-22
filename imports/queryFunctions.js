@@ -130,6 +130,9 @@ const badQuery = (specific) => {
 
 export const testRailroadAndSymbol = (metadata, searchCity, searchState, searchRailroad, searchSymbol) => {
 	let railroads = findRailroads(metadata, searchCity, searchState);
+	if (typeof railroads === "string") { // It's an error message!
+		return railroads;
+	}
 	for (let railroad of railroads) {
 		if (railroad.railroad === searchRailroad) {
 			for (let symbol of railroad.symbols) {
@@ -270,7 +273,7 @@ export const breadcrumbBuilder = (qs, howComplete) => {
 			  <LinkContainer to={`?city=${qs.city}&state=${qs.state}&railroad=${qs.railroad}&symbol=${qs.symbol}`}>
 			  	<Breadcrumb.Item>{`${qs.railroad}: ${qs.symbol}`}</Breadcrumb.Item>
 			  </LinkContainer>
-			  <Breadcrumb.Item active>{`${qs.begin} - ${qs.end}`}</Breadcrumb.Item>
+			  <Breadcrumb.Item active>{`${qs.year}`}</Breadcrumb.Item>
 			</Breadcrumb>
 		)
 	}

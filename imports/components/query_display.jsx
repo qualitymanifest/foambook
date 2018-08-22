@@ -29,7 +29,7 @@ class QueryDisplay extends Component {
 							{ processed.years.map((year) => {
 								return (
 									<Link className="queryFilterOption" key={year}
-										to={`?city=${query.city}&state=${query.state}&railroad=${query.railroad}&symbol=${query.symbol}&begin=01-${year}&end=12-${year}`}
+										to={`?city=${query.city}&state=${query.state}&railroad=${query.railroad}&symbol=${query.symbol}&year=${year}`}
 									>
 										{`  ${year}  `}
 									</Link>

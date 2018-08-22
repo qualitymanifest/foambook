@@ -24,15 +24,11 @@ class Query extends Component {
 		if (qString.city && qString.state && qString.railroad && qString.symbol) {
 			// completeQuery is for sending into DB - not using raw query string in case errant values are present
 			completeQuery = {city: qString.city, state: qString.state, railroad: qString.railroad, symbol: qString.symbol}
-			let invalidDates = false;
-			if (qString.begin && qString.end) {
-				let begin = Moment(qString.begin, "MM-YYYY").toDate();
-				// have to add .endOf("year"), otherwise you get beginning of stated month
-				let end = Moment(qString.end, "MM-YYYY").endOf("year").toDate();
-				let dateRegex = /^(0[1-9]|1[1-2])-\d{4}$/
-				if (!dateRegex.test(qString.begin) || !dateRegex.test(qString.end) || begin > end) {
-					invalidDates = true;
-				}
+			let invalidDate = false;
+			if (qString.year) {
+				invalidDate = !/^\d{4}$/.test(qString.year);
+				let begin = Moment(qString.year, "YYYY").startOf("year").toDate()
+				let end = Moment(qString.year, "YYYY").endOf("year").toDate();
 				// throw dateTime in regardless so we know if we have to render date in breadcrumb
 				completeQuery.dateTime = {"$gte": begin, "$lte": end}
 			}
@@ -41,7 +37,7 @@ class Query extends Component {
 				<div className="center">
 					{ completeQuery.dateTime ? breadcrumbBuilder(qString, "dates") : breadcrumbBuilder(qString, "symbol") }
 					{ 
-						invalidDates ? "Sorry, invalid date range specified" :
+						invalidDate ? "Sorry, invalid date specified" :
 						(typeof railroadAndSymbolTested === "string") ? railroadAndSymbolTested : <QueryDisplay query={completeQuery} /> 
 					}
 				</div>
