@@ -64,7 +64,8 @@ class AddNoteForm extends Component {
 			>
 				{({ submitForm }) => (
 						<form onSubmit={submitForm}>
-							<div className="form-group col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-5">
+							<div className="form-group ">
+						{/*col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-5*/}
 								<label>Railroad</label>
 								<Text className="form-control" field="railroad" placeholder="E.G. CSX" />
 								<label>Location</label>

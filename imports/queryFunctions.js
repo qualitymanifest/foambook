@@ -2,13 +2,77 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Breadcrumb } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { Badge, Row, Col } from "react-bootstrap";
+import { Badge, Row, Col, PanelGroup, Panel } from "react-bootstrap";
 import queryString from "query-string";
 import Moment from "moment-timezone";
 
 Moment.tz.setDefault("Etc/UTC");
 const monthAgo = Moment().subtract(1, 'month');
 const yearAgo = Moment().subtract(1, 'year');
+
+const statesMap = {
+  'AL' : 'ALABAMA',
+  'AK' : 'ALASKA',
+  'AZ' : 'ARIZONA',
+  'AR' : 'ARKANSAS',
+  'CA' : 'CALIFORNIA',
+  'CO' : 'COLORADO',
+  'CT' : 'CONNECTICUT',
+  'DE' : 'DELAWARE',
+  'DC' : 'WASHINGTON DC',
+  'FL' : 'FLORIDA',
+  'GA' : 'GEORGIA',
+  'ID' : 'IDAHO',
+  'IL' : 'ILLINOIS',
+  'IN' : 'INDIANA',
+  'IA' : 'IOWA',
+  'KS' : 'KANSAS',
+  'KY' : 'KENTUCKY',
+  'LA' : 'LOUISIANA',
+  'ME' : 'MAINE',
+  'MD' : 'MARYLAND',
+  'MA' : 'MASSACHUSETTS',
+  'MI' : 'MICHIGAN',
+  'MN' : 'MINNESOTA',
+  'MS' : 'MISSISSIPPI',
+  'MO' : 'MISSOURI',
+  'MT' : 'MONTANA',
+  'NE' : 'NEBRASKA',
+  'NV' : 'NEVADA',
+  'NH' : 'NEW HAMPSHIRE',
+  'NJ' : 'NEW JERSEY',
+  'NM' : 'NEW MEXICO',
+  'NY' : 'NEW YORK',
+  'NC' : 'NORTH CAROLINA',
+  'ND' : 'NORTH DAKOTA',
+  'OH' : 'OHIO',
+  'OK' : 'OKLAHOMA',
+  'OR' : 'OREGON',
+  'PA' : 'PENNSYLVANIA',
+  'RI' : 'RHODE ISLAND',
+  'SC' : 'SOUTH CAROLINA',
+  'SD' : 'SOUTH DAKOTA',
+  'TN' : 'TENNESSEE',
+  'TX' : 'TEXAS',
+  'UT' : 'UTAH',
+  'VT' : 'VERMONT',
+  'VA' : 'VIRGINIA',
+  'WA' : 'WASHINGTON',
+  'WV' : 'WEST VIRGINIA',
+  'WI' : 'WISCONSIN',
+  'WY' : 'WYOMING',
+  'AB' : 'ALBERTA',
+  'BC' : 'BRITISH COLUMBIA',
+  'MB' : 'MANITOBA',
+  'NB' : 'NEW BRUNSWICK',
+  'NL' : 'NEWFOUNDLAND/LABRADOR',
+  'NS' : 'NOVA SCOTIA',
+  'NT' : 'NORTHWEST TERRITORIES',
+  'ON' : 'ONTARIO',
+  'QC' : 'QUEBEC',
+  'SK' : 'SASKATCHEWAN',
+  'YT' : 'YUKON'
+}
 
 // meteor publishes randomly, even if DB is sorted:
 export const metadataSorter = (rawMetadata) => {
@@ -63,39 +127,6 @@ const badQuery = (specific) => {
 	" (query categories are updated hourly)";
 }
 
-export const listLocations = (locations) => {
-	return (
-		<div>
-			{ 
-				locations.map((loc) => {
-					return (
-						<div key={loc.state}>
-							<h2>{loc.state}</h2>
-							{
-								loc.cities.map((city) => {
-									return (
-										<div className="queryItem" key={city.city}>
-											<Link to={`?city=${city.city}&state=${loc.state}`}>
-												{city.city}
-												<Badge className={city.mostRecent > monthAgo ? "pastMonth" : city.mostRecent > yearAgo ? "pastYear" : "olderThanYear"}>
-													{city.count}
-												</Badge>
-											</Link>
-										</div>
-									)
-								})
-							}
-						</div>
-					)
-				})
-			}
-			<br />
-			<p className="smallPrint">Numbers to the right of the city are the amount of notes</p>
-			<p className="smallPrint">Color indicates age of last submission. Bright red: past month. Dark red: past year. Gray: older</p>
-		</div>
-	)
-}
-
 
 export const testRailroadAndSymbol = (metadata, searchCity, searchState, searchRailroad, searchSymbol) => {
 	let railroads = findRailroads(metadata, searchCity, searchState);
@@ -126,13 +157,49 @@ const findRailroads = (metadata, searchCity, searchState) => {
 	return badQuery("state");
 }
 
-const railroadSelector = (railroads) => {
+export const listLocations = (locations) => {
 	return (
 		<div>
-			Jump to railroad: 
-			{ railroads.map((railroad) => {	
-				return <a href={`#${railroad.railroad}`} key={`#${railroad.railroad}`} className="queryFilterOption"> {railroad.railroad} </a>	}) 
+			<p>Select state & city</p>
+			<PanelGroup accordion id="statesPanelGroup">
+			{ 
+				locations.map((loc) => {
+					return (
+						<Panel id={loc.state} key={loc.state} eventKey={loc.state}>
+							<Panel.Heading>
+								<Panel.Title toggle>
+									{statesMap[loc.state]}
+								</Panel.Title>
+							</Panel.Heading>
+							<Panel.Body collapsible className="queryList">
+								{
+									loc.cities.map((city) => {
+										return (
+											<div className="queryItem" key={city.city}>
+												<Link to={`?city=${city.city}&state=${loc.state}`}>
+													{city.city}
+													<Badge className={city.mostRecent > monthAgo ? "pastMonth" : city.mostRecent > yearAgo ? "pastYear" : "olderThanYear"}>
+														{city.count}
+													</Badge>
+												</Link>
+											</div>
+										)
+									})
+								}
+							</Panel.Body>
+						</Panel>
+					)
+				})
 			}
+			</PanelGroup>
+			<br />
+			<p className="smallPrint">Numbers to the right of the city are the amount of notes</p>
+			<p className="smallPrint">
+				<span>Color indicates age of last submission: </span>
+				<span className="pastMonth">past month, </span>
+				<span className="pastYear">past year, </span>
+				<span className="olderThanYear">older </span>
+			</p>
 		</div>
 	)
 }
@@ -145,37 +212,47 @@ export const listSymbols = (metadata, city, state) => {
 		}
 		return (
 		<div>
-			{ railroads.length > 1 ? railroadSelector(railroads) : "" }
-			{ 
-				railroads.map((railroad) => {
-					let columnStyle = railroad.symbols.length > 30 ? {columnCount: 3} : {};
-					return (
-						<div key={railroad.railroad}>
-							<div className="clearNavbar" id={railroad.railroad}/>
-							<h2>{railroad.railroad}</h2>
-							<div style={columnStyle} className="queryList">
-								{
-									railroad.symbols.map((symbol) => {
-										return (
-											<div className="queryItem" key={symbol.symbol}>
-												<Link to={`?city=${city}&state=${state}&railroad=${railroad.railroad}&symbol=${symbol.symbol}`}>
-													{symbol.symbol}
-													<Badge className={symbol.mostRecent > monthAgo ? "pastMonth" : symbol.mostRecent > yearAgo ? "pastYear" : "olderThanYear"}>
-														{symbol.count}
-													</Badge>
-												</Link>
-											</div>
-										)
-									})
-								}
-							</div>
-						</div>
-					)
-				})
-			}
+			<p>Select railroad & symbol</p>
+			<PanelGroup accordion id="railroadsPanelGroup">
+				{ 
+					railroads.map((railroad) => {
+						let columnStyle = railroad.symbols.length > 30 ? {columnCount: 3} : {};
+						return (
+							<Panel id={railroad.railroad} key={railroad.railroad} eventKey={city + railroad.railroad}>
+								<Panel.Heading>
+									<Panel.Title toggle>
+										{railroad.railroad}
+									</Panel.Title>
+								</Panel.Heading>
+								<Panel.Body collapsible style={columnStyle} className="queryList">
+									{
+										railroad.symbols.map((symbol) => {
+											return (
+												<div className="queryItem" key={symbol.symbol}>
+													<Link to={`?city=${city}&state=${state}&railroad=${railroad.railroad}&symbol=${symbol.symbol}`}>
+														{symbol.symbol}
+														<Badge className={symbol.mostRecent > monthAgo ? "pastMonth" : symbol.mostRecent > yearAgo ? "pastYear" : "olderThanYear"}>
+															{symbol.count}
+														</Badge>
+													</Link>
+												</div>
+											)
+										})
+									}
+								</Panel.Body>
+							</Panel>
+						)
+					})
+				}
+			</PanelGroup>
 			<br />
 			<p className="smallPrint">Numbers to the right of the symbol are the amount of notes</p>
-			<p className="smallPrint">Color indicates age of last submission. Bright red: past month. Dark red: past year. Gray: older</p>
+			<p className="smallPrint">
+				<span>Color indicates age of last submission: </span>
+				<span className="pastMonth">past month, </span>
+				<span className="pastYear">past year, </span>
+				<span className="olderThanYear">older </span>
+			</p>
 		</div>
 	)
 }

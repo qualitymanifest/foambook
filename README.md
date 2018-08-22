@@ -1,8 +1,9 @@
 # change log:
-- add color indications on counts
-- add railroad navigation
+- add query navigation accordions
+- media queries to size forms and tables
 
 # todo:
+- if a bad city or state is entered with a good railroad and symbol, "bad railroad" error shows
 - migrate to new versions of react, react-dom, react-form, react-number-format
 
 

@@ -18,7 +18,7 @@ export default (props) => {
 		>
 			{({ submitForm }) => (
 				<form onSubmit={submitForm}>
-					<div className="form-group col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-5">
+					<div className="form-group">
 						<label>Default Railroad</label>
 						<Text className="form-control" field="railroad" placeholder="E.G. CSX" />
 						<label>Default Location</label>
