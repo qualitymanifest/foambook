@@ -19,7 +19,7 @@ class Query extends Component {
 			return <div className="spinner" />;
 		}
 		let metadata = metadataSorter(this.props.metadata);
-		let qString = queryString.parse(location.search)
+		let qString = queryString.parse(location.search);
 
 		if (qString.city && qString.state && qString.railroad && qString.symbol) {
 			// completeQuery is for sending into DB - not using raw query string in case errant values are present

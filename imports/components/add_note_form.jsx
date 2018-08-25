@@ -1,14 +1,15 @@
 import { Meteor } from "meteor/meteor";
 import React, { Component } from "react";
-import { Form, Text } from "react-form";
+import { Form, Text } from "informed";
 import _ from "lodash";
 import { withTracker } from "meteor/react-meteor-data";
 import Moment from "moment-timezone";
 
 import { Notes, NotesInsert } from "../collections/notes";
-import { submitValidation, cleanLocation } from "../validation";
+import { cleanLocation, validSubRailroad, validSubLocation, validSubSymbol, validSubDateTime } from "../validation";
 import DateTime from "./dateTime";
 import NotesTable from "./notes_table";
+import FieldWithError from "./field_with_error";
 
 Moment.tz.setDefault("Etc/UTC");
 
@@ -32,11 +33,18 @@ class AddNoteForm extends Component {
 	}
 
 	render() {
+
 		// in case user turns out to be logged in but has no default preferences
 		let defaultValues = null;
 		if (!this.props.user) {
 			// default props.user is "LOADING". if undefined, definitely not logged in.
-			return <div className="center">Please log in to submit train notes</div>;
+			// using <a> instead of <Link> so that header gets rerendered - otherwise, have to bring in redux
+			return (
+				<div className="center">
+					Please log in to submit train notes. For more information, visit the 
+					<a href="/read_me"> readme</a>.
+				</div>
+			)
 		}
 		if (this.props.user === "LOADING") {
 			return <div className="spinner" />;
@@ -50,40 +58,60 @@ class AddNoteForm extends Component {
 				dateTime: timezone ? Moment().tz(timezone).format("MM-DD-YY HH:mm") : ""
 			};
 		}
+
 		return (
 			<div className="center">
-			<Form
-				onSubmit={_.debounce(this.onSubmit.bind(this), 200)}
-				defaultValues={defaultValues}
-				/* input values aren't really uppercase, its just the css. i was previously
-				using prevalidate to uppercase, but that ran the function on every keystroke and would
-				move the text cursor if you tried to update the middle of the word. */
-				validate={values => submitValidation(
-					_.mapValues(values, val => val && typeof val === "string" ? val.toUpperCase() : null)
-				)}
-			>
-				{({ submitForm }) => (
-						<form onSubmit={submitForm}>
-							<div className="form-group ">
-						{/*col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-5*/}
-								<label>Railroad</label>
-								<Text className="form-control" field="railroad" placeholder="E.G. CSX" />
-								<label>Location</label>
-								<Text className="form-control" field="location" placeholder="E.G. PITTSBURGH, PA" />
-								<label>Symbol</label>
-								<Text className="form-control" field="symbol" id="symbol" placeholder="E.G. Q138" autoFocus />
-								<label>Date/Time</label>
-								<DateTime className="form-control" field="dateTime" placeholder="MM-DD-YY 23:59" />
-								<button className="btn btn-primary btn-block">
-									<span className="glyphicon glyphicon-pencil" />
-									Submit
-								</button>
-							</div>
-						</form>
-					)}
+				<Form
+					className="form-group"
+					onSubmit={_.debounce(this.onSubmit.bind(this), 200) /*slow it down in case button gets clicked twice*/}
+					initialValues={defaultValues}
+				>
+					{({ formApi, formState }) => (
+						<React.Fragment>
 
-			</Form>
-			<NotesTable notes={this.props.notes} caption="Recent Submissions - All Users" />
+							<label>Railroad</label>
+							<FieldWithError
+								className="form-control"
+								field="railroad" 
+								placeholder="E.G. CSX"
+								validateOnBlur
+								validate={validSubRailroad}
+								notify={['symbol']} />
+
+							<label>Location</label>
+							<FieldWithError
+								className="form-control"
+								field="location"
+								placeholder="E.G. PITTSBURGH, PA"
+								validateOnBlur
+								validate={validSubLocation} />
+
+							<label>Symbol</label>
+							<FieldWithError
+								className="form-control" 
+								field="symbol" id="symbol" 
+								placeholder="E.G. Q138"
+								validateOnBlur
+								validate={validSubSymbol}
+								autoFocus />
+
+							<label>Date/Time</label>
+							<DateTime
+								className="form-control" 
+								field="dateTime" 
+								placeholder="MM-DD-YY 23:59"
+								validateOnBlur
+								validate={validSubDateTime} />
+
+							<button className="btn btn-primary btn-block">
+								<span className="glyphicon glyphicon-pencil" />
+								Submit
+							</button>
+
+						</React.Fragment>
+					)}
+				</Form>
+				<NotesTable notes={this.props.notes} caption="Recent Submissions - All Users" />
 			</div>
 		);
 	}

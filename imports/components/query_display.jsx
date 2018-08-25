@@ -40,7 +40,7 @@ class QueryDisplay extends Component {
 					: ""
 				}
 				<Scatterplot notes={processed.notes} oldest={processed.oldest} newest={processed.newest} uiState={this.props.uiState} />
-				<p className="smallPrint">Hover over or tap on dots to see exact date/time</p>
+				<p className="smallPrint">If you're on a computer, you can hover over dots to see exact date/time</p>
 				<div>
 					<p className="smallPrint">Dot color indicates age: Gray are oldest, red are newest. Date range:</p>
 					<div id="dateRange">

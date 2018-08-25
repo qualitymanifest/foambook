@@ -12,7 +12,7 @@ export default ReadMe = () => {
 			<p>Log in if you aren't already, and then click on your username in the upper right corner. To delete a note click on the trash icon on the right
 			side of the notes table. You can also set form defaults so that whenever you go to submit a note, you automatically have the railroad and 
 			location filled out, and time configured to the timezone you will be submitting for.</p>
-			<h3>A few tips on submitting notes:</h3>
+			<h3>When submitting notes:</h3>
 			<ul>
 				<li>Date must be within the last five years.</li>
 				<li>When entering a date/time, you don't have to add the dashes/spaces/semicolon, just type the numbers and they will be added for you.</li>
@@ -33,6 +33,10 @@ export default ReadMe = () => {
 					Please check to see if the location you are submitting for already exists, and follow that format. This is to prevent duplicate entries like
 					"PORTLAND, <strong>LAKE YARD</strong>, OR" and "PORTLAND, <strong>LAKE YD</strong>, OR" that have to be manually merged.
 				</li>
+				<li>Currently supported railroads are BNSF, CN, CP, CSX, KCS, NS, PAR/PAS, and UP. This is because the train symbols have to be validated. 
+				I am happy to add more - just send an email with the railroad name and symbol format to qualityfiltering@gmail.com</li>
+				<li>In general, only road and local train symbols are supported. Miscellaneous things like yard jobs are not. Further, only the base symbols (and applicable section codes) 
+				are supported. Additional info like date codes are not. For example, QRVWC and QRVWCB (second section of the QRVWC) are okay, but QRVWCB-24 is not.</li>
 			</ul>
 			<h3>When searching for notes:</h3>
 			<p>There is one quirk to be aware of: The search options data is separate from the database collection that holds all the notes. Notes are updated as soon

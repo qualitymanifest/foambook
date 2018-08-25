@@ -2,13 +2,71 @@ import moment from "moment-timezone";
 
 moment.tz.setDefault("Etc/UTC");
 
-const validRR = /^(BNSF|UP|CSX|NS|CN|CP|KCS)$/;
+export const statesMap = {
+  "AL" : "ALABAMA",
+  "AK" : "ALASKA",
+  "AZ" : "ARIZONA",
+  "AR" : "ARKANSAS",
+  "CA" : "CALIFORNIA",
+  "CO" : "COLORADO",
+  "CT" : "CONNECTICUT",
+  "DE" : "DELAWARE",
+  "DC" : "WASHINGTON DC",
+  "FL" : "FLORIDA",
+  "GA" : "GEORGIA",
+  "ID" : "IDAHO",
+  "IL" : "ILLINOIS",
+  "IN" : "INDIANA",
+  "IA" : "IOWA",
+  "KS" : "KANSAS",
+  "KY" : "KENTUCKY",
+  "LA" : "LOUISIANA",
+  "ME" : "MAINE",
+  "MD" : "MARYLAND",
+  "MA" : "MASSACHUSETTS",
+  "MI" : "MICHIGAN",
+  "MN" : "MINNESOTA",
+  "MS" : "MISSISSIPPI",
+  "MO" : "MISSOURI",
+  "MT" : "MONTANA",
+  "NE" : "NEBRASKA",
+  "NV" : "NEVADA",
+  "NH" : "NEW HAMPSHIRE",
+  "NJ" : "NEW JERSEY",
+  "NM" : "NEW MEXICO",
+  "NY" : "NEW YORK",
+  "NC" : "NORTH CAROLINA",
+  "ND" : "NORTH DAKOTA",
+  "OH" : "OHIO",
+  "OK" : "OKLAHOMA",
+  "OR" : "OREGON",
+  "PA" : "PENNSYLVANIA",
+  "RI" : "RHODE ISLAND",
+  "SC" : "SOUTH CAROLINA",
+  "SD" : "SOUTH DAKOTA",
+  "TN" : "TENNESSEE",
+  "TX" : "TEXAS",
+  "UT" : "UTAH",
+  "VT" : "VERMONT",
+  "VA" : "VIRGINIA",
+  "WA" : "WASHINGTON",
+  "WV" : "WEST VIRGINIA",
+  "WI" : "WISCONSIN",
+  "WY" : "WYOMING",
+  "AB" : "ALBERTA",
+  "BC" : "BRITISH COLUMBIA",
+  "MB" : "MANITOBA",
+  "NB" : "NEW BRUNSWICK",
+  "NL" : "NEWFOUNDLAND/LABRADOR",
+  "NS" : "NOVA SCOTIA",
+  "NT" : "NORTHWEST TERRITORIES",
+  "ON" : "ONTARIO",
+  "QC" : "QUEBEC",
+  "SK" : "SASKATCHEWAN",
+  "YT" : "YUKON"
+}
 
-const states = ["AL", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "ID",
-	"IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT",
-	"NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
-	"SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY", "AB", "BC", "MB", "NB", 
-	"NL", "NT", "NS", "ON", "QC", "SK", "YT"];
+const validRR = /^(BNSF|UP|CSX|NS|CN|CP|KCS|PAR|PAS)$/;
 
 const upSymbol = /^([ACIKMOQUZ]|G[SELS])[A-Z1-5]{4}[BCELPXR]?$/;
 const bnsfSymbol = /^[BCEGHMQSUVXZ][A-Z]{6}[1-9]?$/;
@@ -17,17 +75,7 @@ const nsSymbol = /^([A-Z]{1,2}\d{1,2}|\d{3}|\d{2}[A-Z])$/;
 const cpSymbol = /^2?\d{3}$/; // extras might be 2NNN?
 const cnSymbol = /^[A-Z]{1}\d{3,5}$/;
 const kcsSymbol = /^[ACDGHILMORSUWX][A-Z]{4}$/;
-
-const symbolsArr = [ upSymbol,bnsfSymbol, csxSymbol, nsSymbol, cpSymbol, cnSymbol, kcsSymbol ];
-
-const valQuerySymbol = (symbolPassedIn) => {
-	for (let symbolRegex of symbolsArr) {
-		if (symbolRegex.test(symbolPassedIn)) {
-			return true;
-		}
-	}
-	return false;
-}
+const parSymbol = /^[A-Z]{4}|\d{3}[A-Z]{2}|[A-Z]{2}\d{3}$/;
 
 export const valSymbol = (symbol, railroad) => {
 	switch (railroad) {
@@ -45,6 +93,9 @@ export const valSymbol = (symbol, railroad) => {
 			return cnSymbol.test(symbol);
 		case "KCS":
 			return kcsSymbol.test(symbol);
+		case "PAR":
+		case "PAS":
+			return parSymbol.test(symbol);
 		default:
 			return false;
 	}
@@ -52,6 +103,11 @@ export const valSymbol = (symbol, railroad) => {
 
 export const valDateTime = (dateTime) => {
 	// returns true if valid, otherwise an error message
+	const fullDateTime = /^\d{2}-\d{2}-\d{2} \d{2}:\d{2}$/;
+	// Moment will turn dates without time into valid dates
+	if (!fullDateTime.test(dateTime)) {
+		return "Incomplete date/time";
+	}
 	const realDateTime = moment(dateTime, "MM-DD-YY HH:mm");
 	const fiveYearsAgo = moment().subtract(5, "years");
 	const now = moment();
@@ -78,15 +134,18 @@ export const cleanLocation = (location) => {
 export const valLocation = (location) => {
 	// returns true if valid, otherwise an error message
 	if (location && location.length > 30) {
-		return "Too many characters!";
+		return "Sorry, too many characters!";
 	}
 	const locArray = cleanLocation(location);
 	// this detects lack of comma or insufficient details
 	if (locArray.length < 2) {
-		return "Must include City and State, separated by commas";
+		return "Must include city and state, separated by commas";
 	}
-	if (!states.includes(locArray[locArray.length - 1])) {
+	if (!statesMap[locArray[locArray.length - 1]]) {
 		return "Last part must be a two letter state, i.e. AZ";
+	}
+	if (locArray[0] === "" || locArray[1] === "") {
+		return "Cannot leave empty fields";
 	}
 	if (locArray.length >= 4) {
 		return "Too specific. Must include state and one or two other parameters";
@@ -95,28 +154,39 @@ export const valLocation = (location) => {
 };
 
 
-/* **** FORM SPECIFIC VALIDATION **** */
+/* **** PREFERENCE SPECIFIC VALIDATION **** */
 
-export const preferenceValidation = (values) => {
-	const { railroad, location } = values;
+export const validPrefRailroad = railroad => {
+	railroad = railroad ? railroad.toUpperCase() : "";
+	// It's okay to leave preferences empty
+	return railroad && !validRR.test(railroad) ? "Invalid railroad" : null;
+}
+
+export const validPrefLocation = location => {
 	const locationTest = valLocation(location);
-	return {
-		railroad: railroad && !validRR.test(railroad) ? "Please enter a valid RR" : null,
-		location: location && locationTest !== true ? locationTest : null
-	};
-};
+	// It's okay to leave preferences empty
+	return location && locationTest !== true ? locationTest : null
+}
 
-export const submitValidation = (values) => {
-	const { railroad, location, symbol, dateTime } = values;
-	// only keep non-word characters and , split on commas
-	// does location have at least two parts, (hopefully city, state || yard, state... etc)
-	// and if so, does it really contain a two letter state?
+/* **** SUBMIT SPECIFIC VALIDATION **** */
+
+export const validSubRailroad = railroad => {
+	railroad = railroad ? railroad.toUpperCase() : "";
+	return !validRR.test(railroad) ? "Invalid railroad" : null;
+}
+
+export const validSubLocation = loc => {
+	const locationTest = valLocation(loc)
+	return locationTest !== true ? locationTest : null;
+}
+
+export const validSubSymbol = (symbol, otherVals) => {
+	symbol = symbol ? symbol.toUpperCase() : "";
+	const railroad = otherVals.railroad ? otherVals.railroad.toUpperCase() : "";
+	return !valSymbol(symbol, railroad) ? "Invalid symbol" : null;
+}
+
+export const validSubDateTime = dateTime => {
 	const dateTest = valDateTime(dateTime);
-	const locationTest = valLocation(location);
-	return {
-		railroad: !validRR.test(railroad) ? "Please enter a valid RR" : null,
-		location: locationTest !== true ? locationTest : null,
-		symbol: !valSymbol(symbol, railroad) ? "Invalid symbol" : null,
-		dateTime: dateTest !== true ? dateTest : null
-	};
-};
+	return dateTest !== true ? dateTest : null;
+}

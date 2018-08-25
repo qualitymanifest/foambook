@@ -16,7 +16,7 @@ import ReadMe from "../imports/components/read_me";
 import Header from "../imports/components/header";
 
 
-//Accounts.onLogout(() => browserHistory.push("/"));
+//Accounts.onLogout(() => history.push("/"));
 
 const store = createStore(reducers);
 

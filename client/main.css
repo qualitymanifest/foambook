@@ -20,6 +20,10 @@ th, tr {
   text-align: center;
 }
 
+table {
+  border: 1px solid #ddd;
+}
+
 #dateRange>p {
   display: inline-block;
   margin: 5px;
@@ -65,12 +69,13 @@ th, tr {
   bottom: 50px;
 }
 
-.form-group {
-  padding: 0% 42%;
+.form-error {
+  color: red;
+  font-size: 12px;
 }
 
-.FormError {
-  color: red;
+.form-group {
+  padding: 0% 42%;
 }
 
 .glyphicon {
