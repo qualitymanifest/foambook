@@ -37,7 +37,7 @@ export const metadataSorter = (rawMetadata) => {
 
 export const processNotes = (notes) => {
 	let oldest = Moment(notes[0].dateTime);
-	let newest = Moment(notes[0].dateTime);
+	let newest = Moment(notes[notes.length-1].dateTime);
 	let years = [];
 	const newNotes = [];
 	for (let note of notes) {
@@ -47,17 +47,11 @@ export const processNotes = (notes) => {
 		newNote.dateTimeReadable = Moment(note.dateTime).format("MM-DD-YY HH:mm")
 		newNote.weekday = noteMoment.isoWeekday();
 		newNotes.push(newNote);
-		if (noteMoment < oldest) {
-			oldest = noteMoment
-		}
-		else if (noteMoment > newest) {
-			newest = noteMoment;
-		}
 		if (!years.includes(noteMoment.year())) {
 			years.push(noteMoment.year());
 		}
 	}
-	return {notes: newNotes, oldest: oldest, newest: newest, years: years.sort()};
+	return {notes: newNotes, oldest: oldest, newest: newest, years: years};
 }
 
 const badQuery = (specific) => {

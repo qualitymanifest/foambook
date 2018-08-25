@@ -19,6 +19,7 @@ class QueryDisplay extends Component {
 		if (!this.props.notes.length) {
 			return <div style={{ clear: "both" }}>There were no matches to that query</div>;
 		}
+
 		const processed = processNotes(this.props.notes);
 		let query = this.props.query;
 		return (
@@ -58,7 +59,7 @@ class QueryDisplay extends Component {
 QueryDisplay = withTracker(({ query }) => {
 	const notesHandle = Meteor.subscribe("notes.query", query);
 	return {
-		notes: Notes.findFromPublication("notes.query", query, { fields: { dateTime: 1 } }).fetch(),
+		notes: Notes.findFromPublication("notes.query", query, { fields: { dateTime: 1 }, sort: { dateTime : 1 } }).fetch(),
 		notesLoading: !notesHandle.ready()
 	};
 })(QueryDisplay);
