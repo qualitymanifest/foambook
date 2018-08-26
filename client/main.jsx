@@ -21,7 +21,8 @@ import Header from "../imports/components/header";
 const store = createStore(reducers);
 
 window.addEventListener("resize", () => {
-	store.dispatch(screenResize(window.innerWidth));
+	// using documentElement.clientWidth because window.innerWidth was inaccurate when resizing mobile
+	store.dispatch(screenResize(document.documentElement.clientWidth));
 });
 
 

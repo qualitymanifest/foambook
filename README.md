@@ -1,11 +1,14 @@
 # change log:
-- Sort notes coming into query_display at publication level so that newest and oldest doesn't have to be calculated
+- Fix mobile scatterplot resize issue by using document.documentElement.clientWidth instead of window.innerWidth
 
 # todo:
 
 # backburner improvements:
-- Add "events" field to submission form that pops open a multi-select with options like "CREW CHANGE, PICK UP, SET OUT, etc"
-- Figure out how to render events? probably no good way to do that in scatterplot, maybe something below the scatterplot that you can click to pop open that has DAY OF WEEK | DATETIME | EVENTS LIST
+- EITHER:
+	- Add "events" field to submission form that pops open a multi-select with options like "CREW CHANGE, PICK UP, SET OUT, etc"
+	- Figure out how to render events? probably no good way to do that in scatterplot, maybe something below the scatterplot that you can click to pop open that has DAY OF WEEK | DATETIME | EVENTS LIST
+- OR:
+	- Add comment-section style area underneath scatterplot, where each user can leave one (editable) message about what that train typically does there
 
 
 # notes:
