@@ -28,3 +28,4 @@ mdg:validated-method
 percolate:find-from-publication
 dynamic-import@0.4.0
 underscore@1.0.10
+jcbernack:reactive-aggregate

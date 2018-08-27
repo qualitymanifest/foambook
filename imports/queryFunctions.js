@@ -15,7 +15,7 @@ const yearAgo = Moment().subtract(1, 'year');
 // meteor publishes randomly, even if DB is sorted:
 export const metadataSorter = (rawMetadata) => {
 	let locations = rawMetadata.slice().sort((a, b) => {
-		return (a.state > b.state) ? 1 : -1;
+		return (a._id > b._id) ? 1 : -1;
 	})
 	for (let state of locations) {
 		state.cities.sort((a, b) => {
@@ -80,7 +80,7 @@ export const testRailroadAndSymbol = (metadata, searchCity, searchState, searchR
 
 const findRailroads = (metadata, searchCity, searchState) => {
 	for (let state of metadata) {
-		if (state.state === searchState) {
+		if (state._id === searchState) {
 			for (let city of state.cities) {
 				if (city.city === searchCity) {
 					return city.railroads;
@@ -100,11 +100,11 @@ export const listLocations = (locations) => {
 			{ 
 				locations.map((loc) => {
 					return (
-						<Panel id={loc.state} key={loc.state} eventKey={loc.state}>
+						<Panel id={loc._id} key={loc._id} eventKey={loc._id}>
 							<Panel.Heading>
 								<Panel.Toggle>
 									<Panel.Title>
-										{statesMap[loc.state]}
+										{statesMap[loc._id]}
 									</Panel.Title>
 								</Panel.Toggle>
 							</Panel.Heading>
@@ -113,7 +113,7 @@ export const listLocations = (locations) => {
 									loc.cities.map((city) => {
 										return (
 											<div className="queryItem" key={city.city}>
-												<Link to={`?city=${city.city}&state=${loc.state}`}>
+												<Link to={`?city=${city.city}&state=${loc._id}`}>
 													{city.city}
 													<Badge className={city.mostRecent > monthAgo ? "pastMonth" : city.mostRecent > yearAgo ? "pastYear" : "olderThanYear"}>
 														{city.count}

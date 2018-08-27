@@ -170,22 +170,26 @@ export const validPrefLocation = location => {
 /* **** SUBMIT SPECIFIC VALIDATION **** */
 
 export const validSubRailroad = railroad => {
-	railroad = railroad ? railroad.toUpperCase() : "";
+	if (!railroad) { return "empty" };
+	railroad = railroad.toUpperCase();
 	return !validRR.test(railroad) ? "Invalid railroad" : null;
 }
 
 export const validSubLocation = loc => {
+	if (!loc) { return "empty" };
 	const locationTest = valLocation(loc)
 	return locationTest !== true ? locationTest : null;
 }
 
 export const validSubSymbol = (symbol, otherVals) => {
-	symbol = symbol ? symbol.toUpperCase() : "";
+	if (!symbol) { return "empty" };
+	symbol = symbol.toUpperCase();
 	const railroad = otherVals.railroad ? otherVals.railroad.toUpperCase() : "";
 	return !valSymbol(symbol, railroad) ? "Invalid symbol" : null;
 }
 
 export const validSubDateTime = dateTime => {
+	if (!dateTime) { return "empty" };
 	const dateTest = valDateTime(dateTime);
 	return dateTest !== true ? dateTest : null;
 }

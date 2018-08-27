@@ -7,7 +7,7 @@ import { Breadcrumb } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import Moment from "moment-timezone";
 
-import { Metadata } from "../collections/notes";
+import { ClientAggregate } from "../collections/notes";
 import QueryDisplay from "./query_display";
 import { metadataSorter, listLocations, listSymbols, parseQueryString, testRailroadAndSymbol, breadcrumbBuilder } from "../queryFunctions";
 
@@ -15,10 +15,10 @@ let completeQuery = {};
 
 class Query extends Component {
 	render() {
-		if (!this.props.metadataReady) {
+		if (!this.props.aggregateReady || !this.props.aggregate.length) {
 			return <div className="spinner" />;
 		}
-		let metadata = metadataSorter(this.props.metadata);
+		let metadata = metadataSorter(this.props.aggregate);
 		let qString = queryString.parse(location.search);
 
 		if (qString.city && qString.state && qString.railroad && qString.symbol) {
@@ -68,10 +68,10 @@ class Query extends Component {
 
 
 Query = withTracker(() => {
-	const metadataHandle = Meteor.subscribe("metadata", {});
+	const aggregateHandle = Meteor.subscribe("aggregate");
 	return {
-		metadata: Metadata.findFromPublication("metadata", {}).fetch(),
-		metadataReady: metadataHandle.ready()
+		aggregate: ClientAggregate.find().fetch(),
+		aggregateReady: aggregateHandle.ready()
 	};
 })(Query);
 

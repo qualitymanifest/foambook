@@ -15,7 +15,7 @@ export default asField(({ fieldState, fieldApi, ...props }) => {
       onBlur={() => setTouched()}
       style={fieldState.error ? { border: 'solid 1px red' } : null}
     />
-    {fieldState.error ? (
+    {fieldState.error && fieldState.error !== "empty" ? (
       <p className="form-error">{fieldState.error}</p>
     ) : null}
     </React.Fragment>

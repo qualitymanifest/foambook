@@ -1,10 +1,12 @@
 # change log:
-- Allow certain spaces in location (not preceding or following a comma, no multiples)
-- Make entire panel a clickable link
+- REACTIVE AGGREGATION OF NOTES!
+- Remove all references to "metadata" collection since it no longer exists
+- Remove comment about metadata updates from readme
+- If a field is empty, do not show an error message - just highlight in red and refuse submit
 
 # todo:
-- Publish aggregations rather than using a cronjob
-	- Aggregate locations, then when a location is selected, aggregate railroads and symbols?
+- For better efficiency, aggregate states/cities, then when a location is selected, aggregate railroads/symbols?
+	- This would require changes to the way that queries are validated
 
 # backburner improvements:
 - EITHER:
