@@ -102,9 +102,11 @@ export const listLocations = (locations) => {
 					return (
 						<Panel id={loc.state} key={loc.state} eventKey={loc.state}>
 							<Panel.Heading>
-								<Panel.Title toggle>
-									{statesMap[loc.state]}
-								</Panel.Title>
+								<Panel.Toggle>
+									<Panel.Title>
+										{statesMap[loc.state]}
+									</Panel.Title>
+								</Panel.Toggle>
 							</Panel.Heading>
 							<Panel.Body collapsible className="queryList">
 								{
@@ -155,9 +157,11 @@ export const listSymbols = (metadata, city, state) => {
 						return (
 							<Panel id={railroad.railroad} key={railroad.railroad} eventKey={city + railroad.railroad}>
 								<Panel.Heading>
-									<Panel.Title toggle>
-										{railroad.railroad}
-									</Panel.Title>
+									<Panel.Toggle>
+										<Panel.Title>
+											{railroad.railroad}
+										</Panel.Title>
+									</Panel.Toggle>
 								</Panel.Heading>
 								<Panel.Body collapsible style={columnStyle} className="queryList">
 									{

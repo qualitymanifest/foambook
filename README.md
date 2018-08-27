@@ -1,7 +1,10 @@
 # change log:
-- Fix mobile scatterplot resize issue by using document.documentElement.clientWidth instead of window.innerWidth
+- Allow certain spaces in location (not preceding or following a comma, no multiples)
+- Make entire panel a clickable link
 
 # todo:
+- Publish aggregations rather than using a cronjob
+	- Aggregate locations, then when a location is selected, aggregate railroads and symbols?
 
 # backburner improvements:
 - EITHER:

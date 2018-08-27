@@ -125,10 +125,9 @@ export const cleanLocation = (location) => {
 	if (typeof location !== "string" || !location.length) {
 		return [];
 	}
-	// return array with only alphabetic chars split on commas. considered leaving spaces
-	// in for city names that include spaces, but that could lead to bugs
-	// with the split the way it is (i.e. state could be " AZ" instead of "AZ")
-	return location.toUpperCase().replace(/[^A-Z,]/g, "").split(",");
+	// return array with everything other than alphabetic chars and single spaces removed
+	// also remove single spaces if they precede or follow a comma
+	return location.toUpperCase().replace(/[^A-Z, ]| {2,}| (?=,)/g, "").replace(/, /g, ",").split(",");
 };
 
 export const valLocation = (location) => {
@@ -144,7 +143,7 @@ export const valLocation = (location) => {
 	if (!statesMap[locArray[locArray.length - 1]]) {
 		return "Last part must be a two letter state, i.e. AZ";
 	}
-	if (locArray[0] === "" || locArray[1] === "") {
+	if (locArray.includes("")) {
 		return "Cannot leave empty fields";
 	}
 	if (locArray.length >= 4) {

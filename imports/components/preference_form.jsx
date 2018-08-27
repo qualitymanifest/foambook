@@ -40,6 +40,9 @@ export default (props) => {
 						field="timezone"
 					>
 
+						<Option value="">
+						</Option>
+
 						<Option value="America/Los_Angeles">
 						 {`PST: ${moment.tz("America/Los_Angeles").format("MM-DD-YY HH:mm")}`}
 						</Option>
@@ -62,9 +65,6 @@ export default (props) => {
 
 						<Option value="America/Moncton">
 						 {`AST: ${moment.tz("America/Moncton").format("MM-DD-YY HH:mm")}`}
-						</Option>
-
-						<Option value="None">
 						</Option>
 
 					</Select>
