@@ -17,7 +17,7 @@ class QueryDisplay extends Component {
 			return <div className="spinner" />;
 		}
 		if (!this.props.notes.length) {
-			return <div style={{ clear: "both" }}>There were no matches to that query</div>;
+			return <div style={{ clear: "both" }}>There were no results to that query. Not sure how you got here - maybe you followed a bad link?</div>;
 		}
 
 		const processed = processNotes(this.props.notes);

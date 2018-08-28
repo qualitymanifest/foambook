@@ -39,6 +39,10 @@ export default ReadMe = () => {
 				are supported. Additional info like date codes are not. For example, QRVWC and QRVWCB (second section of the QRVWC) are okay, but QRVWCB-24 is not.</li>
 			</ul>
 			<h3>When searching for notes:</h3>
+			<p>There is one quirk to be aware of: The search options data is separate from the database collection that holds all the notes. Notes are updated as soon
+			as you add/delete them, but search options are updated <strong>every 15 minutes</strong>. This means that if you have submitted a note for a new location or a new symbol,
+			it won't show up in the search options until the next time they are updated. Rest assured though, if you see your note appear in the table
+			underneath the submission form, it is in the database.</p>
 			<p>Given that these notes are user-submitted, not official RR data, the absence of notes from a particular day or time does not necessarily mean that that train
 			does not operate then. That said, clear patterns are a positive inidicator that that train is typically at that location at that time.</p>
 			<p>The best general source of symbol data I have found is at <a href="http://railroadfan.com/wiki/index.php/Main_Page">railroadfan.com/wiki</a> - it contains origins, destinations, 

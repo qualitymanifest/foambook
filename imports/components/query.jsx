@@ -7,18 +7,21 @@ import { Breadcrumb } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import Moment from "moment-timezone";
 
-import { ClientAggregate } from "../collections/notes";
+import { AggregateLocations } from "../collections/notes";
 import QueryDisplay from "./query_display";
-import { metadataSorter, listLocations, listSymbols, parseQueryString, testRailroadAndSymbol, breadcrumbBuilder } from "../queryFunctions";
+import QuerySymbols from "./query_symbols";
+import { locationSorter, listLocations, testLocation, breadcrumbBuilder } from "../queryFunctions";
 
 let completeQuery = {};
 
 class Query extends Component {
 	render() {
-		if (!this.props.aggregateReady || !this.props.aggregate.length) {
+		
+		if (!this.props.aggregateLocationsReady) {
 			return <div className="spinner" />;
 		}
-		let metadata = metadataSorter(this.props.aggregate);
+
+		let aggregateLocations = locationSorter(this.props.aggregateLocations);
 		let qString = queryString.parse(location.search);
 
 		if (qString.city && qString.state && qString.railroad && qString.symbol) {
@@ -32,23 +35,24 @@ class Query extends Component {
 				// throw dateTime in regardless so we know if we have to render date in breadcrumb
 				completeQuery.dateTime = {"$gte": begin, "$lte": end}
 			}
-			let railroadAndSymbolTested = testRailroadAndSymbol(metadata, qString.city, qString.state, qString.railroad, qString.symbol);
+			let locationsTested = testLocation(aggregateLocations, qString.city, qString.state);
 				return (
 				<div className="center">
 					{ completeQuery.dateTime ? breadcrumbBuilder(qString, "dates") : breadcrumbBuilder(qString, "symbol") }
 					{ 
-						invalidDate ? "Sorry, invalid date specified" :
-						(typeof railroadAndSymbolTested === "string") ? railroadAndSymbolTested : <QueryDisplay query={completeQuery} /> 
+						invalidDate ? "Sorry, invalid year specified" :
+						(typeof locationsTested === "string") ? locationsTested : <QueryDisplay query={completeQuery} /> 
 					}
 				</div>
 			)
 		}
 
 		if (qString.city && qString.state) {
+			let locationsTested = testLocation(aggregateLocations, qString.city, qString.state);
 			return (
 				<div className="center">
 					{ breadcrumbBuilder(qString, "city") }
-					{ listSymbols(metadata, qString.city, qString.state) }
+					{ (typeof locationsTested === "string") ? locationsTested : <QuerySymbols city={qString.city} state={qString.state}/> }
 				</div>
 			)
 		}
@@ -58,7 +62,7 @@ class Query extends Component {
 				<Breadcrumb>
 					<Breadcrumb.Item active>Search Home</Breadcrumb.Item>
 				</Breadcrumb>
-				{ listLocations(metadata) }
+				{ listLocations(aggregateLocations) }
 			</div>
 		)		
 
@@ -68,10 +72,10 @@ class Query extends Component {
 
 
 Query = withTracker(() => {
-	const aggregateHandle = Meteor.subscribe("aggregate");
+	const aggregateLocationsHandle = Meteor.subscribe("aggregateLocations", {});
 	return {
-		aggregate: ClientAggregate.find().fetch(),
-		aggregateReady: aggregateHandle.ready()
+		aggregateLocations: AggregateLocations.findFromPublication("aggregateLocations", {}).fetch(),
+		aggregateLocationsReady: aggregateLocationsHandle.ready()
 	};
 })(Query);
 

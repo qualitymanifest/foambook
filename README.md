@@ -1,12 +1,12 @@
 # change log:
-- REACTIVE AGGREGATION OF NOTES!
-- Remove all references to "metadata" collection since it no longer exists
-- Remove comment about metadata updates from readme
-- If a field is empty, do not show an error message - just highlight in red and refuse submit
+- Remove reactive aggregations, revert to cronjob. Unfortunately (but not surprisingly) reactive aggregations performed poorly when tested with tens of thousands of notes.
+- Split cronjob aggregations into two collections: aggregateLocations and aggregateSymbols. With tens of thousands of notes, using one collection meant sending quite a bit of data over the wire.
+	- aggregateLocations (which is quite small) is sent by default
+	- aggregateSymbols is only sent for one location, and only if city & state query parameters are passed in
+- Update queryFunctions.js accordingly
 
 # todo:
-- For better efficiency, aggregate states/cities, then when a location is selected, aggregate railroads/symbols?
-	- This would require changes to the way that queries are validated
+
 
 # backburner improvements:
 - EITHER:

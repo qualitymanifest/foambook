@@ -7,32 +7,34 @@ import queryString from "query-string";
 import Moment from "moment-timezone";
 
 import { statesMap } from "./validation";
-
+ 
 Moment.tz.setDefault("Etc/UTC");
 const monthAgo = Moment().subtract(1, 'month');
 const yearAgo = Moment().subtract(1, 'year');
 
 // meteor publishes randomly, even if DB is sorted:
-export const metadataSorter = (rawMetadata) => {
-	let locations = rawMetadata.slice().sort((a, b) => {
+export const locationSorter = (rawLocations) => {
+	let locations = rawLocations.slice().sort((a, b) => {
 		return (a._id > b._id) ? 1 : -1;
 	})
 	for (let state of locations) {
 		state.cities.sort((a, b) => {
 			return (a.city > b.city) ? 1 : -1;
 		})
-		for (let city of state.cities) {
-			city.railroads.sort((a, b) => {
-				return (a.railroad > b.railroad) ? 1 : -1;
-			})
-			for (let railroad of city.railroads) {
-				railroad.symbols.sort((a, b) => {
-					return (a.symbol > b.symbol) ? 1 : -1;
-				})
-			}
-		}
 	}
 	return locations
+}
+
+export const symbolSorter = (rawSymbols) => {
+	let railroads = rawSymbols[0].railroads.sort((a, b) => {
+		return (a.railroad > b.railroad) ? 1 : -1;
+	})
+	for (let railroad of railroads) {
+		railroad.symbols.sort((a, b) => {
+			return (a.symbol > b.symbol) ? 1 : -1;
+		})
+	}
+	return railroads
 }
 
 export const processNotes = (notes) => {
@@ -54,36 +56,18 @@ export const processNotes = (notes) => {
 	return {notes: newNotes, oldest: oldest, newest: newest, years: years};
 }
 
-const badQuery = (specific) => {
+export const badQuery = (specific) => {
 	return "Sorry, invalid " + specific + ". Either you've followed a bad link, or you're searching for a newly created " + specific +
-	" (query categories are updated hourly)";
+	" (query categories are updated every 15 minutes)";
 }
 
 
-export const testRailroadAndSymbol = (metadata, searchCity, searchState, searchRailroad, searchSymbol) => {
-	let railroads = findRailroads(metadata, searchCity, searchState);
-	if (typeof railroads === "string") { // It's an error message!
-		return railroads;
-	}
-	for (let railroad of railroads) {
-		if (railroad.railroad === searchRailroad) {
-			for (let symbol of railroad.symbols) {
-				if (symbol.symbol === searchSymbol) {
-					return true;
-				}
-			}
-			return badQuery("symbol");
-		}
-	}
-	return badQuery("railroad");
-}
-
-const findRailroads = (metadata, searchCity, searchState) => {
+export const testLocation = (metadata, searchCity, searchState) => {
 	for (let state of metadata) {
 		if (state._id === searchState) {
 			for (let city of state.cities) {
 				if (city.city === searchCity) {
-					return city.railroads;
+					return true
 				}
 			}
 			return badQuery("city");
@@ -142,11 +126,7 @@ export const listLocations = (locations) => {
 }
 
 
-export const listSymbols = (metadata, city, state) => {
-		let railroads = findRailroads(metadata, city, state);
-		if (typeof railroads === "string") { // then it's an error
-			return railroads;
-		}
+export const listSymbols = (railroads, city, state) => {
 		return (
 		<div>
 			<p>Select railroad & symbol</p>
