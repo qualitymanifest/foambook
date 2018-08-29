@@ -15,7 +15,7 @@ const NotesTable = (props) => {
 				<td>{symbol}</td>
 				<td>{moment(dateTime).format("MM-DD-YY HH:mm")}</td>
 				{ props.deleteFunc &&
-					<td>
+					<td className="trashColumn">
 						<span onClick={() => props.deleteFunc(_id)}
 							className="glyphicon glyphicon-trash"
 						/>
@@ -33,7 +33,7 @@ const NotesTable = (props) => {
 					<th>Location</th>
 					<th>Symbol</th>
 					<th>Date/Time</th>
-					{props.deleteFunc && <th>Delete?</th>}
+					{props.deleteFunc && <th className="trashColumn"></th>}
 				</tr>
 			</thead>
 			<tbody>

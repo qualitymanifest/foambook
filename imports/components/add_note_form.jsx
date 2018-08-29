@@ -12,8 +12,13 @@ import NotesTable from "./notes_table";
 import FieldWithError from "./field_with_error";
 
 Moment.tz.setDefault("Etc/UTC");
+let apiHandle;
 
 class AddNoteForm extends Component {
+
+	transferApi(formApi) {
+		apiHandle = formApi;
+	}
 
 	onSubmit(values) {
 		const valuesCopy = Object.assign({}, values);
@@ -24,7 +29,7 @@ class AddNoteForm extends Component {
 		delete valuesCopy.location;
 		valuesCopy.symbol = valuesCopy.symbol.toUpperCase();
 		valuesCopy.dateTime = Moment(valuesCopy.dateTime, "MM-DD-YY HH:mm").toDate();
-		document.querySelector("#symbol").focus();
+		apiHandle.setValue("symbol", "")
 		NotesInsert.call(valuesCopy, (err) => {
 			if (err) {
 				alert(err);
@@ -34,8 +39,6 @@ class AddNoteForm extends Component {
 
 	render() {
 
-		// in case user turns out to be logged in but has no default preferences
-		let defaultValues = null;
 		if (!this.props.user) {
 			// default props.user is "LOADING". if undefined, definitely not logged in.
 			// using <a> instead of <Link> so that header gets rerendered - otherwise, have to bring in redux
@@ -46,9 +49,12 @@ class AddNoteForm extends Component {
 				</div>
 			)
 		}
+		
 		if (this.props.user === "LOADING") {
 			return <div className="spinner" />;
 		}
+
+		let defaultValues = null;
 		if (this.props.user.preferences) {
 			// user is logged in, and has preferences. create defaults object for form!
 			const { railroad, city, state, timezone } = this.props.user.preferences;
@@ -63,6 +69,7 @@ class AddNoteForm extends Component {
 			<div className="center">
 				<Form
 					className="form-group"
+					getApi={this.transferApi}
 					onSubmit={_.debounce(this.onSubmit.bind(this), 200) /*slow it down in case button gets clicked twice*/}
 					initialValues={defaultValues}
 				>

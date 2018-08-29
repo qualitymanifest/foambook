@@ -78,11 +78,12 @@ export const testLocation = (metadata, searchCity, searchState) => {
 
 export const listLocations = (locations) => {
 	return (
-		<div>
+		<React.Fragment>
 			<p>Select state & city</p>
 			<PanelGroup accordion id="statesPanelGroup">
 			{ 
 				locations.map((loc) => {
+					let columnStyle = loc.cities.length > 5 ? {columnCount: 2} : {};
 					return (
 						<Panel id={loc._id} key={loc._id} eventKey={loc._id}>
 							<Panel.Heading>
@@ -92,7 +93,7 @@ export const listLocations = (locations) => {
 									</Panel.Title>
 								</Panel.Toggle>
 							</Panel.Heading>
-							<Panel.Body collapsible className="queryList">
+							<Panel.Body collapsible style={columnStyle} className="queryList">
 								{
 									loc.cities.map((city) => {
 										return (
@@ -121,19 +122,19 @@ export const listLocations = (locations) => {
 				<span className="pastYear">past year, </span>
 				<span className="olderThanYear">older </span>
 			</p>
-		</div>
+		</React.Fragment>
 	)
 }
 
 
 export const listSymbols = (railroads, city, state) => {
 		return (
-		<div>
+		<React.Fragment>
 			<p>Select railroad & symbol</p>
 			<PanelGroup accordion id="railroadsPanelGroup">
 				{ 
 					railroads.map((railroad) => {
-						let columnStyle = railroad.symbols.length > 30 ? {columnCount: 3} : {};
+						let columnStyle = railroad.symbols.length > 14 ? {columnCount: 3} : {};
 						return (
 							<Panel id={railroad.railroad} key={railroad.railroad} eventKey={city + railroad.railroad}>
 								<Panel.Heading>
@@ -172,7 +173,7 @@ export const listSymbols = (railroads, city, state) => {
 				<span className="pastYear">past year, </span>
 				<span className="olderThanYear">older </span>
 			</p>
-		</div>
+		</React.Fragment>
 	)
 }
 

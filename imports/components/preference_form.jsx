@@ -69,7 +69,7 @@ export default (props) => {
 
 					</Select>
 
-					<button className="btn btn-warning btn-block">Change Preferences</button>
+					<button className="btn btn-warning btn-block">Set Defaults</button>
 					
 				</React.Fragment>
 			)}

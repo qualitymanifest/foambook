@@ -58,7 +58,7 @@ class UserProfile extends Component {
 			};
 		}
 		return (
-			<div className="text-center">
+			<div className="center">
 				<PreferenceForm
 					onSubmit={_.debounce(this.onSubmit.bind(this), 200)}
 					defaultValues={defaultValues}

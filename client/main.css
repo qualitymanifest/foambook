@@ -24,6 +24,11 @@ table {
   border: 1px solid #ddd;
 }
 
+ul {
+  -webkit-padding-start: 20px;
+}
+
+
 #dateRange>p {
   display: inline-block;
   margin: 5px;
@@ -40,11 +45,26 @@ table {
   /* since the button was 6px taller than the text navitems,
   it was creating a funny line below the .active class,
   so lower padding accordingly */
-  padding: 12px;
+  padding: 12px 0px;
+}
+
+#login-buttons .text-besides-image{
+  margin: 0px;
+}
+
+#login-buttons .login-display-name {
+  /* default accounts name does nothing - hide that so that
+  we can make user name a link to profile */
+  display : none;
 }
 
 #readMe {
-  margin: 10px 15%;
+  margin: 0% 15%;
+  padding: 3% 0% 5% 0%;
+}
+
+#readMeLis li {
+  margin-bottom: 5px;
 }
 
 #statesPanelGroup, #railroadsPanelGroup {
@@ -75,7 +95,7 @@ table {
 }
 
 .form-group {
-  padding: 0% 42%;
+  padding: 3% 42%;
 }
 
 .glyphicon {
@@ -83,6 +103,7 @@ table {
 }
 
 .glyphicon-trash {
+  margin: 0px 5px;
   color: red;
   cursor: pointer;
 }
@@ -114,10 +135,9 @@ table {
    text-align: center;
 }
 
-.login-display-name {
-  /* default accounts name does nothing - hide that so that
-  we can make user name a link to profile */
-  display : none !important;
+.innerLi {
+  margin-left: 40px;
+  list-style-type: circle;
 }
 
 .navbar-text {
@@ -170,6 +190,13 @@ table {
   margin: 0px 20%;
 }
 
+.table-condensed > tbody > tr > .trashColumn {
+  /* have to get really specific to override bootstrap.
+  make this column smaller so data fits in table better */
+  padding: 5px 3px 5px 0px;
+}
+
+
 .tooltip { 
   position: absolute;     
   text-align: center;     
@@ -197,6 +224,9 @@ table {
 }
 
 @media screen and (max-width:699px) {
+  .innerLi {
+    margin-left: 20px;
+  }
   .table {
     width: 100%;
     margin: 0px;
@@ -205,7 +235,8 @@ table {
     padding: 0px 15%;
   }
   #readMe {
-    margin: 5px 5px;
+    margin: 5px;
+    padding-bottom: 10px;
   }
   .queryList {
     margin: 5px 0px;
