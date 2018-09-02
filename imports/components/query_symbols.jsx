@@ -4,7 +4,7 @@ import { withTracker } from "meteor/react-meteor-data";
 import queryString from "query-string";
 
 import { symbolSorter, listSymbols } from "../queryFunctions";
-import { AggregateSymbols } from "../collections/notes";
+import { AggregateSymbols } from "../collections/aggregations";
 
 class QuerySymbols extends Component {
 	render() {

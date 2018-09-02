@@ -7,8 +7,6 @@ import { ValidatedMethod } from "meteor/mdg:validated-method";
 // https://guide.meteor.com/collections.html#schemas-on-write
 
 export const Notes = new Mongo.Collection("notes");
-export const AggregateLocations = new Mongo.Collection("aggregateLocations");
-export const AggregateSymbols = new Mongo.Collection("aggregateSymbols");
 
 const NotesSchema = new SimpleSchema({
 	railroad: { type: String, max: 10 },

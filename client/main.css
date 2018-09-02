@@ -16,6 +16,11 @@ input {
   text-transform : uppercase;
 }
 
+textarea.form-control {
+  height: 100px;
+  resize: vertical;
+}
+
 th, tr {
   text-align: center;
 }
@@ -26,6 +31,15 @@ table {
 
 ul {
   -webkit-padding-start: 20px;
+}
+
+#commentPanel {
+  margin: 15px 20%;
+}
+
+#commentLoggedOut {
+  margin: 15px;
+  color: #777;
 }
 
 
@@ -76,7 +90,8 @@ ul {
 }
 
 .btn {
-  margin-top: 10px;
+  margin: 10px auto;
+  display: block;
 }
 
 .center {
@@ -87,6 +102,17 @@ ul {
   /* offset href target so it clears the navbar */
   position: relative;
   bottom: 50px;
+}
+
+.commentBox {
+  background-color: #fff;
+  margin: 5px 20%;
+  overflow-wrap: break-word;
+}
+
+.commentData {
+  text-align: right;
+  padding: 5px;
 }
 
 .form-error {
@@ -196,7 +222,6 @@ ul {
   padding: 5px 3px 5px 0px;
 }
 
-
 .tooltip { 
   position: absolute;     
   text-align: center;     
@@ -208,6 +233,17 @@ ul {
   border: 0px;    
   border-radius: 8px;     
   pointer-events: none;     
+}
+
+@media screen and (min-width:768px) and (max-width:992px) {
+  /* bootstrap breakpoints for the navbar.
+  username could be too long during this intermediate point, so shorten it */
+  #userName {
+    max-width: 118px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
 }
 
 @media screen and (max-width:1199px) {
@@ -224,6 +260,14 @@ ul {
 }
 
 @media screen and (max-width:699px) {
+  #commentPanel {
+    margin: 10px 5px;
+  }
+  .commentBox {
+    background-color: #fff;
+    margin: 5px;
+    overflow-wrap: break-word;
+  }
   .innerLi {
     margin-left: 20px;
   }
@@ -255,8 +299,6 @@ ul {
     margin: 0px;
   }
 }
-
-
 
 
 /*** BEGIN SPINNER ***/

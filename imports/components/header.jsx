@@ -44,15 +44,14 @@ class Header extends Component {
 						<LinkContainer onClick={() => this.props.changePath("/read_me")} className={this.props.pathState === "/read_me" ? "active" : ""}
 							to="/read_me">
 							<NavItem>
-								<span className="glyphicon glyphicon-question-sign" />
+								README
 							</NavItem>
 						</LinkContainer>
 						{this.props.user &&
 							<LinkContainer onClick={() => this.props.changePath("/user_profile")} className={this.props.pathState === "/user_profile" ? "active" : ""}
 								to="/user_profile">
-								<NavItem>
+								<NavItem id="userName">
 									{this.props.user.profile.name}
-									<span className="glyphicon glyphicon-user" />
 								</NavItem>
 							</LinkContainer>
 						}

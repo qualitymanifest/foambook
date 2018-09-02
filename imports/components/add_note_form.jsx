@@ -110,7 +110,7 @@ class AddNoteForm extends Component {
 								validateOnBlur
 								validate={validSubDateTime} />
 
-							<button className="btn btn-primary btn-block">
+							<button className="btn btn-primary">
 								<span className="glyphicon glyphicon-pencil" />
 								Submit
 							</button>

@@ -152,6 +152,11 @@ export const valLocation = (location) => {
 	return true;
 };
 
+export const validComment = comment => {
+	if (!comment) { return "empty" };
+	return comment.length < 10 || comment.length > 300 ? "Comments must be between 10 and 300 characters" : null;
+}
+
 
 /* **** PREFERENCE SPECIFIC VALIDATION **** */
 

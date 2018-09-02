@@ -7,7 +7,7 @@ import { Breadcrumb } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import Moment from "moment-timezone";
 
-import { AggregateLocations } from "../collections/notes";
+import { AggregateLocations } from "../collections/aggregations";
 import QueryDisplay from "./query_display";
 import QuerySymbols from "./query_symbols";
 import { locationSorter, listLocations, testLocation, breadcrumbBuilder } from "../queryFunctions";

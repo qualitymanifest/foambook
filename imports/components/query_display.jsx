@@ -6,7 +6,10 @@ import _ from "lodash";
 import { Link } from "react-router-dom";
 
 import { Notes } from "../collections/notes";
+import { Comments } from "../collections/comments";
 import Scatterplot from "./scatterplot";
+import CommentsForm from "./comments_form";
+import CommentsList from "./comments_list";
 import { processNotes } from "../queryFunctions";
 
 Moment.tz.setDefault("Etc/UTC");
@@ -50,6 +53,8 @@ class QueryDisplay extends Component {
 						<p>{Moment(processed.newest).format("MM-DD-YY")}</p>
 					</div>
 				</div>
+				<CommentsForm user={this.props.user} query={query} />
+				<CommentsList user={this.props.user} comments={this.props.comments} />
 			</div>
 		);
 	}
@@ -58,9 +63,12 @@ class QueryDisplay extends Component {
 
 QueryDisplay = withTracker(({ query }) => {
 	const notesHandle = Meteor.subscribe("notes.query", query);
+	const commentsHandle = Meteor.subscribe("comments", query);
 	return {
 		notes: Notes.findFromPublication("notes.query", query, { fields: { dateTime: 1 }, sort: { dateTime : 1 } }).fetch(),
-		notesLoading: !notesHandle.ready()
+		notesLoading: !notesHandle.ready(),
+		user: Meteor.user(),
+		comments: Comments.findFromPublication("comments", query, { sort: { createdAt: -1 } }).fetch()
 	};
 })(QueryDisplay);
 

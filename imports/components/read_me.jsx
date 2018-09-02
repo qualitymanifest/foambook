@@ -7,9 +7,9 @@ export default ReadMe = () => {
 			<p>It's not uncommon for railfans to record train movements, but that data is scattered, and it can be hard to find any meaningful patterns by looking at a list of raw data.
 			Foambook is intended to provide a centralized place to keep those notes, and to provide a way to quickly see when a train might be at a particular location.</p>
 			<h3>To sign up:</h3>
-			<p>You must have a gmail account, as that is what is used for authentication. Signing up is simple: First, click the "Sign in with Google" button in the upper
+			<p>You need a gmail account, as that is what is used for authentication. Signing up is simple: First, click the "Sign in with Google" button in the upper
 			right corner. If you are on a mobile device, this button will be inside the hamburger menu <span className="glyphicon glyphicon-menu-hamburger smallIcon"></span>.
-			A window will pop up, asking you to sign in to your google account. Once you have done this, you have an account here. The process is the same to log in once you 
+			A window will pop up, asking you to sign in to your google account, if you aren't already. Once you have done this, you have an account here. The process is the same to log in once you 
 			have an account.</p>
 			<h3>To delete notes or configure default form values:</h3>
 			<p>First, go to your account page by clicking on your username in the upper right corner.</p>
@@ -43,10 +43,13 @@ export default ReadMe = () => {
 			does not operate then. That said, clear patterns are a positive inidicator that that train is typically at that location at that time.</p>
 			<p>The best general source of symbol data I have found is at <a href="http://railroadfan.com/wiki/index.php/Main_Page">railroadfan.com/wiki</a> - it contains origins, destinations, 
 			operating frequencies, and sometimes other information. It's not perfect, but it's usually accurate and it seems to be updated fairly regularly.</p>
+			<h3>To include additional information about a train:</h3>
+			<p>Search for the train you're looking for. When you find it, underneath the scatterplot there is section where you can add and delete comments. This is intended for general information about what 
+			that train usually does at that location, e.g. "Arrives, sets out doublestacks up front, and ties down. Outbound crew on duty within two hours". Please be mindful about what you put here and do not 
+			include any sensitive information, or you will be blocked from adding notes.</p>
 			<h3>Feedback:</h3>
 			<p>If you experience any bugs or have any input, please let me know either by submitting an issue at <a href="https://github.com/qualitymanifest/foambook">the github repo </a>
 			 or by sending an email to qualityfiltering@gmail.com</p>
-
 		</div>
 	);
 };
