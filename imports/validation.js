@@ -120,40 +120,14 @@ export const valDateTime = (dateTime) => {
 	return "Invalid date";
 };
 
-export const cleanLocation = (location) => {
-	// first make sure field is not empty, to avoid error during .replace
-	if (typeof location !== "string" || !location.length) {
-		return [];
-	}
-	// return array with everything other than alphabetic chars and single spaces removed
-	// also remove single spaces if they precede or follow a comma
-	return location.toUpperCase().replace(/[^A-Z, ]| {2,}| (?=,)/g, "").replace(/, /g, ",").split(",");
-};
-
-export const valLocation = (location) => {
-	// returns true if valid, otherwise an error message
-	if (location && location.length > 30) {
-		return "Sorry, too many characters!";
-	}
-	const locArray = cleanLocation(location);
-	// this detects lack of comma or insufficient details
-	if (locArray.length < 2) {
-		return "Must include city and state, separated by commas";
-	}
-	if (!statesMap[locArray[locArray.length - 1]]) {
-		return "Last part must be a two letter state, i.e. AZ";
-	}
-	if (locArray.includes("")) {
-		return "Cannot leave empty fields";
-	}
-	if (locArray.length >= 4) {
-		return "Too specific. Must include state and one or two other parameters";
-	}
-	return true;
+export const cleanCity = city => {
+	// remove all non-letters, and spaces that don't have a letter following
+	// then remove a leading space
+	return city.toUpperCase().replace(/([^A-Z ]|\s(?![A-Z]))/g, "").replace(/^ /, "");
 };
 
 export const validComment = comment => {
-	if (!comment) { return "empty" };
+	if (!comment) { return "error-no-description" };
 	return comment.length < 10 || comment.length > 300 ? "Comments must be between 10 and 300 characters" : null;
 }
 
@@ -166,35 +140,40 @@ export const validPrefRailroad = railroad => {
 	return railroad && !validRR.test(railroad) ? "Invalid railroad" : null;
 }
 
-export const validPrefLocation = location => {
-	const locationTest = valLocation(location);
-	// It's okay to leave preferences empty
-	return location && locationTest !== true ? locationTest : null
+export const validPrefCity = city => {
+	return city && city.length > 30 ? "error-no-description" : null;
+}
+
+export const validPrefState = state => {
+	return state && !statesMap[state] ? "error-no-description" : null;
 }
 
 /* **** SUBMIT SPECIFIC VALIDATION **** */
 
 export const validSubRailroad = railroad => {
-	if (!railroad) { return "empty" };
+	if (!railroad) { return "error-no-description" };
 	railroad = railroad.toUpperCase();
 	return !validRR.test(railroad) ? "Invalid railroad" : null;
 }
 
-export const validSubLocation = loc => {
-	if (!loc) { return "empty" };
-	const locationTest = valLocation(loc)
-	return locationTest !== true ? locationTest : null;
+export const validSubCity = city => {
+	city = cleanCity(city);
+	return !city || city.length > 30 ? "error-no-description" : null;
+}
+
+export const validSubState = state => {
+	return !state || !statesMap[state] ? "error-no-description" : null;
 }
 
 export const validSubSymbol = (symbol, otherVals) => {
-	if (!symbol) { return "empty" };
+	if (!symbol) { return "error-no-description" };
 	symbol = symbol.toUpperCase();
 	const railroad = otherVals.railroad ? otherVals.railroad.toUpperCase() : "";
 	return !valSymbol(symbol, railroad) ? "Invalid symbol" : null;
 }
 
 export const validSubDateTime = dateTime => {
-	if (!dateTime) { return "empty" };
+	if (!dateTime) { return "error-no-description" };
 	const dateTest = valDateTime(dateTime);
 	return dateTest !== true ? dateTest : null;
 }

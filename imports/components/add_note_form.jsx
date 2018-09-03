@@ -6,7 +6,7 @@ import { withTracker } from "meteor/react-meteor-data";
 import Moment from "moment-timezone";
 
 import { Notes, NotesInsert } from "../collections/notes";
-import { cleanLocation, validSubRailroad, validSubLocation, validSubSymbol, validSubDateTime } from "../validation";
+import { cleanCity, validSubRailroad, validSubCity, validSubState, validSubSymbol, validSubDateTime } from "../validation";
 import DateTime from "./dateTime";
 import NotesTable from "./notes_table";
 import FieldWithError from "./field_with_error";
@@ -22,12 +22,8 @@ class AddNoteForm extends Component {
 
 	onSubmit(values) {
 		const valuesCopy = Object.assign({}, values);
-		const cleanedLocation=cleanLocation(valuesCopy.location.toUpperCase());
-		valuesCopy.railroad = valuesCopy.railroad.toUpperCase();
-		valuesCopy.city = cleanedLocation.slice(0, cleanedLocation.length - 1).join(", ");
-		valuesCopy.state = cleanedLocation.slice(cleanedLocation.length - 1).join(" ");
-		delete valuesCopy.location;
-		valuesCopy.symbol = valuesCopy.symbol.toUpperCase();
+		Object.keys(valuesCopy).map(key => valuesCopy[key] = valuesCopy[key].toUpperCase());
+		valuesCopy.city = cleanCity(valuesCopy.city);
 		valuesCopy.dateTime = Moment(valuesCopy.dateTime, "MM-DD-YY HH:mm").toDate();
 		apiHandle.setValue("symbol", "")
 		NotesInsert.call(valuesCopy, (err) => {
@@ -60,13 +56,15 @@ class AddNoteForm extends Component {
 			const { railroad, city, state, timezone } = this.props.user.preferences;
 			defaultValues = {
 				railroad,
-				location: city && state ? city + ", " + state : "",
+				city,
+				state,
 				dateTime: timezone ? Moment().tz(timezone).format("MM-DD-YY HH:mm") : ""
 			};
 		}
 
 		return (
 			<div className="center">
+				<h3>Submit a note</h3>
 				<Form
 					className="form-group"
 					getApi={this.transferApi}
@@ -85,13 +83,28 @@ class AddNoteForm extends Component {
 								validate={validSubRailroad}
 								notify={['symbol']} />
 
-							<label>Location</label>
-							<FieldWithError
-								className="form-control"
-								field="location"
-								placeholder="E.G. PITTSBURGH, PA"
-								validateOnBlur
-								validate={validSubLocation} />
+							<div id="locationFieldSpan">
+								<div id="cityField">
+									<label>Location</label>
+									<FieldWithError
+										className="form-control"
+										field="city"
+										maxLength="30"
+										placeholder="e.g. PITTSBURGH"
+										validateOnBlur
+										validate={validSubCity} />
+								</div>
+								<div id="stateField">
+									<label>State</label>
+									<FieldWithError
+										className="form-control"
+										field="state"
+										maxLength="2"
+										placeholder="E.G. PA"
+										validateOnBlur
+										validate={validSubState} />
+								</div>
+							</div>
 
 							<label>Symbol</label>
 							<FieldWithError

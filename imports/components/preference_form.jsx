@@ -4,7 +4,7 @@ import Moment from "moment-timezone";
 import { Form, Text, Select, Option } from "informed";
 
 import FieldWithError from "./field_with_error";
-import { validPrefRailroad, validPrefLocation } from "../validation";
+import { validPrefRailroad, validPrefCity, validPrefState } from "../validation";
 
 const moment = Moment();
 
@@ -18,7 +18,7 @@ export default (props) => {
 			{({ formApi, formState }) => (
 				<React.Fragment>
 
-					<label>Default Railroad</label>
+					<label>Railroad</label>
 					<FieldWithError 
 						className="form-control"
 						field="railroad" 
@@ -26,15 +26,30 @@ export default (props) => {
 						validateOnBlur
 						validate={validPrefRailroad} />
 
-					<label>Default Location</label>
-					<FieldWithError 
-						className="form-control" 
-						field="location" 
-						placeholder="E.G. PITTSBURGH, PA"
-						validateOnBlur
-						validate={validPrefLocation} />
+					<div id="locationFieldSpan">
+						<div id="cityField">
+							<label>Location</label>
+							<FieldWithError
+								className="form-control"
+								field="city"
+								maxLength="30"
+								placeholder="e.g. PITTSBURGH"
+								validateOnBlur
+								validate={validPrefCity} />
+						</div>
+						<div id="stateField">
+							<label>State</label>
+							<FieldWithError
+								className="form-control"
+								field="state"
+								maxLength="2"
+								placeholder="E.G. PA"
+								validateOnBlur
+								validate={validPrefState} />
+						</div>
+					</div>
 					
-					<label>Default Timezone</label>
+					<label>Timezone</label>
 					<Select
 						className="form-control"
 						field="timezone"

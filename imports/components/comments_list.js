@@ -7,7 +7,7 @@ import { CommentsDelete } from "../collections/comments";
 moment.tz.setDefault("Etc/UTC");
 
 export default CommentsList = (props) => {
-	if (!props.comments.length) return null;
+	if (!props.commentsReady || !props.comments.length) return null;
 
 	this.deleteFunc = (commentId) => {
 		CommentsDelete.call({ commentId }, (err) => {

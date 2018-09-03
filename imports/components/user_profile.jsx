@@ -8,7 +8,7 @@ import PreferenceForm from "./preference_form";
 import { Notes, NotesDelete, UserUpdate } from "../collections/notes";
 import NotesTable from "./notes_table";
 import { incrementPages } from "../../client/actions";
-import { cleanLocation } from "../validation";
+import { cleanCity } from "../validation";
 
 class UserProfile extends Component {
 
@@ -17,13 +17,12 @@ class UserProfile extends Component {
 		if (valuesCopy.railroad) {
 			valuesCopy.railroad = valuesCopy.railroad.toUpperCase();
 		}
-		if (valuesCopy.location) {
-			// location exists as a single string within the app, but as separate city/state in the db
-			valuesCopy.location = valuesCopy.location.toUpperCase().split(", ");
-			valuesCopy.city = valuesCopy.location.slice(0, valuesCopy.location.length - 1).join(", ");
-			valuesCopy.state = valuesCopy.location.slice(valuesCopy.location.length - 1).join(" ");
+		if (valuesCopy.city) {
+			valuesCopy.city = cleanCity(valuesCopy.city.toUpperCase());
 		}
-		delete valuesCopy.location;
+		if (valuesCopy.state) {
+			valuesCopy.state = valuesCopy.state.toUpperCase();
+		}
 		UserUpdate.call(valuesCopy, (err) => {
 			if (err) {
 				alert(err);
@@ -49,16 +48,11 @@ class UserProfile extends Component {
 			return <div className="spinner" />;
 		}
 		if (this.props.user.preferences) {
-			// user is logged in, and has preferences. create defaults object for form!
-			const { railroad, city, state, timezone } = this.props.user.preferences;
-			defaultValues = {
-				railroad,
-				location: (city && state) ? city + ", " + state : "",
-				timezone
-			};
+			defaultValues = this.props.user.preferences;
 		}
 		return (
 			<div className="center">
+				<h3>Default submission values</h3>
 				<PreferenceForm
 					onSubmit={_.debounce(this.onSubmit.bind(this), 200)}
 					defaultValues={defaultValues}

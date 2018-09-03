@@ -1,10 +1,9 @@
 # change log:
-- Add comments section
-- Change readme in header
-- CSS to shorten user name in intermediate header breakpoint
+- Split location form field into separate city and state
 
 # todo:
-
+- make sure empty location (with just spaces or other chars that will be stripped out) cannot be submitted
+- after comment submit, clear out textarea and maybe try to close panel?
 
 # notes:
 - Check to see if withTracker is being used correctly: https://atmospherejs.com/meteor/react-meteor-data

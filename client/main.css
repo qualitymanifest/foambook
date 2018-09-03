@@ -33,6 +33,11 @@ ul {
   -webkit-padding-start: 20px;
 }
 
+#cityField {
+  width: 65%;
+  display: inline-block;
+}
+
 #commentPanel {
   margin: 15px 20%;
 }
@@ -79,6 +84,11 @@ ul {
 
 #readMeLis li {
   margin-bottom: 5px;
+}
+
+#stateField {
+  width: 35%;
+  display: inline-block;
 }
 
 #statesPanelGroup, #railroadsPanelGroup {

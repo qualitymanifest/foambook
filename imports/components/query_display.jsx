@@ -16,7 +16,7 @@ Moment.tz.setDefault("Etc/UTC");
 
 class QueryDisplay extends Component {
 	render() {
-		if (this.props.notesLoading) {
+		if (!this.props.notesReady) {
 			return <div className="spinner" />;
 		}
 		if (!this.props.notes.length) {
@@ -54,7 +54,7 @@ class QueryDisplay extends Component {
 					</div>
 				</div>
 				<CommentsForm user={this.props.user} query={query} />
-				<CommentsList user={this.props.user} comments={this.props.comments} />
+				<CommentsList user={this.props.user} comments={this.props.comments} commentsReady={this.props.commentsReady} />
 			</div>
 		);
 	}
@@ -66,9 +66,10 @@ QueryDisplay = withTracker(({ query }) => {
 	const commentsHandle = Meteor.subscribe("comments", query);
 	return {
 		notes: Notes.findFromPublication("notes.query", query, { fields: { dateTime: 1 }, sort: { dateTime : 1 } }).fetch(),
-		notesLoading: !notesHandle.ready(),
+		notesReady: notesHandle.ready(),
 		user: Meteor.user(),
-		comments: Comments.findFromPublication("comments", query, { sort: { createdAt: -1 } }).fetch()
+		comments: Comments.findFromPublication("comments", query, { sort: { createdAt: -1 } }).fetch(),
+		commentsReady: commentsHandle.ready()
 	};
 })(QueryDisplay);
 

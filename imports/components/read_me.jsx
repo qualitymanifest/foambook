@@ -20,16 +20,8 @@ export default ReadMe = () => {
 			<ul id="readMeLis">
 				<li>Date must be within the last five years.</li>
 				<li>Times are entered using a 24-hour clock format. 2:30AM is 02:30, 2:30PM is 14:30, etc.</li>
-				<li>Location must start with a city and end with a two-letter state. Optionally, you can include a third parameter (e.g. yard name or siding name) in between the city and state.</li>
-					<li className="innerLi"><span className="glyphicon glyphicon-thumbs-up" />PORTLAND, OR</li>
-					<li className="innerLi"><span className="glyphicon glyphicon-thumbs-up" />PORTLAND, LAKE YARD, OR</li>
-					<li className="innerLi"><span className="glyphicon glyphicon-thumbs-down" />PORTLAND OR <em>(missing comma)</em></li>
-					<li className="innerLi"><span className="glyphicon glyphicon-thumbs-down" />PORTLAND, OREGON <em>(use 2 letter state abbreviation)</em></li>
-					<li className="innerLi"><span className="glyphicon glyphicon-thumbs-down" />PORTLAND, OR, LAKE YARD <em>(state must go last)</em></li>
-				<li>
-					Please check to see if the location you are submitting for already exists, and follow that format. This is to prevent duplicate entries like
-					"PORTLAND, <strong>LAKE YARD</strong>, OR" and "PORTLAND, <strong>LAKE YD</strong>, OR" that have to be manually merged.
-				</li>
+				<li>Location should be either a city or a timetable location. This field can be up to 30 characters long. All punctuation will be removed, only letters and spaces are kept.</li>
+				<li>States/Provinces use two-letter abbrevation like AZ and BC.</li>
 				<li>Currently supported railroads are BNSF, CN, CP, CSX, KCS, NS, PAR/PAS, and UP. This is because the train symbols have to be validated. 
 				I am happy to add more - just send an email with the railroad name and symbol format to qualityfiltering@gmail.com</li>
 				<li>In general, only road and local train symbols are supported. Miscellaneous things like yard jobs are not. Further, only the base symbols (and applicable section codes) 
