@@ -133,10 +133,9 @@ export const validComment = comment => {
 
 
 /* **** PREFERENCE SPECIFIC VALIDATION **** */
-
+// It's okay to leave preferences empty
 export const validPrefRailroad = railroad => {
 	railroad = railroad ? railroad.toUpperCase() : "";
-	// It's okay to leave preferences empty
 	return railroad && !validRR.test(railroad) ? "Invalid railroad" : null;
 }
 
@@ -169,7 +168,7 @@ export const validSubSymbol = (symbol, otherVals) => {
 	if (!symbol) { return "error-no-description" };
 	symbol = symbol.toUpperCase();
 	const railroad = otherVals.railroad ? otherVals.railroad.toUpperCase() : "";
-	return !valSymbol(symbol, railroad) ? "Invalid symbol" : null;
+	return !railroad ? "Railroad not provided" : !valSymbol(symbol, railroad) ? `Invalid symbol for ${railroad}` : null;
 }
 
 export const validSubDateTime = dateTime => {

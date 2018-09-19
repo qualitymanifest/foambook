@@ -63,12 +63,13 @@ class QueryDisplay extends Component {
 
 QueryDisplay = withTracker(({ query }) => {
 	const notesHandle = Meteor.subscribe("notes.query", query);
-	const commentsHandle = Meteor.subscribe("comments", query);
+	let queryWithoutDateTime = { city: query.city, state: query.state, railroad: query.railroad, symbol: query.symbol };
+	const commentsHandle = Meteor.subscribe("comments", queryWithoutDateTime);
 	return {
 		notes: Notes.findFromPublication("notes.query", query, { fields: { dateTime: 1 }, sort: { dateTime : 1 } }).fetch(),
 		notesReady: notesHandle.ready(),
 		user: Meteor.user(),
-		comments: Comments.findFromPublication("comments", query, { sort: { createdAt: -1 } }).fetch(),
+		comments: Comments.findFromPublication("comments", queryWithoutDateTime, { sort: { createdAt: -1 } }).fetch(),
 		commentsReady: commentsHandle.ready()
 	};
 })(QueryDisplay);

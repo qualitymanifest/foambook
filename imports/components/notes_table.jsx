@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment-timezone";
-import { Link } from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
 
 moment.tz.setDefault("Etc/UTC");
 
@@ -9,19 +9,23 @@ const NotesTable = (props) => {
 	const renderedNotes = props.notes.map((train) => {
 		const { railroad, city, state, symbol, dateTime, _id } = train;
 		return (
-			<tr key={_id}>
-				<td>{railroad}</td>
-				<td>{city + ", " + state}</td>
-				<td>{symbol}</td>
-				<td>{moment(dateTime).format("MM-DD-YY HH:mm")}</td>
-				{ props.deleteFunc &&
-					<td className="trashColumn">
-						<span onClick={() => props.deleteFunc(_id)}
-							className="glyphicon glyphicon-trash"
-						/>
-					</td>
-				}
-			</tr>
+			<LinkContainer key={_id} className="notesTableLink" to={`/?city=${city}&state=${state}&railroad=${railroad}&symbol=${symbol}`}>
+				<tr>
+					<td>{railroad}</td>
+					<td>{city + ", " + state}</td>
+					<td>{symbol}</td>
+					<td>{moment(dateTime).format("MM-DD-YY HH:mm")}</td>
+					{ props.deleteFunc &&
+						<LinkContainer to="#">
+							<td className="trashColumn">
+								<span onClick={() => props.deleteFunc(_id)}
+									className="glyphicon glyphicon-trash"
+								/>
+							</td>
+						</LinkContainer>
+					}
+				</tr>
+			</LinkContainer>
 		);
 	});
 	return (

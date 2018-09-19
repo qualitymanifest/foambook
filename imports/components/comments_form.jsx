@@ -15,7 +15,7 @@ const TextAreaWithError = asField(({ fieldState, ...props }) => (
       {...props}
       style={fieldState.error ? { border: 'solid 1px red' } : null}
     />
-    {fieldState.error && fieldState.error !== "empty" ? (
+    {fieldState.error && fieldState.error !== "error-no-description" ? (
       <p className="form-error">{fieldState.error}</p>
     ) : null}
     <small>{fieldState.value ? fieldState.value.length : 0}/300 characters used</small>

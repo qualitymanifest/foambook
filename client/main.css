@@ -184,6 +184,12 @@ ul {
   border-right: 1px solid #333;
 }
 
+
+.notesTableLink:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .olderThanYear {
   background-color: hsla(356, 100%, 0%, 0.7);
   color: white;

@@ -1,9 +1,16 @@
 # change log:
-- Split location form field into separate city and state
+- Fixed bug where comments wouldn't show up if a year was selected
+- Empty location (with just spaces or other chars that will be stripped out) cannot be submitted
+- Notes in notes_table are links
 
 # todo:
-- make sure empty location (with just spaces or other chars that will be stripped out) cannot be submitted
-- after comment submit, clear out textarea and maybe try to close panel?
+- Create account permissions: APPROVED, UNAPPROVED, BANNED
+- Create function that accepts an action parameter like "add comments" that will show appropriate message for user account permissions. `please log in to ${action}`, `this account is new and has not yet been approved to ${action}, please email administrator at ...`
+- Create flag option for incorrect notes or inappropriate comments. when selected a popup will appear and an explanation for the flag must be attached before flag is submitted
+- Allow for showing table of all queried notes, so they can be deleted or flagged more easily
+- Make one table for aggregations, and only pull in necessary fields?
+- For aggregations, create a "new" attribute set to "false" for each state. When a user submits a note, put it into the aggregations with "new" set to "true". When creating metadata, ignore "new: true" at first, then after organizing the "new: false" add the "new:true" ones if they do not exist. This will make query categories real time. Query categories can then be "cleaned up" by re-aggregating them... daily?
+- After comment submit, clear out textarea and maybe try to close panel?
 
 # notes:
 - Check to see if withTracker is being used correctly: https://atmospherejs.com/meteor/react-meteor-data
