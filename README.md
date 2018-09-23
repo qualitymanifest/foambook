@@ -1,7 +1,9 @@
 # change log:
-- Fixed bug where comments wouldn't show up if a year was selected
-- Empty location (with just spaces or other chars that will be stripped out) cannot be submitted
-- Notes in notes_table are links
+- add connected-react-router, remove pathState
+- removed deprecated and unused react-addons-pure-render-mixin
+
+# bugs:
+
 
 # todo:
 - Create account permissions: APPROVED, UNAPPROVED, BANNED
@@ -14,4 +16,3 @@
 
 # notes:
 - Check to see if withTracker is being used correctly: https://atmospherejs.com/meteor/react-meteor-data
-- Loading spinner appears to stall the app occasionally when using chrome? might just be my particular user agent, it really does not like spinners

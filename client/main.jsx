@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
-import { Meteor } from "meteor/meteor"
-import { Accounts } from "meteor/accounts-base";
+import { createStore, applyMiddleware } from "redux";
+import { connectRouter, ConnectedRouter, routerMiddleware } from "connected-react-router"
+import { createBrowserHistory } from "history";
 
+import { Meteor } from "meteor/meteor"
 
 import reducers from "./reducers";
 import { screenResize } from "./actions";
@@ -16,9 +17,14 @@ import ReadMe from "../imports/components/read_me";
 import Header from "../imports/components/header";
 
 
-//Accounts.onLogout(() => history.push("/"));
+const history = createBrowserHistory();
 
-const store = createStore(reducers);
+const store = createStore(
+	connectRouter(history)(reducers),
+	applyMiddleware(
+		routerMiddleware(history)
+	)
+);
 
 window.addEventListener("resize", () => {
 	// using documentElement.clientWidth because window.innerWidth was inaccurate when resizing mobile
@@ -28,7 +34,7 @@ window.addEventListener("resize", () => {
 
 const routes = (
 	<Provider store={store}>
-		<BrowserRouter>
+		<ConnectedRouter history={history}>
 			<div>
 				<Header />
 				<Switch>
@@ -39,7 +45,7 @@ const routes = (
 					<Route path="/" component={Query} />
 				</Switch>
 			</div>
-		</BrowserRouter>
+		</ConnectedRouter>
 	</Provider>
 );
 

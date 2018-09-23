@@ -28,27 +28,27 @@ class Header extends Component {
 							{this.props.notesCount.reduce((a, b) => a + b.notesCount, 0)} notes & counting!
 						</Navbar.Text>
 					}
-					<Nav pullRight>
-						<LinkContainer onClick={() => this.props.changePath("/")} className={this.props.pathState === "/" ? "active" : ""}
+					<Nav pullRight activeKey={this.props.router.location.pathname}>
+						<LinkContainer eventKey="/"
 							exact to="/">
 							<NavItem>
 								Search
 							</NavItem>
 						</LinkContainer>
-						<LinkContainer onClick={() => this.props.changePath("/add_note")} className={this.props.pathState === "/add_note" ? "active" : ""}
+						<LinkContainer eventKey="/add_note"
 							to="/add_note">
 							<NavItem>
 								Submit
 							</NavItem>
 						</LinkContainer>
-						<LinkContainer onClick={() => this.props.changePath("/read_me")} className={this.props.pathState === "/read_me" ? "active" : ""}
+						<LinkContainer eventKey="/read_me"
 							to="/read_me">
 							<NavItem>
 								README
 							</NavItem>
 						</LinkContainer>
 						{this.props.user &&
-							<LinkContainer onClick={() => this.props.changePath("/user_profile")} className={this.props.pathState === "/user_profile" ? "active" : ""}
+							<LinkContainer eventKey="/user_profile"
 								to="/user_profile">
 								<NavItem id="userName">
 									{this.props.user.profile.name}
@@ -65,16 +65,7 @@ class Header extends Component {
 	}
 }
 
-const mapDispatchToProps = (dispatch) => {
-	// put query in state so that it will be the same when user navigates back
-	return {
-		changePath: (path) => {
-			dispatch(changePath(path));
-		}
-	};
-};
-
-Header = withTracker(({ pathState }) => {
+Header = withTracker(({ router }) => {
 	const handle = Meteor.subscribe("user.notesCount");
 	return {
 		// don't actually need any data, just get _ids so we can count them
@@ -83,4 +74,4 @@ Header = withTracker(({ pathState }) => {
 		loading: !handle.ready() }
 })(Header);
 
-export default connect(({ pathState }) => ({ pathState }), mapDispatchToProps)(Header);
+export default connect(({ router }) => ({ router }))(Header);

@@ -12,15 +12,6 @@ const pageLoadReducer = (state = INITIAL_PAGE_LOAD, action) => {
 	}
 };
 
-const pathReducer = (state = {path : ""}, action) => {
-	switch (action.type) {
-		case CHANGE_PATH:
-			return Object.assign({}, action.payload);
-		default:
-			return state;
-	}
-};
-
 const INITIAL_UI = {
 	screenWidth: typeof window === "object" ? window.innerWidth : null
 };
@@ -38,6 +29,5 @@ const uiReducer = (state = INITIAL_UI, action) => {
 
 export default rootReducer = combineReducers({
 	profileState: pageLoadReducer,
-	uiState: uiReducer,
-	pathState: pathReducer
+	uiState: uiReducer
 });

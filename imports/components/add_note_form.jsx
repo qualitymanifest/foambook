@@ -4,6 +4,7 @@ import { Form, Text } from "informed";
 import _ from "lodash";
 import { withTracker } from "meteor/react-meteor-data";
 import Moment from "moment-timezone";
+import { Link } from "react-router-dom";
 
 import { Notes, NotesInsert } from "../collections/notes";
 import { cleanCity, validSubRailroad, validSubCity, validSubState, validSubSymbol, validSubDateTime } from "../validation";
@@ -37,11 +38,10 @@ class AddNoteForm extends Component {
 
 		if (!this.props.user) {
 			// default props.user is "LOADING". if undefined, definitely not logged in.
-			// using <a> instead of <Link> so that header gets rerendered - otherwise, have to bring in redux
 			return (
 				<div className="center">
 					Please log in to submit train notes. For more information, visit the 
-					<a href="/read_me"> readme</a>.
+					<Link to="/read_me"> readme</Link>.
 				</div>
 			)
 		}
