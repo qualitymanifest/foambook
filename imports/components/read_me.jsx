@@ -30,7 +30,8 @@ export default ReadMe = () => {
 			<h3>When searching for notes:</h3>
 			<p>There is one quirk to be aware of: The search options data is separate from the database collection that holds all the notes. Notes are updated as soon
 			as you add/delete them, but search options are updated <strong>every 15 minutes</strong>. This means that if you have submitted a note for a new location or a new symbol,
-			it won't show up in the search options until the next time they are updated.</p>
+			it won't show up in the search options until the next time they are updated. If you want to view the note or leave comments on it, you can click on the note in the table below
+			the submission box to be taken to it.</p>
 			<p>Given that these notes are user-submitted, not official railroad data, the absence of notes from a particular day or time does not necessarily mean that that train
 			does not operate then. That said, clear patterns are a positive inidicator that that train is typically at that location at that time.</p>
 			<p>The best general source of symbol data I have found is at <a href="http://railroadfan.com/wiki/index.php/Main_Page">railroadfan.com/wiki</a> - it contains origins, destinations, 
@@ -42,6 +43,8 @@ export default ReadMe = () => {
 			<h3>Feedback:</h3>
 			<p>If you experience any bugs or have any input, please let me know either by submitting an issue at <a href="https://github.com/qualitymanifest/foambook">the github repo </a>
 			 or by sending an email to qualityfiltering@gmail.com</p>
+			<p>If you have a large amount of notes already that you would like to upload, and they are in a standardized format (like a table or a list with consistent formatting), please let me know. I can
+			 probably figure out a way to do a bulk upload directly to the database.</p>
 		</div>
 	);
 };

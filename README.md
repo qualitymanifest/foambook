@@ -1,6 +1,6 @@
 # change log:
-- add connected-react-router, remove pathState
-- removed deprecated and unused react-addons-pure-render-mixin
+- Handle comment panel expanded status via component state
+- After comment submit, clear out textarea and close panel
 
 # bugs:
 
@@ -12,7 +12,6 @@
 - Allow for showing table of all queried notes, so they can be deleted or flagged more easily
 - Make one table for aggregations, and only pull in necessary fields?
 - For aggregations, create a "new" attribute set to "false" for each state. When a user submits a note, put it into the aggregations with "new" set to "true". When creating metadata, ignore "new: true" at first, then after organizing the "new: false" add the "new:true" ones if they do not exist. This will make query categories real time. Query categories can then be "cleaned up" by re-aggregating them... daily?
-- After comment submit, clear out textarea and maybe try to close panel?
 
 # notes:
 - Check to see if withTracker is being used correctly: https://atmospherejs.com/meteor/react-meteor-data

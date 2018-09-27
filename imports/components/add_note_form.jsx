@@ -35,7 +35,6 @@ class AddNoteForm extends Component {
 	}
 
 	render() {
-
 		if (!this.props.user) {
 			// default props.user is "LOADING". if undefined, definitely not logged in.
 			return (
