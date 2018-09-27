@@ -2,7 +2,6 @@ import { Meteor } from "meteor/meteor";
 import React, { Component } from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import { connect } from "react-redux";
-import _ from "lodash";
 
 import PreferenceForm from "./preference_form";
 import { Notes, NotesDelete, UserUpdate } from "../collections/notes";
@@ -54,7 +53,7 @@ class UserProfile extends Component {
 			<div className="center">
 				<h3>Default submission values</h3>
 				<PreferenceForm
-					onSubmit={_.debounce(this.onSubmit.bind(this), 200)}
+					onSubmit={this.onSubmit.bind(this)}
 					defaultValues={defaultValues}
 				/>
 				<div style={{clear: "both"}}>You have submitted {this.props.user.notesCount} notes</div>
@@ -91,7 +90,8 @@ const MeteorUserProfile = withTracker(({ profileState }) => {
 		notes: Notes.findFromPublication("notes.user", { userId: Meteor.userId() }, {
 			sort: { createdAt: -1 },
 			limit: profileState.loadNum
-		}).fetch() };
+		}).fetch()
+	};
 })(UserProfile);
 
 export default connect(({ profileState }) => ({ profileState }), mapDispatchToProps)(MeteorUserProfile);

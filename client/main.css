@@ -193,6 +193,15 @@ ul {
   border-right: 1px solid #333;
 }
 
+.newNote {
+  animation: fade 2s linear;
+}
+
+@keyframes fade {
+  0%,100% { background-color: #f9f9f9 }
+  50% { background-color: yellow; }
+}
+
 .notesTableLink {
   color: #23527c;
 }

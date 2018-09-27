@@ -12,7 +12,7 @@ export default (props) => {
 	return (
 		<Form
 			className="form-group"
-			onSubmit={props.onSubmit}
+			onSubmit={_.debounce(props.onSubmit, 200)}
 			initialValues={props.defaultValues}
 		>
 			{({ formApi, formState }) => (

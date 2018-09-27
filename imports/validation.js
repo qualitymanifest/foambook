@@ -144,6 +144,7 @@ export const validPrefCity = city => {
 }
 
 export const validPrefState = state => {
+  if (state) {state = state.toUpperCase()}
 	return state && !statesMap[state] ? "error-no-description" : null;
 }
 
@@ -161,6 +162,7 @@ export const validSubCity = city => {
 }
 
 export const validSubState = state => {
+  if (state) {state = state.toUpperCase()}
 	return !state || !statesMap[state] ? "error-no-description" : null;
 }
 

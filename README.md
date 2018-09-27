@@ -1,9 +1,8 @@
 # change log:
-- Handle comment panel expanded status via component state
-- After comment submit, clear out textarea and close panel
+- Highlight new notes when they are submitted in notes_table on add_note_form
+- Uppercase states before validation
 
 # bugs:
-
 
 # todo:
 - Create account permissions: APPROVED, UNAPPROVED, BANNED
