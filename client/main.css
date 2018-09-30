@@ -194,7 +194,7 @@ ul {
 }
 
 .newNote {
-  animation: fade 2s linear;
+  animation: fade 3s linear;
 }
 
 @keyframes fade {

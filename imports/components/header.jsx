@@ -17,7 +17,7 @@ class Header extends Component {
 				<Navbar.Header>
 					<LinkContainer to="/" onClick={() => this.props.changePath("/")}>
 						<Navbar.Brand>
-							FoamBook
+							Foambook
 						</Navbar.Brand>
 					</LinkContainer>
 					<Navbar.Toggle />

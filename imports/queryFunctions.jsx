@@ -37,6 +37,20 @@ export const symbolSorter = (rawSymbols) => {
 	return railroads
 }
 
+export const commentsSorter = (comments, city, state) => {
+	let localComments = [];
+	let otherComments = [];
+	comments.map((comment) => {
+		if (comment.city === city && comment.state === state) {
+			localComments.push(comment);
+		}
+		else {
+			otherComments.push(comment);
+		}
+	})
+	return {local: localComments, other: otherComments};
+}
+
 export const processNotes = (notes) => {
 	let oldest = Moment(notes[0].dateTime);
 	let newest = Moment(notes[notes.length-1].dateTime);

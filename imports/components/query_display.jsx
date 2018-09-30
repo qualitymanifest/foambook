@@ -54,7 +54,13 @@ class QueryDisplay extends Component {
 					</div>
 				</div>
 				<CommentsForm user={this.props.user} query={query} />
-				<CommentsList user={this.props.user} comments={this.props.comments} commentsReady={this.props.commentsReady} />
+				<CommentsList 
+					user={this.props.user} 
+					comments={this.props.comments} 
+					commentsReady={this.props.commentsReady} 
+					city={this.props.query.city}
+					state={this.props.query.state}
+				/>
 			</div>
 		);
 	}
@@ -63,13 +69,13 @@ class QueryDisplay extends Component {
 
 QueryDisplay = withTracker(({ query }) => {
 	const notesHandle = Meteor.subscribe("notes.query", query);
-	let queryWithoutDateTime = { city: query.city, state: query.state, railroad: query.railroad, symbol: query.symbol };
-	const commentsHandle = Meteor.subscribe("comments", queryWithoutDateTime);
+	let commentsQuery = { railroad: query.railroad, symbol: query.symbol };
+	const commentsHandle = Meteor.subscribe("comments", commentsQuery);
 	return {
 		notes: Notes.findFromPublication("notes.query", query, { fields: { dateTime: 1 }, sort: { dateTime : 1 } }).fetch(),
 		notesReady: notesHandle.ready(),
 		user: Meteor.user(),
-		comments: Comments.findFromPublication("comments", queryWithoutDateTime, { sort: { createdAt: -1 } }).fetch(),
+		comments: Comments.findFromPublication("comments", commentsQuery, { sort: { createdAt: -1 } }).fetch(),
 		commentsReady: commentsHandle.ready()
 	};
 })(QueryDisplay);
