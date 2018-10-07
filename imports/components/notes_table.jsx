@@ -23,7 +23,7 @@ const NotesTable = (props) => {
 		newest = props.notes[0].createdAt;
 	}
 	const renderedNotes = props.notes.map((train) => {
-		const { railroad, city, state, symbol, dateTime, _id, createdAt } = train;
+		const { railroad, city, state, symbol, dateTime, _id, createdAt, userId } = train;
 		const noteUrl = `/?city=${city}&state=${state}&railroad=${railroad}&symbol=${symbol}`;
 		return (
 			<tr className={`notesTableLink ${props.appLocation === "add_note_form" ? shouldAnimate(createdAt) : ""}`}
@@ -33,7 +33,7 @@ const NotesTable = (props) => {
 				<LinkContainer to={noteUrl}><td>{city + ", " + state}</td></LinkContainer>
 				<LinkContainer to={noteUrl}><td>{symbol}</td></LinkContainer>
 				<LinkContainer to={noteUrl}><td>{moment(dateTime).format("MM-DD-YY HH:mm")}</td></LinkContainer>
-				{ props.appLocation === "user_profile" ?
+				{ (props.user && userId === props.user._id) ?
 					<td className="trashColumn">
 						<span onClick={() => props.deleteFunc(_id)}
 							className="glyphicon glyphicon-trash"

@@ -33,6 +33,7 @@ class UserProfile extends Component {
 				<div style={{clear: "both"}}>You have submitted {this.props.user.notesCount} notes</div>
 				<NotesTable 
 					notes={this.props.notes} 
+					user={this.props.user} 
 					deleteFunc={notesDeleteMethod}
 					appLocation="user_profile"
 					caption="Your Recent Submissions" />

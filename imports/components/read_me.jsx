@@ -11,11 +11,11 @@ export default ReadMe = () => {
 			right corner. If you are on a mobile device, this button will be inside the hamburger menu <span className="glyphicon glyphicon-menu-hamburger smallIcon"></span>.
 			A window will pop up, asking you to sign in to your google account, if you aren't already. Once you have done this, you have an account here. The process is the same to log in once you 
 			have an account.</p>
-			<h3>To delete notes or configure default form values:</h3>
-			<p>First, go to your account page by clicking on your username in the upper right corner.</p>
-			<p>To delete a note click on the trash icon on the right side of the notes table.</p>
-			<p>You can also set form defaults so that whenever you go to submit a note, you automatically have the railroad and 
-			location filled out, and the time filled out with the current time in the selected timezone.</p>
+			<h3>To configure default form values:</h3>
+			<p>Go to your account page by clicking on your username in the upper right corner. Fill out some or all of these fields and click "set defaults". This makes it so that whenever you go to submit a 
+			note, you can automatically have the railroad and location filled out, and the time filled out with the current time in the selected timezone.</p>
+			<h3>To delete notes:</h3>
+			<p>From your account page or the note submission page, click the red trash icon <span className="glyphicon glyphicon-trash" /> on the right side of the notes table. You can only delete your own notes.</p>
 			<h3>When submitting notes:</h3>
 			<ul id="readMeLis">
 				<li>Date must be within the last five years.</li>
@@ -40,8 +40,8 @@ export default ReadMe = () => {
 			<p>Search for the train you're looking for. When you find it, underneath the scatterplot there is section where you can add and delete comments. This is intended for general information about what 
 			that train usually does at that location, e.g. "Arrives, sets out doublestacks up front, and ties down. Outbound crew on duty within two hours". Please be mindful about what you put here and do not 
 			include any sensitive information, or you will be blocked from adding notes.</p>
-			<h3>If you see an incorrect/inappropriate note or comment:</h3>
-			<p>Click the orange flag icon on the right hand side of the note/comment and a form will pop up. Please include a brief description of the problem. 
+			<h3>If you find an incorrect/inappropriate note or comment:</h3>
+			<p>Click the orange flag icon <span className="glyphicon glyphicon-flag" /> on the right hand side of the note/comment and a form will pop up. Please include a brief description of the problem. 
 			Your comments here will not be publicly visible. The problem note/comment will then be reviewed and deleted if necessary.</p>
 			<h3>Feedback:</h3>
 			<p>If you experience any bugs or have any input, please let me know either by submitting an issue at <a href="https://github.com/qualitymanifest/foambook">the github repo </a>

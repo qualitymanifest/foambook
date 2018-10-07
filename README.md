@@ -1,6 +1,5 @@
 # change log:
-- Add note & comment flagging
-- Move methods to their own file
+- Allow users to delete own notes on add_note_form
 
 # bugs:
 

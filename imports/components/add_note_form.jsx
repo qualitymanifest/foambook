@@ -6,7 +6,7 @@ import { withTracker } from "meteor/react-meteor-data";
 import Moment from "moment-timezone";
 import { Link } from "react-router-dom";
 
-import { noteSubmitMethod } from "../methods";
+import { noteSubmitMethod, notesDeleteMethod } from "../methods";
 import { Notes, NotesInsert } from "../collections/notes";
 import { cleanCity, validSubRailroad, validSubCity, validSubState, validSubSymbol, validSubDateTime } from "../validation";
 import DateTime from "./dateTime";
@@ -123,7 +123,9 @@ class AddNoteForm extends Component {
 					)}
 				</Form>
 				<NotesTable 
-					notes={this.props.notes} 
+					notes={this.props.notes}
+					user={this.props.user}
+					deleteFunc={notesDeleteMethod}
 					appLocation="add_note_form"
 					caption="Recent Submissions - All Users" />
 			</div>

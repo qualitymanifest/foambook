@@ -24,7 +24,7 @@ export default CommentsList = (props) => {
 					<p>{he.decode(comment)}</p>
 					<div className="commentData">
 					<span>- {userName} {moment(createdAt).format("MM-DD-YYYY")}</span>
-					{ ( props.user && userId === props.user._id) ? 
+					{ (props.user && userId === props.user._id) ? 
 							<span onClick={() => commentsDeleteMethod(_id)}
 								className="glyphicon glyphicon-trash"
 							/>
