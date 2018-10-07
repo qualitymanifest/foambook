@@ -144,29 +144,25 @@ ul {
 }
 
 .glyphicon {
-  margin: 0px 10px;
+  margin: 0px 5px;
 }
 
-.glyphicon-trash {
-  margin: 0px 5px;
-  color: red;
+.glyphicon:hover {
+  text-shadow: 0 0 3px black;
+}
+
+.glyphicon-flag {
+  color: #ec971f;
   cursor: pointer;
 }
 
-.glyphicon-search, .glyphicon-pencil {
+.glyphicon-pencil {
   margin-left: 0px;
 }
 
-.glyphicon-question-sign {
-  margin: 0px;
-}
-
-.glyphicon-thumbs-up {
-  color: green;
-}
-
-.glyphicon-thumbs-down {
+.glyphicon-trash {
   color: red;
+  cursor: pointer;
 }
 
 .grid line {

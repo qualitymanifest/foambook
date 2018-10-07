@@ -2,6 +2,9 @@ import React from "react";
 import moment from "moment-timezone";
 import he from "he";
 
+import FlagModal from "./flag_modal";
+import { validFlag } from "../validation";
+import { commentsDeleteMethod } from "../methods";
 import { CommentsDelete } from "../collections/comments";
 import { commentsSorter } from "../queryFunctions";
 
@@ -11,14 +14,6 @@ export default CommentsList = (props) => {
 	if (!props.commentsReady || !props.comments.length) return null;
 
 	let sortedComments = commentsSorter(props.comments, props.city, props.state);
-
-	this.deleteFunc = (commentId) => {
-		CommentsDelete.call({ commentId }, (err) => {
-			if (err) {
-				alert(err);
-			}
-		});
-	}
 
 	const commentsBuilder = (comments, isLocal) => {
 		return comments.map((com) => {
@@ -30,10 +25,12 @@ export default CommentsList = (props) => {
 					<div className="commentData">
 					<span>- {userName} {moment(createdAt).format("MM-DD-YYYY")}</span>
 					{ ( props.user && userId === props.user._id) ? 
-							<span onClick={() => this.deleteFunc(_id)}
+							<span onClick={() => commentsDeleteMethod(_id)}
 								className="glyphicon glyphicon-trash"
 							/>
-						: null
+						: props.user ?
+						<FlagModal _id={_id} type="comment" validationFunc={validFlag} />
+						: ""
 					}
 					</div>
 				</div>

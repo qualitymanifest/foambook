@@ -2,6 +2,9 @@ import React from "react";
 import moment from "moment-timezone";
 import { LinkContainer } from "react-router-bootstrap";
 
+import FlagModal from "./flag_modal";
+import { validFlag } from "../validation";
+
 moment.tz.setDefault("Etc/UTC");
 let newest = null;
 
@@ -16,29 +19,30 @@ const shouldAnimate = (createdAt) => {
 const NotesTable = (props) => {
 	if (!props.notes.length) return null;
 	// if we're not on user_profile, initialize newest
-	if (!props.deleteFunc && !newest) {
+	if (props.appLocation !== "user_profile" && !newest) {
 		newest = props.notes[0].createdAt;
 	}
 	const renderedNotes = props.notes.map((train) => {
 		const { railroad, city, state, symbol, dateTime, _id, createdAt } = train;
+		const noteUrl = `/?city=${city}&state=${state}&railroad=${railroad}&symbol=${symbol}`;
 		return (
-			<LinkContainer key={_id} className="notesTableLink" to={`/?city=${city}&state=${state}&railroad=${railroad}&symbol=${symbol}`}>
-				<tr className={!props.deleteFunc ? shouldAnimate(createdAt) : ""}>
-					<td>{railroad}</td>
-					<td>{city + ", " + state}</td>
-					<td>{symbol}</td>
-					<td>{moment(dateTime).format("MM-DD-YY HH:mm")}</td>
-					{ props.deleteFunc &&
-						<LinkContainer to="#">
-							<td className="trashColumn">
-								<span onClick={() => props.deleteFunc(_id)}
-									className="glyphicon glyphicon-trash"
-								/>
-							</td>
-						</LinkContainer>
-					}
-				</tr>
-			</LinkContainer>
+			<tr className={`notesTableLink ${props.appLocation === "add_note_form" ? shouldAnimate(createdAt) : ""}`}
+				key={_id} 
+			>
+				<LinkContainer to={noteUrl}><td>{railroad}</td></LinkContainer>
+				<LinkContainer to={noteUrl}><td>{city + ", " + state}</td></LinkContainer>
+				<LinkContainer to={noteUrl}><td>{symbol}</td></LinkContainer>
+				<LinkContainer to={noteUrl}><td>{moment(dateTime).format("MM-DD-YY HH:mm")}</td></LinkContainer>
+				{ props.appLocation === "user_profile" ?
+					<td className="trashColumn">
+						<span onClick={() => props.deleteFunc(_id)}
+							className="glyphicon glyphicon-trash"
+						/>
+					</td>
+					: 
+					<FlagModal _id={_id} type="note" validationFunc={validFlag} />
+				}
+			</tr>
 		);
 	});
 	return (
@@ -50,7 +54,7 @@ const NotesTable = (props) => {
 					<th>Location</th>
 					<th>Symbol</th>
 					<th>Date/Time</th>
-					{props.deleteFunc && <th className="trashColumn"></th>}
+					<th className="trashColumn"></th>
 				</tr>
 			</thead>
 			<tbody>

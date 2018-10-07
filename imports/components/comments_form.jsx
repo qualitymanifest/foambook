@@ -1,33 +1,21 @@
 import React, { Component } from "react";
-import { Form, TextArea, asField } from "informed";
+import { Form } from "informed";
 import { Panel } from "react-bootstrap";
 import he from "he";
 
+import { TextAreaWithError } from "./textarea_with_error";
+import { commentSubmitMethod } from "../methods";
 import { CommentsInsert } from "../collections/comments";
 import { validComment } from "../validation";
 
 const commentsPlaceholder = "Summarize what this train typically does here, or describe it's characteristics";
-
 let apiHandle;
-
-const TextAreaWithError = asField(({ fieldState, ...props }) => (
-  <React.Fragment>
-    <TextArea
-      fieldState={fieldState}
-      {...props}
-      style={fieldState.error ? { border: 'solid 1px red' } : null}
-    />
-    {fieldState.error && fieldState.error !== "error-no-description" ? (
-      <p className="form-error">{fieldState.error}</p>
-    ) : null}
-    <small>{fieldState.value ? fieldState.value.length : 0}/300 characters used</small>
-  </React.Fragment>
-));
 
 export default class CommentsForm extends Component {
 
 	constructor(props) {
 		super(props);
+		this.toggleFunc = this.toggleFunc.bind(this);
 		this.state = {
 			open: false
 		}
@@ -38,23 +26,11 @@ export default class CommentsForm extends Component {
 	}
 
 	onSubmit(formValues) {
-		let cleansedComment = he.encode(formValues.comment);
-		let comment = {
-			comment: cleansedComment,
-			city: this.props.query.city,
-			state: this.props.query.state,
-			railroad: this.props.query.railroad,
-			symbol: this.props.query.symbol
-		};
-		CommentsInsert.call(comment, (err) => {
-			if (err) {
-				alert(err);
-			}
-			else {
-				this.setState({ open: !this.state.open });
-				apiHandle.setValue("comment", "");
-			}
-		});
+		commentSubmitMethod(formValues, this.props.query, this.toggleFunc, apiHandle);
+	}
+
+	toggleFunc() {
+		this.setState({open: !this.state.open});
 	}
 	
 	render() {
@@ -62,8 +38,8 @@ export default class CommentsForm extends Component {
 			return <p id="commentLoggedOut">Log in to add comments</p>
 		}
 		return (
-			<Panel id="commentPanel" expanded={this.state.open} onToggle={() => null}>
-				<Panel.Heading onClick={() => this.setState({ open: !this.state.open })}>
+			<Panel id="commentPanel" expanded={this.state.open} onToggle={this.toggleFunc}>
+				<Panel.Heading onClick={this.toggleFunc}>
 					<Panel.Title>
 						Add comment
 					</Panel.Title>
@@ -73,16 +49,17 @@ export default class CommentsForm extends Component {
 						id="commentsFormGroup"
 						getApi={this.transferApi}
 						onSubmit={_.debounce(this.onSubmit.bind(this), 200) /*slow it down in case button gets clicked twice*/} >
-						  <TextAreaWithError 
-						  	className="form-control" 
-						  	field="comment" 
-						  	placeholder={commentsPlaceholder}
-						  	validateOnBlur
-						  	validate={validComment} />
-							<button className="btn btn-primary">
-								<span className="glyphicon glyphicon-pencil" />
-								Submit
-							</button>
+						<TextAreaWithError 
+							className="form-control"
+							maxLength={300}
+							field="comment" 
+							placeholder={commentsPlaceholder}
+							validateOnBlur
+							validate={validComment} />
+						<button className="btn btn-primary">
+							<span className="glyphicon glyphicon-pencil" />
+							Submit
+						</button>
 					</Form>
 				</Panel.Body>
 			</Panel>

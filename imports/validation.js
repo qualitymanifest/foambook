@@ -131,6 +131,11 @@ export const validComment = comment => {
 	return comment.length < 10 || comment.length > 300 ? "Comments must be between 10 and 300 characters" : null;
 }
 
+export const validFlag = reason => {
+  if (!reason) { return "error-no-description" };
+  return reason.length < 10 || reason.length > 100 ? "Must be 10 to 100 characters" : null;
+}
+
 
 /* **** PREFERENCE SPECIFIC VALIDATION **** */
 // It's okay to leave preferences empty

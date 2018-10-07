@@ -6,6 +6,7 @@ import { withTracker } from "meteor/react-meteor-data";
 import Moment from "moment-timezone";
 import { Link } from "react-router-dom";
 
+import { noteSubmitMethod } from "../methods";
 import { Notes, NotesInsert } from "../collections/notes";
 import { cleanCity, validSubRailroad, validSubCity, validSubState, validSubSymbol, validSubDateTime } from "../validation";
 import DateTime from "./dateTime";
@@ -22,16 +23,7 @@ class AddNoteForm extends Component {
 	}
 
 	onSubmit(values) {
-		const valuesCopy = Object.assign({}, values);
-		Object.keys(valuesCopy).map(key => valuesCopy[key] = valuesCopy[key].toUpperCase());
-		valuesCopy.city = cleanCity(valuesCopy.city);
-		valuesCopy.dateTime = Moment(valuesCopy.dateTime, "MM-DD-YY HH:mm").toDate();
-		apiHandle.setValue("symbol", "")
-		NotesInsert.call(valuesCopy, (err) => {
-			if (err) {
-				alert(err);
-			}
-		});
+		noteSubmitMethod(values, apiHandle);
 	}
 
 	render() {
@@ -130,7 +122,10 @@ class AddNoteForm extends Component {
 						</React.Fragment>
 					)}
 				</Form>
-				<NotesTable notes={this.props.notes} caption="Recent Submissions - All Users" />
+				<NotesTable 
+					notes={this.props.notes} 
+					appLocation="add_note_form"
+					caption="Recent Submissions - All Users" />
 			</div>
 		);
 	}
