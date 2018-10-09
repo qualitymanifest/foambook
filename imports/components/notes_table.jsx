@@ -1,11 +1,11 @@
 import React from "react";
-import moment from "moment-timezone";
+import Moment from "moment-timezone";
 import { LinkContainer } from "react-router-bootstrap";
 
 import FlagModal from "./flag_modal";
 import { validFlag } from "../validation";
 
-moment.tz.setDefault("Etc/UTC");
+Moment.tz.setDefault("Etc/UTC");
 let newest = null;
 
 const shouldAnimate = (createdAt) => {
@@ -32,7 +32,7 @@ const NotesTable = (props) => {
 				<LinkContainer to={noteUrl}><td>{railroad}</td></LinkContainer>
 				<LinkContainer to={noteUrl}><td>{city + ", " + state}</td></LinkContainer>
 				<LinkContainer to={noteUrl}><td>{symbol}</td></LinkContainer>
-				<LinkContainer to={noteUrl}><td>{moment(dateTime).format("MM-DD-YY HH:mm")}</td></LinkContainer>
+				<LinkContainer to={noteUrl}><td>{Moment(dateTime).format("MM-DD-YY HH:mm")}</td></LinkContainer>
 				{ (props.user && userId === props.user._id) ?
 					<td className="trashColumn">
 						<span onClick={() => props.deleteFunc(_id)}
@@ -46,7 +46,7 @@ const NotesTable = (props) => {
 		);
 	});
 	return (
-		<table className="table table-striped table-condensed table-responsive">
+		<table className="table table-striped table-condensed table-responsive fadeIn">
 			<caption>{props.caption}</caption>
 			<thead>
 				<tr>

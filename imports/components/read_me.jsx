@@ -2,7 +2,7 @@ import React from "react";
 
 export default ReadMe = () => {
 	return (
-		<div id="readMe">
+		<div id="readMe" className="fadeIn">
 			<h3>What is this?</h3>
 			<p>It's not uncommon for railfans to record train movements, but that data is scattered, and it can be hard to find any meaningful patterns by looking at a list of raw data.
 			Foambook is intended to provide a centralized place to keep those notes, and to provide a way to quickly see when a train might be at a particular location.</p>

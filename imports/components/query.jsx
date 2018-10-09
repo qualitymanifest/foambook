@@ -58,7 +58,7 @@ class Query extends Component {
 		}
 
 		return (
-			<div className="center">
+			<div className="center fadeIn">
 				<Breadcrumb>
 					<Breadcrumb.Item active>Search Home</Breadcrumb.Item>
 				</Breadcrumb>

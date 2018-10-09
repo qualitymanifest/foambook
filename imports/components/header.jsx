@@ -24,7 +24,7 @@ class Header extends Component {
 				</Navbar.Header>
 				<Navbar.Collapse>
 					{!this.props.loading &&
-						<Navbar.Text id="notesCount">
+						<Navbar.Text id="notesCount" className="fadeIn">
 							{this.props.notesCount.reduce((a, b) => a + b.notesCount, 0)} notes & counting!
 						</Navbar.Text>
 					}
@@ -50,7 +50,7 @@ class Header extends Component {
 						{this.props.user &&
 							<LinkContainer eventKey="/user_profile"
 								to="/user_profile">
-								<NavItem id="userName">
+								<NavItem id="userName" className="fadeIn">
 									{this.props.user.profile.name}
 								</NavItem>
 							</LinkContainer>

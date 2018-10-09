@@ -143,7 +143,7 @@ export const listLocations = (locations) => {
 
 export const listSymbols = (railroads, city, state) => {
 		return (
-		<React.Fragment>
+		<div className="fadeIn">
 			<p>Select railroad & symbol</p>
 			<PanelGroup accordion id="railroadsPanelGroup">
 				{ 
@@ -187,7 +187,7 @@ export const listSymbols = (railroads, city, state) => {
 				<span className="pastYear">past year, </span>
 				<span className="olderThanYear">older </span>
 			</p>
-		</React.Fragment>
+		</div>
 	)
 }
 

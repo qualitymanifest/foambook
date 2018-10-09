@@ -24,7 +24,7 @@ class UserProfile extends Component {
 			defaultValues = this.props.user.preferences;
 		}
 		return (
-			<div className="center">
+			<div className="center fadeIn">
 				<h3>Default submission values</h3>
 				<PreferenceForm
 					onSubmit={preferenceSubmitMethod}

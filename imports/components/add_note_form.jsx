@@ -52,9 +52,8 @@ class AddNoteForm extends Component {
 				dateTime: timezone ? Moment().tz(timezone).format("MM-DD-YY HH:mm") : ""
 			};
 		}
-
 		return (
-			<div className="center">
+			<div className="center fadeIn">
 				<h3>Submit a note</h3>
 				<Form
 					className="form-group"
@@ -115,7 +114,6 @@ class AddNoteForm extends Component {
 								validate={validSubDateTime} />
 
 							<button className="btn btn-primary">
-								<span className="glyphicon glyphicon-pencil" />
 								Submit
 							</button>
 

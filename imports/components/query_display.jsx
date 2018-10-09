@@ -26,7 +26,7 @@ class QueryDisplay extends Component {
 		const processed = processNotes(this.props.notes);
 		let query = this.props.query;
 		return (
-			<div className="center">
+			<div className="center fadeIn">
 				{ processed.years.length > 1 ? 
 					<div>
 						Filter by year:

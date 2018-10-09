@@ -1,5 +1,6 @@
 # change log:
-- Allow users to delete own notes on add_note_form
+- Update to meteor 1.8
+- Fade-in animations for main pages as well as components/elements that render subscription data
 
 # bugs:
 

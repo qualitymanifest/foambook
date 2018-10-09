@@ -6,6 +6,8 @@ import { NotesDelete, UserUpdate, NotesInsert } from "./collections/notes";
 import { CommentsInsert, CommentsDelete } from "./collections/comments";
 import { cleanCity } from "./validation";
 
+Moment.tz.setDefault("Etc/UTC");
+
 export const preferenceSubmitMethod = (values) => {
 	let valuesCopy = Object.assign({}, values);
 	if (valuesCopy.railroad) {
