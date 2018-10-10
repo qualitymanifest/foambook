@@ -9,7 +9,7 @@ import { cleanCity } from "./validation";
 Moment.tz.setDefault("Etc/UTC");
 
 export const preferenceSubmitMethod = (values) => {
-	let valuesCopy = Object.assign({}, values);
+	const valuesCopy = Object.assign({}, values);
 	if (valuesCopy.railroad) {
 		valuesCopy.railroad = valuesCopy.railroad.toUpperCase();
 	}
@@ -24,7 +24,7 @@ export const preferenceSubmitMethod = (values) => {
 			alert(err);
 		}
 	});
-}
+};
 
 export const notesDeleteMethod = (noteId) => {
 	NotesDelete.call({ noteId }, (err) => {
@@ -32,7 +32,7 @@ export const notesDeleteMethod = (noteId) => {
 			alert(err);
 		}
 	});
-}
+};
 
 export const noteSubmitMethod = (values, apiHandle) => {
 	const valuesCopy = Object.assign({}, values);
@@ -45,11 +45,11 @@ export const noteSubmitMethod = (values, apiHandle) => {
 			alert(err);
 		}
 	});
-}
+};
 
 export const commentSubmitMethod = (formValues, query, toggleFunc, apiHandle) => {
-	let cleansedComment = he.encode(formValues.comment);
-	let comment = {
+	const cleansedComment = he.encode(formValues.comment);
+	const comment = {
 		comment: cleansedComment,
 		city: query.city,
 		state: query.state,
@@ -65,7 +65,7 @@ export const commentSubmitMethod = (formValues, query, toggleFunc, apiHandle) =>
 			apiHandle.setValue("comment", "");
 		}
 	});
-}
+};
 
 export const commentsDeleteMethod = (commentId) => {
 	CommentsDelete.call({ commentId }, (err) => {
@@ -73,7 +73,7 @@ export const commentsDeleteMethod = (commentId) => {
 			alert(err);
 		}
 	});
-}
+};
 
 export const flagSubmitMethod = (flag, handleClose, handleSuccess) => {
 	FlagsInsert.call(flag, (err) => {
@@ -85,4 +85,4 @@ export const flagSubmitMethod = (flag, handleClose, handleSuccess) => {
 			setTimeout(() => handleClose(), 2500);
 		}
 	});
-}
+};

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import Moment from "moment-timezone";
 import { connect } from "react-redux";
-import _ from "lodash";
 import { Link } from "react-router-dom";
 
 import { Notes } from "../collections/notes";
@@ -64,15 +63,15 @@ class QueryDisplay extends Component {
 			</div>
 		);
 	}
-};
+}
 
 
 QueryDisplay = withTracker(({ query }) => {
 	const notesHandle = Meteor.subscribe("notes.query", query);
-	let commentsQuery = { railroad: query.railroad, symbol: query.symbol };
+	const commentsQuery = { railroad: query.railroad, symbol: query.symbol };
 	const commentsHandle = Meteor.subscribe("comments", commentsQuery);
 	return {
-		notes: Notes.findFromPublication("notes.query", query, { fields: { dateTime: 1 }, sort: { dateTime : 1 } }).fetch(),
+		notes: Notes.findFromPublication("notes.query", query, { fields: { dateTime: 1 }, sort: { dateTime: 1 } }).fetch(),
 		notesReady: notesHandle.ready(),
 		user: Meteor.user(),
 		comments: Comments.findFromPublication("comments", commentsQuery, { sort: { createdAt: -1 } }).fetch(),

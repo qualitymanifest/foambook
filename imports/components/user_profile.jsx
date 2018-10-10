@@ -8,7 +8,6 @@ import PreferenceForm from "./preference_form";
 import { Notes } from "../collections/notes";
 import NotesTable from "./notes_table";
 import { incrementPages } from "../../client/actions";
-import { cleanCity } from "../validation";
 
 class UserProfile extends Component {
 	render() {

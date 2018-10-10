@@ -6,8 +6,6 @@ import { LinkContainer } from "react-router-bootstrap";
 import { connect } from "react-redux";
 
 import Accounts from "./accounts";
-import { Notes } from "../collections/notes";
-import { changePath } from "../../client/actions";
 
 
 class Header extends Component {
@@ -15,7 +13,7 @@ class Header extends Component {
 		return (
 			<Navbar inverse collapseOnSelect fixedTop>
 				<Navbar.Header>
-					<LinkContainer to="/" onClick={() => this.props.changePath("/")}>
+					<LinkContainer to="/">
 						<Navbar.Brand>
 							Foambook
 						</Navbar.Brand>
@@ -71,7 +69,8 @@ Header = withTracker(({ router }) => {
 		// don't actually need any data, just get _ids so we can count them
 		notesCount: Meteor.users.findFromPublication("user.notesCount", {}, { fields: { notesCount: 1 } }).fetch(),
 		user: Meteor.user(),
-		loading: !handle.ready() }
+		loading: !handle.ready()
+	};
 })(Header);
 
 export default connect(({ router }) => ({ router }))(Header);

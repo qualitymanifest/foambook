@@ -76,10 +76,6 @@ ul {
   padding: 12px 0px;
 }
 
-#login-buttons {
-  animation: fadeIn .3s;
-}
-
 #login-buttons .text-besides-image{
   margin: 0px;
 }
@@ -88,6 +84,10 @@ ul {
   /* default accounts name does nothing - hide that so that
   we can make user name a link to profile */
   display : none;
+}
+
+#login-buttons-logout, #login-buttons-google {
+  animation: fadeIn .3s;
 }
 
 #readMe {
@@ -196,6 +196,7 @@ ul {
 
 .navbar-brand {
   border-right: 1px solid #333;
+  cursor: pointer;
 }
 
 .newNote {

@@ -28,7 +28,7 @@ export const NotesInsert = new ValidatedMethod({
 			{ userId: Meteor.userId(), createdAt: Number(Moment().format("x")) }
 		);
 		Notes.insert(note);
-		Meteor.users.update(Meteor.userId(), { $inc: { "notesCount": 1} });
+		Meteor.users.update(Meteor.userId(), { $inc: { notesCount: 1 } });
 	}
 
 });
@@ -44,7 +44,7 @@ export const NotesDelete = new ValidatedMethod({
 			throw new Meteor.Error("not-authorized");
 		}
 		Notes.remove({ userId: Meteor.userId(), _id: noteId });
-		Meteor.users.update(Meteor.userId(), { $inc: { "notesCount": -1} });
+		Meteor.users.update(Meteor.userId(), { $inc: { notesCount: -1 } });
 	}
 });
 

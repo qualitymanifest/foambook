@@ -14,7 +14,7 @@ const shouldAnimate = (createdAt) => {
 		return "newNote";
 	}
 	return "";
-}
+};
 
 const NotesTable = (props) => {
 	if (!props.notes.length) return null;
@@ -54,7 +54,7 @@ const NotesTable = (props) => {
 					<th>Location</th>
 					<th>Symbol</th>
 					<th>Date/Time</th>
-					<th className="trashColumn"></th>
+					<th className="trashColumn" />
 				</tr>
 			</thead>
 			<tbody>

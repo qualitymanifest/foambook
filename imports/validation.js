@@ -3,68 +3,68 @@ import moment from "moment-timezone";
 moment.tz.setDefault("Etc/UTC");
 
 export const statesMap = {
-  "AL" : "ALABAMA",
-  "AK" : "ALASKA",
-  "AZ" : "ARIZONA",
-  "AR" : "ARKANSAS",
-  "CA" : "CALIFORNIA",
-  "CO" : "COLORADO",
-  "CT" : "CONNECTICUT",
-  "DE" : "DELAWARE",
-  "DC" : "WASHINGTON DC",
-  "FL" : "FLORIDA",
-  "GA" : "GEORGIA",
-  "ID" : "IDAHO",
-  "IL" : "ILLINOIS",
-  "IN" : "INDIANA",
-  "IA" : "IOWA",
-  "KS" : "KANSAS",
-  "KY" : "KENTUCKY",
-  "LA" : "LOUISIANA",
-  "ME" : "MAINE",
-  "MD" : "MARYLAND",
-  "MA" : "MASSACHUSETTS",
-  "MI" : "MICHIGAN",
-  "MN" : "MINNESOTA",
-  "MS" : "MISSISSIPPI",
-  "MO" : "MISSOURI",
-  "MT" : "MONTANA",
-  "NE" : "NEBRASKA",
-  "NV" : "NEVADA",
-  "NH" : "NEW HAMPSHIRE",
-  "NJ" : "NEW JERSEY",
-  "NM" : "NEW MEXICO",
-  "NY" : "NEW YORK",
-  "NC" : "NORTH CAROLINA",
-  "ND" : "NORTH DAKOTA",
-  "OH" : "OHIO",
-  "OK" : "OKLAHOMA",
-  "OR" : "OREGON",
-  "PA" : "PENNSYLVANIA",
-  "RI" : "RHODE ISLAND",
-  "SC" : "SOUTH CAROLINA",
-  "SD" : "SOUTH DAKOTA",
-  "TN" : "TENNESSEE",
-  "TX" : "TEXAS",
-  "UT" : "UTAH",
-  "VT" : "VERMONT",
-  "VA" : "VIRGINIA",
-  "WA" : "WASHINGTON",
-  "WV" : "WEST VIRGINIA",
-  "WI" : "WISCONSIN",
-  "WY" : "WYOMING",
-  "AB" : "ALBERTA",
-  "BC" : "BRITISH COLUMBIA",
-  "MB" : "MANITOBA",
-  "NB" : "NEW BRUNSWICK",
-  "NL" : "NEWFOUNDLAND/LABRADOR",
-  "NS" : "NOVA SCOTIA",
-  "NT" : "NORTHWEST TERRITORIES",
-  "ON" : "ONTARIO",
-  "QC" : "QUEBEC",
-  "SK" : "SASKATCHEWAN",
-  "YT" : "YUKON"
-}
+	"AL" : "ALABAMA",
+	"AK" : "ALASKA",
+	"AZ" : "ARIZONA",
+	"AR" : "ARKANSAS",
+	"CA" : "CALIFORNIA",
+	"CO" : "COLORADO",
+	"CT" : "CONNECTICUT",
+	"DE" : "DELAWARE",
+	"DC" : "WASHINGTON DC",
+	"FL" : "FLORIDA",
+	"GA" : "GEORGIA",
+	"ID" : "IDAHO",
+	"IL" : "ILLINOIS",
+	"IN" : "INDIANA",
+	"IA" : "IOWA",
+	"KS" : "KANSAS",
+	"KY" : "KENTUCKY",
+	"LA" : "LOUISIANA",
+	"ME" : "MAINE",
+	"MD" : "MARYLAND",
+	"MA" : "MASSACHUSETTS",
+	"MI" : "MICHIGAN",
+	"MN" : "MINNESOTA",
+	"MS" : "MISSISSIPPI",
+	"MO" : "MISSOURI",
+	"MT" : "MONTANA",
+	"NE" : "NEBRASKA",
+	"NV" : "NEVADA",
+	"NH" : "NEW HAMPSHIRE",
+	"NJ" : "NEW JERSEY",
+	"NM" : "NEW MEXICO",
+	"NY" : "NEW YORK",
+	"NC" : "NORTH CAROLINA",
+	"ND" : "NORTH DAKOTA",
+	"OH" : "OHIO",
+	"OK" : "OKLAHOMA",
+	"OR" : "OREGON",
+	"PA" : "PENNSYLVANIA",
+	"RI" : "RHODE ISLAND",
+	"SC" : "SOUTH CAROLINA",
+	"SD" : "SOUTH DAKOTA",
+	"TN" : "TENNESSEE",
+	"TX" : "TEXAS",
+	"UT" : "UTAH",
+	"VT" : "VERMONT",
+	"VA" : "VIRGINIA",
+	"WA" : "WASHINGTON",
+	"WV" : "WEST VIRGINIA",
+	"WI" : "WISCONSIN",
+	"WY" : "WYOMING",
+	"AB" : "ALBERTA",
+	"BC" : "BRITISH COLUMBIA",
+	"MB" : "MANITOBA",
+	"NB" : "NEW BRUNSWICK",
+	"NL" : "NEWFOUNDLAND/LABRADOR",
+	"NS" : "NOVA SCOTIA",
+	"NT" : "NORTHWEST TERRITORIES",
+	"ON" : "ONTARIO",
+	"QC" : "QUEBEC",
+	"SK" : "SASKATCHEWAN",
+	"YT" : "YUKON"
+};
 
 const validRR = /^(BNSF|UP|CSX|NS|CN|CP|KCS|PAR|PAS)$/;
 
@@ -132,8 +132,8 @@ export const validComment = comment => {
 }
 
 export const validFlag = reason => {
-  if (!reason) { return "error-no-description" };
-  return reason.length < 10 || reason.length > 100 ? "Must be 10 to 100 characters" : null;
+	if (!reason) { return "error-no-description" };
+	return reason.length < 10 || reason.length > 100 ? "Must be 10 to 100 characters" : null;
 }
 
 
@@ -149,7 +149,7 @@ export const validPrefCity = city => {
 }
 
 export const validPrefState = state => {
-  if (state) {state = state.toUpperCase()}
+	if (state) {state = state.toUpperCase()}
 	return state && !statesMap[state] ? "error-no-description" : null;
 }
 
@@ -167,7 +167,7 @@ export const validSubCity = city => {
 }
 
 export const validSubState = state => {
-  if (state) {state = state.toUpperCase()}
+	if (state) {state = state.toUpperCase()}
 	return !state || !statesMap[state] ? "error-no-description" : null;
 }
 

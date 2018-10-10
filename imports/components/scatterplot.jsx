@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import ReactFauxDOM from "react-faux-dom";
 import * as d3 from "d3";
 
@@ -21,7 +21,7 @@ class Scatterplot extends Component {
 
 	render() {
 		if (!this.props.notes.length) return null;
-		
+
 		let screenWidth = this.props.uiState.screenWidth;
 		screenWidth = screenWidth > 1200 ? screenWidth * 0.6 : screenWidth * 0.95;
 		const tickHours = screenWidth > 675 ? tickHoursFull : tickHoursMobile;
@@ -31,8 +31,8 @@ class Scatterplot extends Component {
 
 		const div = ReactFauxDOM.createElement("div");
 		div.setAttribute("id", "chart");
-/* ---------------------------------------------------- */
-/* ---------------------------------------------------- */
+		/* ---------------------------------------------------- */
+		/* ---------------------------------------------------- */
 
 		const margin = {
 			top: screenWidth * 0.02,
@@ -70,9 +70,9 @@ class Scatterplot extends Component {
 			.attr("height", height)
 			.attr("class", "main");
 
-		const tip = d3.select("body").append("div")	
-    .attr("class", "tooltip")				
-    .style("opacity", 0);
+		const tip = d3.select("body").append("div")
+			.attr("class", "tooltip")
+			.style("opacity", 0);
 
 		main.append("g")
 			.attr("transform", `translate(0,${height})`)
@@ -84,23 +84,23 @@ class Scatterplot extends Component {
 			.attr("class", "main axis date")
 			.call(d3.axisLeft(y).ticks(7).tickFormat(d => days[d]));
 
-	  main.append("g")			
-	     .attr("class", "grid")
-	     .attr("transform", "translate(0," + height + ")")
-	     .call(d3.axisBottom(xAxis)
-	     		.ticks(tickHoursFull.length)
-	        .tickSize(-height)
-	        .tickFormat("")
-	      )
+		main.append("g")
+			.attr("class", "grid")
+			.attr("transform", "translate(0," + height + ")")
+			.call(d3.axisBottom(xAxis)
+				.ticks(tickHoursFull.length)
+				.tickSize(-height)
+				.tickFormat("")
+			);
 
-	  main.append("g")			
-	     .attr("class", "grid")
-	     .attr("transform", "translate(0,0)")
-	     .call(d3.axisLeft(y)
-	     		.ticks(7)
-	        .tickSize(-width)
-	        .tickFormat("")
-	      )
+		main.append("g")
+			.attr("class", "grid")
+			.attr("transform", "translate(0,0)")
+			.call(d3.axisLeft(y)
+				.ticks(7)
+				.tickSize(-width)
+				.tickFormat("")
+			);
 
 		const g = main.append("g");
 
@@ -111,22 +111,22 @@ class Scatterplot extends Component {
 				.attr("cy", d => y(d.weekday))
 				.attr("r", dotRadius)
 				.attr("fill", d => `hsl(356, 100%, ${colorScale(d.dateTime)}%)`)
-				.on("mouseover", function(d) {		
-          tip.transition()		
-            .duration(200)		
-            .style("opacity", .9);		
-          tip.html(d.dateTimeReadable)	
-            .style("left", (d3.event.pageX) + "px")		
-            .style("top", (d3.event.pageY - 32) + "px");	
-        })					
-        .on("mouseout", function(d) {		
-          tip.transition()		
-            .duration(300)		
-            .style("opacity", 0);	
-        });
+				.on("mouseover", function(d) {
+					tip.transition()
+						.duration(200)
+						.style("opacity", .9);
+					tip.html(d.dateTimeReadable)
+						.style("left", (d3.event.pageX) + "px")
+						.style("top", (d3.event.pageY - 32) + "px");
+				})
+				.on("mouseout", function(d) {
+					tip.transition()
+						.duration(300)
+						.style("opacity", 0);
+				});
 
-/* ---------------------------------------------------- */
-/* ---------------------------------------------------- */
+		/* ---------------------------------------------------- */
+		/* ---------------------------------------------------- */
 
 		return div.toReact();
 	}

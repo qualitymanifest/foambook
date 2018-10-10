@@ -1,14 +1,14 @@
 import { Meteor } from "meteor/meteor";
 import React, { Component } from "react";
-import { Form, Text } from "informed";
+import { Form } from "informed";
 import _ from "lodash";
 import { withTracker } from "meteor/react-meteor-data";
 import Moment from "moment-timezone";
 import { Link } from "react-router-dom";
 
 import { noteSubmitMethod, notesDeleteMethod } from "../methods";
-import { Notes, NotesInsert } from "../collections/notes";
-import { cleanCity, validSubRailroad, validSubCity, validSubState, validSubSymbol, validSubDateTime } from "../validation";
+import { Notes } from "../collections/notes";
+import { validSubRailroad, validSubCity, validSubState, validSubSymbol, validSubDateTime } from "../validation";
 import DateTime from "./dateTime";
 import NotesTable from "./notes_table";
 import FieldWithError from "./field_with_error";
@@ -17,13 +17,12 @@ Moment.tz.setDefault("Etc/UTC");
 let apiHandle;
 
 class AddNoteForm extends Component {
+	onSubmit(values) {
+		noteSubmitMethod(values, apiHandle);
+	}
 
 	transferApi(formApi) {
 		apiHandle = formApi;
-	}
-
-	onSubmit(values) {
-		noteSubmitMethod(values, apiHandle);
 	}
 
 	render() {
@@ -34,9 +33,9 @@ class AddNoteForm extends Component {
 					Please log in to submit train notes. For more information, visit the 
 					<Link to="/read_me"> readme</Link>.
 				</div>
-			)
+			);
 		}
-		
+
 		if (this.props.user === "LOADING") {
 			return <div className="spinner" />;
 		}
@@ -58,7 +57,7 @@ class AddNoteForm extends Component {
 				<Form
 					className="form-group"
 					getApi={this.transferApi}
-					onSubmit={_.debounce(this.onSubmit.bind(this), 200) /*slow it down in case button gets clicked twice*/}
+					onSubmit={_.debounce(this.onSubmit.bind(this), 200)}
 					initialValues={defaultValues}
 				>
 					{({ formApi, formState }) => (
@@ -67,11 +66,12 @@ class AddNoteForm extends Component {
 							<label>Railroad</label>
 							<FieldWithError
 								className="form-control"
-								field="railroad" 
+								field="railroad"
 								placeholder="E.G. CSX"
 								validateOnBlur
 								validate={validSubRailroad}
-								notify={['symbol']} />
+								notify={["symbol"]}
+							/>
 
 							<div id="locationFieldSpan">
 								<div id="cityField">
@@ -82,7 +82,8 @@ class AddNoteForm extends Component {
 										maxLength="30"
 										placeholder="e.g. PITTSBURGH"
 										validateOnBlur
-										validate={validSubCity} />
+										validate={validSubCity}
+									/>
 								</div>
 								<div id="stateField">
 									<label>State</label>
@@ -92,23 +93,26 @@ class AddNoteForm extends Component {
 										maxLength="2"
 										placeholder="E.G. PA"
 										validateOnBlur
-										validate={validSubState} />
+										validate={validSubState}
+									/>
 								</div>
 							</div>
 
 							<label>Symbol</label>
 							<FieldWithError
-								className="form-control" 
-								field="symbol" id="symbol" 
+								className="form-control"
+								field="symbol"
+								id="symbol"
 								placeholder="E.G. Q138"
 								validateOnBlur
 								validate={validSubSymbol}
-								autoFocus />
+								autoFocus
+							/>
 
 							<label>Date/Time</label>
 							<DateTime
-								className="form-control" 
-								field="dateTime" 
+								className="form-control"
+								field="dateTime"
 								placeholder="MM-DD-YY 23:59"
 								validateOnBlur
 								validate={validSubDateTime} />
@@ -120,12 +124,13 @@ class AddNoteForm extends Component {
 						</React.Fragment>
 					)}
 				</Form>
-				<NotesTable 
+				<NotesTable
 					notes={this.props.notes}
 					user={this.props.user}
 					deleteFunc={notesDeleteMethod}
 					appLocation="add_note_form"
-					caption="Recent Submissions - All Users" />
+					caption="Recent Submissions - All Users"
+				/>
 			</div>
 		);
 	}

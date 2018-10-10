@@ -1,6 +1,7 @@
 # change log:
-- Update to meteor 1.8
-- Fade-in animations for main pages as well as components/elements that render subscription data
+- Update all packages to newest versions. Looks like there is no breaking changes
+- Some long overdue linting - still much to be done.
+- Deleted many unused imports
 
 # bugs:
 

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Modal } from "react-bootstrap";
-import { Form, RadioGroup, Radio } from "informed";
+import { Form } from "informed";
 
-import { TextAreaWithError } from "./textarea_with_error";
+import TextAreaWithError from "./textarea_with_error";
 import { flagSubmitMethod } from "../methods";
 
 
@@ -21,6 +21,10 @@ class FlagModal extends Component {
 		};
 	}
 
+	onSubmit(value) {
+		flagSubmitMethod({reason: value.reason, problemId: this.props._id, flagType: this.props.type}, this.handleClose, this.handleSuccess);
+	}
+
 	handleClose() {
 		this.setState({ show: false });
 	}
@@ -33,16 +37,12 @@ class FlagModal extends Component {
 		this.setState({success: true});
 	}
 
-	onSubmit(value) {
-		flagSubmitMethod({reason: value.reason, problemId: this.props._id, flagType: this.props.type}, this.handleClose, this.handleSuccess);
-	}
-
 	render() {
 		return (
 			<React.Fragment>
 				{this.props.type === "note" ?
-				<td><span onClick={this.handleShow} className="glyphicon glyphicon-flag" /></td> :
-				<span onClick={this.handleShow} className="glyphicon glyphicon-flag" />
+					<td><span onClick={this.handleShow} className="glyphicon glyphicon-flag" /></td> :
+					<span onClick={this.handleShow} className="glyphicon glyphicon-flag" />
 				}
 				<Modal show={this.state.show} onHide={this.handleClose}>
 					<Modal.Header closeButton>

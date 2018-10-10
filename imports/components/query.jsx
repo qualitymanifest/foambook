@@ -2,9 +2,7 @@ import { Meteor } from "meteor/meteor";
 import React, { Component } from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import queryString from "query-string";
-import { Link } from "react-router-dom";
 import { Breadcrumb } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
 import Moment from "moment-timezone";
 
 import { AggregateLocations } from "../collections/aggregations";
@@ -70,7 +68,6 @@ class Query extends Component {
 }
 
 
-
 Query = withTracker(() => {
 	const aggregateLocationsHandle = Meteor.subscribe("aggregateLocations", {});
 	return {
@@ -79,4 +76,4 @@ Query = withTracker(() => {
 	};
 })(Query);
 
-export default Query
+export default Query;

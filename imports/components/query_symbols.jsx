@@ -18,14 +18,13 @@ class QuerySymbols extends Component {
 }
 
 QuerySymbols = withTracker(() => {
-	let qs = queryString.parse(location.search);
-	let selector = {_id: qs.city+qs.state};
+	const qs = queryString.parse(location.search);
+	const selector = { _id: qs.city + qs.state };
 	const aggregateHandle = Meteor.subscribe("aggregateSymbols", selector);
 	return {
 		aggregateSymbols: AggregateSymbols.find(selector).fetch(),
-		aggregateSymbolsReady: aggregateHandle.ready(),
-
+		aggregateSymbolsReady: aggregateHandle.ready()
 	};
 })(QuerySymbols);
 
-export default QuerySymbols
+export default QuerySymbols;
