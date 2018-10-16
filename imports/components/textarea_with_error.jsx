@@ -12,7 +12,7 @@ export default asField(({ fieldState, maxLength, ...props }) => (
 			<p className="form-error">{fieldState.error}</p>
 		) : null}
 		<small>
-			{fieldState.value ? fieldState.value.length : 0}/{maxLength} characters used
+			{`${fieldState.value ? fieldState.value.length : 0}/${maxLength} characters used`}
 		</small>
 	</React.Fragment>
 ));

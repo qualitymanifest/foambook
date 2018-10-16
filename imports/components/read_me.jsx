@@ -29,7 +29,7 @@ export default ReadMe = () => {
 			</ul>
 			<h3>When searching for notes:</h3>
 			<p>There is one quirk to be aware of: The search options data is separate from the database collection that holds all the notes. Notes are updated as soon
-			as you add/delete them, but search options are updated <strong>every 15 minutes</strong>. This means that if you have submitted a note for a new location or a new symbol,
+			as you add/delete them, but search options are updated <strong>hourly</strong>. This means that if you have submitted a note for a new location or a new symbol,
 			it won't show up in the search options until the next time they are updated. If you want to view the note or leave comments on it, you can click on the note in the table below
 			the submission box to be taken to it.</p>
 			<p>Given that these notes are user-submitted, not official railroad data, the absence of notes from a particular day or time does not necessarily mean that that train

@@ -22,7 +22,11 @@ class FlagModal extends Component {
 	}
 
 	onSubmit(value) {
-		flagSubmitMethod({reason: value.reason, problemId: this.props._id, flagType: this.props.type}, this.handleClose, this.handleSuccess);
+		flagSubmitMethod(
+			{ reason: value.reason, problemId: this.props._id, flagType: this.props.type },
+			this.handleClose,
+			this.handleSuccess
+		);
 	}
 
 	handleClose() {
@@ -49,23 +53,27 @@ class FlagModal extends Component {
 						<Modal.Title>Flag {this.props.type} for review</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
-						{ this.state.success ? 
+						{ this.state.success ?
 							<strong>Flag submitted successfully, thank you for your input</strong> :
-							<Form 
-								getApi={this.transferApi}
-								onSubmit={_.debounce(this.onSubmit.bind(this), 200) /*slow it down in case button gets clicked twice*/} >
-								<TextAreaWithError 
-									className="form-control"
-									maxLength={100}
-									field="reason" 
-									placeholder={`Please explain the issue with this ${this.props.type}`}
-									validateOnBlur
-									validate={this.props.validationFunc} />
-								<button className="btn btn-primary">
-									<span className="glyphicon glyphicon-pencil" />
-									Submit
-								</button>
-							</Form>
+							(
+								<Form
+									getApi={this.transferApi}
+									onSubmit={_.debounce(this.onSubmit.bind(this), 200)}
+								>
+									<TextAreaWithError
+										className="form-control"
+										maxLength={100}
+										field="reason"
+										placeholder={`Please explain the issue with this ${this.props.type}`}
+										validateOnBlur
+										validate={this.props.validationFunc}
+									/>
+									<button type="submit" className="btn btn-primary">
+										<span className="glyphicon glyphicon-pencil" />
+										Submit
+									</button>
+								</Form>
+							)
 						}
 					</Modal.Body>
 				</Modal>

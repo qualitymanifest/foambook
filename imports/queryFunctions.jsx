@@ -10,14 +10,24 @@ Moment.tz.setDefault("Etc/UTC");
 const monthAgo = Moment().subtract(1, "month");
 const yearAgo = Moment().subtract(1, "year");
 
+const testAge = (mostRecent) => {
+	if (mostRecent > monthAgo) {
+		return "pastMonth";
+	}
+	if (mostRecent > yearAgo) {
+		return "pastYear";
+	}
+	return "olderThanYear";
+};
+
 // meteor publishes randomly, even if DB is sorted:
 export const locationSorter = (rawLocations) => {
-	const locations = rawLocations.slice().sort((a, b) => {
+	const locations = rawLocations.sort((a, b) => {
 		return (a._id > b._id) ? 1 : -1;
 	});
-	for (let state of locations) {
+	locations.forEach((state) => {
 		state.cities.sort((a, b) => (a.city > b.city) ? 1 : -1);
-	}
+	});
 	return locations;
 };
 
@@ -25,9 +35,9 @@ export const symbolSorter = (rawSymbols) => {
 	const railroads = rawSymbols[0].railroads.sort((a, b) => {
 		return (a.railroad > b.railroad) ? 1 : -1;
 	});
-	for (let railroad of railroads) {
+	railroads.forEach((railroad) => {
 		railroad.symbols.sort((a, b) => (a.symbol > b.symbol) ? 1 : -1);
-	}
+	});
 	return railroads;
 };
 
@@ -51,8 +61,8 @@ export const processNotes = (notes) => {
 	const years = [];
 	const newNotes = [];
 	for (let note of notes) {
-		let newNote = Object.assign({}, note);
-		let noteMoment = Moment(note.dateTime);
+		const newNote = Object.assign({}, note);
+		const noteMoment = Moment(note.dateTime);
 		newNote.time = (noteMoment.hours() * 60) + noteMoment.minutes();
 		newNote.dateTimeReadable = Moment(note.dateTime).format("MM-DD-YY HH:mm");
 		newNote.weekday = noteMoment.isoWeekday();
@@ -108,7 +118,7 @@ export const listLocations = (locations) => {
 												<div className="queryItem" key={city.city}>
 													<Link to={`?city=${city.city}&state=${loc._id}`}>
 														{city.city}
-														<Badge className={city.mostRecent > monthAgo ? "pastMonth" : city.mostRecent > yearAgo ? "pastYear" : "olderThanYear"}>
+														<Badge className={testAge(city.mostRecent)}>
 															{city.count}
 														</Badge>
 													</Link>
@@ -136,13 +146,20 @@ export const listLocations = (locations) => {
 
 
 export const listSymbols = (railroads, city, state) => {
+	const oneRailroad = (railroads.length === 1);
 	return (
 		<div className="fadeIn">
-			<p>Select railroad & symbol</p>
-			<PanelGroup accordion id="railroadsPanelGroup">
-				{ 
+			<p>
+				{oneRailroad ? "Select symbol" : "Select railroad & symbol"}
+			</p>
+			<PanelGroup
+				accordion
+				id="railroadsPanelGroup"
+				defaultActiveKey={oneRailroad ? city + railroads[0].railroad : null}
+			>
+				{
 					railroads.map((railroad) => {
-						let columnStyle = railroad.symbols.length > 14 ? {columnCount: 3} : {};
+						const columnStyle = railroad.symbols.length > 14 ? { columnCount: 3 } : {};
 						return (
 							<Panel id={railroad.railroad} key={railroad.railroad} eventKey={city + railroad.railroad}>
 								<Panel.Heading>
@@ -159,7 +176,7 @@ export const listSymbols = (railroads, city, state) => {
 												<div className="queryItem" key={symbol.symbol}>
 													<Link to={`?city=${city}&state=${state}&railroad=${railroad.railroad}&symbol=${symbol.symbol}`}>
 														{symbol.symbol}
-														<Badge className={symbol.mostRecent > monthAgo ? "pastMonth" : symbol.mostRecent > yearAgo ? "pastYear" : "olderThanYear"}>
+														<Badge className={testAge(symbol.mostRecent)}>
 															{symbol.count}
 														</Badge>
 													</Link>

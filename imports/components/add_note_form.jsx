@@ -26,7 +26,8 @@ class AddNoteForm extends Component {
 	}
 
 	render() {
-		if (!this.props.user) {
+		const { notes, user } = this.props;
+		if (!user) {
 			// default props.user is "LOADING". if undefined, definitely not logged in.
 			return (
 				<div className="center">
@@ -36,14 +37,14 @@ class AddNoteForm extends Component {
 			);
 		}
 
-		if (this.props.user === "LOADING") {
+		if (user === "LOADING") {
 			return <div className="spinner" />;
 		}
 
 		let defaultValues = null;
-		if (this.props.user.preferences) {
+		if (user.preferences) {
 			// user is logged in, and has preferences. create defaults object for form!
-			const { railroad, city, state, timezone } = this.props.user.preferences;
+			const { railroad, city, state, timezone } = user.preferences;
 			defaultValues = {
 				railroad,
 				city,
@@ -125,8 +126,8 @@ class AddNoteForm extends Component {
 					)}
 				</Form>
 				<NotesTable
-					notes={this.props.notes}
-					user={this.props.user}
+					notes={notes}
+					user={user}
 					deleteFunc={notesDeleteMethod}
 					appLocation="add_note_form"
 					caption="Recent Submissions - All Users"
