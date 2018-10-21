@@ -1,7 +1,7 @@
 import { Meteor } from "meteor/meteor";
 import React, { Component } from "react";
 import { Form } from "informed";
-import _ from "lodash";
+import { debounce } from "lodash";
 import { withTracker } from "meteor/react-meteor-data";
 import Moment from "moment-timezone";
 import { Link } from "react-router-dom";
@@ -58,7 +58,7 @@ class AddNoteForm extends Component {
 				<Form
 					className="form-group"
 					getApi={this.transferApi}
-					onSubmit={_.debounce(this.onSubmit.bind(this), 200)}
+					onSubmit={debounce(this.onSubmit.bind(this), 200)}
 					initialValues={defaultValues}
 				>
 					{({ formApi, formState }) => (

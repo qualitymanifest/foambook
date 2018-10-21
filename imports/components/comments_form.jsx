@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form } from "informed";
 import { Panel } from "react-bootstrap";
-import _ from "lodash";
+import { debounce } from "lodash";
 
 import TextAreaWithError from "./textarea_with_error";
 import { commentSubmitMethod } from "../methods";
@@ -46,7 +46,7 @@ export default class CommentsForm extends Component {
 					<Form
 						id="commentsFormGroup"
 						getApi={this.transferApi}
-						onSubmit={_.debounce(this.onSubmit.bind(this), 200)} 
+						onSubmit={debounce(this.onSubmit.bind(this), 200)} 
 					>
 						<TextAreaWithError
 							className="form-control"

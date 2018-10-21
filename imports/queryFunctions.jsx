@@ -64,7 +64,6 @@ export const processNotes = (notes) => {
 		const newNote = Object.assign({}, note);
 		const noteMoment = Moment(note.dateTime);
 		newNote.time = (noteMoment.hours() * 60) + noteMoment.minutes();
-		newNote.dateTimeReadable = Moment(note.dateTime).format("MM-DD-YY HH:mm");
 		newNote.weekday = noteMoment.isoWeekday();
 		newNotes.push(newNote);
 		if (!years.includes(noteMoment.year())) {

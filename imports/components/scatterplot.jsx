@@ -1,6 +1,10 @@
 import { Component } from "react";
 import ReactFauxDOM from "react-faux-dom";
-import * as d3 from "d3";
+import Moment from "moment";
+import { select } from "d3-selection";
+import { scaleLinear } from "d3-scale";
+import { axisBottom, axisLeft } from "d3-axis";
+import { transition } from "d3-transition";
 
 // https://mikewilliamson.wordpress.com/2016/06/03/d3-and-react-3-ways/
 
@@ -42,23 +46,23 @@ class Scatterplot extends Component {
 		const width = screenWidth - margin.left - margin.right;
 		const height = (Math.floor(screenWidth / 2)) - margin.top - margin.bottom;
 
-		const colorScale = d3.scaleLinear()
+		const colorScale = scaleLinear()
 			.domain([this.props.oldest, this.props.newest])
 			.range([0, 50])
 
-		const x = d3.scaleLinear()
+		const x = scaleLinear()
 			.domain([0, 1439]) // minutes of the day
 			.range([0, width]);
 
-		const xAxis = d3.scaleLinear()
+		const xAxis = scaleLinear()
 			.domain([0, 24]) // hours of the day
 			.range([0, width]);
 
-		const y = d3.scaleLinear()
+		const y = scaleLinear()
 			.domain([1, 7]) // days of the week
 			.range([height, 0]);
 
-		const chart = d3.select(div)
+		const chart = select(div)
 			.append("svg")
 			.attr("width", width + margin.right + margin.left)
 			.attr("height", height + margin.top + margin.bottom)
@@ -70,24 +74,24 @@ class Scatterplot extends Component {
 			.attr("height", height)
 			.attr("class", "main");
 
-		const tip = d3.select("body").append("div")
+		const tip = select("body").append("div")
 			.attr("class", "tooltip")
 			.style("opacity", 0);
 
 		main.append("g")
 			.attr("transform", `translate(0,${height})`)
 			.attr("class", "main axis date")
-			.call(d3.axisBottom(xAxis).ticks(tickHours.length).tickValues(tickHours));
+			.call(axisBottom(xAxis).ticks(tickHours.length).tickValues(tickHours));
 
 		main.append("g")
 			.attr("transform", "translate(0,0)")
 			.attr("class", "main axis date")
-			.call(d3.axisLeft(y).ticks(7).tickFormat(d => days[d]));
+			.call(axisLeft(y).ticks(7).tickFormat(d => days[d]));
 
 		main.append("g")
 			.attr("class", "grid")
 			.attr("transform", "translate(0," + height + ")")
-			.call(d3.axisBottom(xAxis)
+			.call(axisBottom(xAxis)
 				.ticks(tickHoursFull.length)
 				.tickSize(-height)
 				.tickFormat("")
@@ -96,7 +100,7 @@ class Scatterplot extends Component {
 		main.append("g")
 			.attr("class", "grid")
 			.attr("transform", "translate(0,0)")
-			.call(d3.axisLeft(y)
+			.call(axisLeft(y)
 				.ticks(7)
 				.tickSize(-width)
 				.tickFormat("")
@@ -112,12 +116,14 @@ class Scatterplot extends Component {
 				.attr("r", dotRadius)
 				.attr("fill", d => `hsl(356, 100%, ${colorScale(d.dateTime)}%)`)
 				.on("mouseover", function(d) {
+					const dateTimeReadable = Moment(d.dateTime).format("MM-DD-YY HH:mm");
+					const e = () => require("d3-selection").event;
 					tip.transition()
 						.duration(200)
 						.style("opacity", .9);
-					tip.html(d.dateTimeReadable)
-						.style("left", (d3.event.pageX) + "px")
-						.style("top", (d3.event.pageY - 32) + "px");
+					tip.html(dateTimeReadable)
+						.style("left", (e().pageX) + "px")
+						.style("top", (e().pageY - 32) + "px");
 				})
 				.on("mouseout", function(d) {
 					tip.transition()

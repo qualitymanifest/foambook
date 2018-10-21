@@ -1,5 +1,5 @@
 import Moment from "moment-timezone";
-import he from "he";
+import { encode } from "he";
 
 import { FlagsInsert } from "./collections/flags";
 import { NotesDelete, UserUpdate, NotesInsert } from "./collections/notes";
@@ -48,7 +48,7 @@ export const noteSubmitMethod = (values, apiHandle) => {
 };
 
 export const commentSubmitMethod = (formValues, query, toggleFunc, apiHandle) => {
-	const cleansedComment = he.encode(formValues.comment);
+	const cleansedComment = encode(formValues.comment);
 	const comment = {
 		comment: cleansedComment,
 		city: query.city,

@@ -43,6 +43,9 @@ export default ReadMe = () => {
 			<h3>If you find an incorrect/inappropriate note or comment:</h3>
 			<p>Click the orange flag icon <span className="glyphicon glyphicon-flag" /> on the right hand side of the note/comment and a form will pop up. Please include a brief description of the problem. 
 			Your comments here will not be publicly visible. The problem note/comment will then be reviewed and deleted if necessary.</p>
+			<h3>Privacy:</h3>
+			<p>When you create an account here, the only information that is collected is your google profile (email, name, profile picture, and language). This is essentially the same information that is included 
+			when you send an email. Google also provides an ID and access token specific to this app to use for authentication - passwords are never involved.</p>
 			<h3>Feedback:</h3>
 			<p>If you experience any bugs or have any input, please let me know either by submitting an issue at <a href="https://github.com/qualitymanifest/foambook">the github repo </a>
 			 or by sending an email to qualityfiltering@gmail.com</p>

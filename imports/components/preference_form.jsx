@@ -1,5 +1,5 @@
 import React from "react";
-import _ from "lodash";
+import { debounce } from "lodash";
 import Moment from "moment-timezone";
 import { Form, Select, Option } from "informed";
 
@@ -12,7 +12,7 @@ export default (props) => {
 	return (
 		<Form
 			className="form-group"
-			onSubmit={_.debounce(props.onSubmit, 200)}
+			onSubmit={debounce(props.onSubmit, 200)}
 			initialValues={props.defaultValues}
 		>
 			{({ formApi, formState }) => (

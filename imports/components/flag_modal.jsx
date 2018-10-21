@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Modal } from "react-bootstrap";
 import { Form } from "informed";
+import { debounce } from "lodash";
 
 import TextAreaWithError from "./textarea_with_error";
 import { flagSubmitMethod } from "../methods";
@@ -58,7 +59,7 @@ class FlagModal extends Component {
 							(
 								<Form
 									getApi={this.transferApi}
-									onSubmit={_.debounce(this.onSubmit.bind(this), 200)}
+									onSubmit={debounce(this.onSubmit.bind(this), 200)}
 								>
 									<TextAreaWithError
 										className="form-control"

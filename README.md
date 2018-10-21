@@ -1,6 +1,10 @@
 # change log:
-- More linting
-- In query, expand single railroads by default
+- Remove Underscore
+- Tree-shake exports from Lodash
+- Tree-shake He
+- Split and tree-shake d3 packages
+- Remove babel-polyfill^6.26.0, babel-runtime^6.26.0, prop-types^15.6.2
+- Don't process dateTimeReadble until dot is hovered
 
 # bugs:
 

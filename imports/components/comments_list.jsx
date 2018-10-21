@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment-timezone";
-import he from "he";
+import { decode } from "he";
 
 import FlagModal from "./flag_modal";
 import { validFlag } from "../validation";
@@ -20,7 +20,7 @@ export default CommentsList = (props) => {
 			return (
 				<div key={_id} className="commentBox">
 					{!isLocal && <strong>{city}, {state}</strong>}
-					<p>{he.decode(comment)}</p>
+					<p>{decode(comment)}</p>
 					<div className="commentData">
 						<span>- {userName} {moment(createdAt).format("MM-DD-YYYY")}</span>
 						{ (props.user && userId === props.user._id) ? 
