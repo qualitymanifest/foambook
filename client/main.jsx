@@ -3,10 +3,10 @@ import ReactDOM from "react-dom";
 import { Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
-import { connectRouter, ConnectedRouter, routerMiddleware } from "connected-react-router"
+import { connectRouter, ConnectedRouter, routerMiddleware } from "connected-react-router";
 import { createBrowserHistory } from "history";
 
-import { Meteor } from "meteor/meteor"
+import { Meteor } from "meteor/meteor";
 
 import reducers from "./reducers";
 import { screenResize } from "./actions";
@@ -38,7 +38,6 @@ const routes = (
 			<div>
 				<Header />
 				<Switch>
-					<Route path="/query" component={Query} />
 					<Route path="/add_note" component={AddNoteForm} />
 					<Route path="/user_profile" component={UserProfile} />
 					<Route path="/read_me" component={ReadMe} />

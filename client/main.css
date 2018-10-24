@@ -130,11 +130,13 @@ ul {
   background-color: #fff;
   margin: 5px 20%;
   overflow-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 .commentData {
   text-align: right;
   padding: 5px;
+  font-style: italic;
 }
 
 .fadeIn {

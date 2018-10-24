@@ -37,15 +37,15 @@ export default ReadMe = () => {
 			<p>The best general source of symbol data I have found is at <a href="http://railroadfan.com/wiki/index.php/Main_Page">railroadfan.com/wiki</a> - it contains origins, destinations, 
 			operating frequencies, and sometimes other information. It's not perfect, but it's usually accurate and it seems to be updated fairly regularly.</p>
 			<h3>To include additional information about a train:</h3>
-			<p>Search for the train you're looking for. When you find it, underneath the scatterplot there is section where you can add and delete comments. This is intended for general information about what 
-			that train usually does at that location, e.g. "Arrives, sets out doublestacks up front, and ties down. Outbound crew on duty within two hours". Please be mindful about what you put here and do not 
-			include any sensitive information, or you will be blocked from adding notes.</p>
+			<p>Select the location & train from the search menu. Underneath the scatterplot there is section where you can add and delete comments. This is intended for general information about what 
+			that train does at that location, e.g. "Arrives, sets out doublestacks up front, and ties down. Outbound crew on duty within two hours". Please be mindful about what you put here and <strong>do not 
+			include any sensitive information.</strong></p>
 			<h3>If you find an incorrect/inappropriate note or comment:</h3>
 			<p>Click the orange flag icon <span className="glyphicon glyphicon-flag" /> on the right hand side of the note/comment and a form will pop up. Please include a brief description of the problem. 
 			Your comments here will not be publicly visible. The problem note/comment will then be reviewed and deleted if necessary.</p>
 			<h3>Privacy:</h3>
-			<p>When you create an account here, the only information that is collected is your google profile (email, name, profile picture, and language). This is essentially the same information that is included 
-			when you send an email. Google also provides an ID and access token specific to this app to use for authentication - passwords are never involved.</p>
+			<p>When you create an account here, the only information that is collected from google is your google profile (email, name, profile picture, and language). This is essentially the same information that is included 
+			when you send an email. Google also provides an ID and access token specific to this app to use for authentication - that way, passwords are never involved.</p>
 			<h3>Feedback:</h3>
 			<p>If you experience any bugs or have any input, please let me know either by submitting an issue at <a href="https://github.com/qualitymanifest/foambook">the github repo </a>
 			 or by sending an email to qualityfiltering@gmail.com</p>

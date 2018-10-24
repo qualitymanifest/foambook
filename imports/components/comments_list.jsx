@@ -15,8 +15,8 @@ export default CommentsList = (props) => {
 	let sortedComments = commentsSorter(props.comments, props.city, props.state);
 
 	const commentsBuilder = (comments, isLocal) => {
-		return comments.map((com) => {
-			const { userName, userId, createdAt, comment, city, state, _id } = com;
+		return comments.map((commentDoc) => {
+			const { userName, userId, createdAt, comment, city, state, _id } = commentDoc;
 			return (
 				<div key={_id} className="commentBox">
 					{!isLocal && <strong>{city}, {state}</strong>}

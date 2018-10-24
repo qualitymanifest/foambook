@@ -1,5 +1,5 @@
 import { Meteor } from "meteor/meteor";
-import React, { Component } from "react";
+import React from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import queryString from "query-string";
 import { Breadcrumb } from "react-bootstrap";

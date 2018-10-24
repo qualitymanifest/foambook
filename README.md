@@ -1,10 +1,7 @@
 # change log:
-- Remove Underscore
-- Tree-shake exports from Lodash
-- Tree-shake He
-- Split and tree-shake d3 packages
-- Remove babel-polyfill^6.26.0, babel-runtime^6.26.0, prop-types^15.6.2
-- Don't process dateTimeReadble until dot is hovered
+- Comment styling: show newlines, italic username/date
+- Update: @types/react, bcrypt, informed, react, react-dom, redux
+- Remove unused `/query` route
 
 # bugs:
 
