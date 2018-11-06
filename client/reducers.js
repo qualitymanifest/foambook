@@ -1,5 +1,7 @@
 import { combineReducers } from "redux";
-import { INCREMENT_PAGE_LOAD, SCREEN_RESIZE, CHANGE_PATH } from "./actions";
+import { connectRouter } from "connected-react-router";
+
+import { INCREMENT_PAGE_LOAD, SCREEN_RESIZE } from "./actions";
 
 const INITIAL_PAGE_LOAD = { loadNum: 5 };
 
@@ -27,7 +29,8 @@ const uiReducer = (state = INITIAL_UI, action) => {
 	}
 };
 
-export default rootReducer = combineReducers({
+export default history => combineReducers({
+	router: connectRouter(history),
 	profileState: pageLoadReducer,
 	uiState: uiReducer
 });

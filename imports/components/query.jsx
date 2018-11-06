@@ -17,22 +17,22 @@ const Query = (props) => {
 	if (!aggregateLocationsReady) {
 		return <div className="spinner" />;
 	}
+	const sortedLocations = locationSorter(aggregateLocations);
+	const qString = queryString.parse(location.search);
+	const { city, state, railroad, symbol, year } = qString;
 
-	let sortedLocations = locationSorter(aggregateLocations);
-	let qString = queryString.parse(location.search);
-
-	if (qString.city && qString.state && qString.railroad && qString.symbol) {
+	if (city && state && railroad && symbol) {
 		// completeQuery is for sending into DB - not using raw query string in case errant values are present
-		completeQuery = {city: qString.city, state: qString.state, railroad: qString.railroad, symbol: qString.symbol};
+		completeQuery = {city, state, railroad, symbol};
 		let invalidDate = false;
-		if (qString.year) {
-			invalidDate = !/^\d{4}$/.test(qString.year);
-			let begin = Moment(qString.year, "YYYY").startOf("year").toDate()
-			let end = Moment(qString.year, "YYYY").endOf("year").toDate();
+		if (year) {
+			invalidDate = !/^\d{4}$/.test(year);
+			let begin = Moment(year, "YYYY").startOf("year").toDate()
+			let end = Moment(year, "YYYY").endOf("year").toDate();
 			// throw dateTime in regardless so we know if we have to render date in breadcrumb
 			completeQuery.dateTime = {"$gte": begin, "$lte": end}
 		}
-		let locationsTested = testLocation(sortedLocations, qString.city, qString.state);
+		const locationsTested = testLocation(sortedLocations, city, state);
 		return (
 			<div className="center">
 				{ completeQuery.dateTime ? breadcrumbBuilder(qString, "dates") : breadcrumbBuilder(qString, "symbol") }
@@ -44,12 +44,12 @@ const Query = (props) => {
 		);
 	}
 
-	if (qString.city && qString.state) {
-		const locationsTested = testLocation(sortedLocations, qString.city, qString.state);
+	if (city && state) {
+		const locationsTested = testLocation(sortedLocations, city, state);
 		return (
 			<div className="center">
 				{ breadcrumbBuilder(qString, "city") }
-				{ (typeof locationsTested === "string") ? locationsTested : <QuerySymbols city={qString.city} state={qString.state}/> }
+				{ (typeof locationsTested === "string") ? locationsTested : <QuerySymbols city={city} state={state}/> }
 			</div>
 		);
 	}

@@ -1,6 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import { Mongo } from "meteor/mongo";
-import Moment from "moment";
+import moment from "moment-timezone";
 import SimpleSchema from "simpl-schema";
 import { ValidatedMethod } from "meteor/mdg:validated-method";
 
@@ -21,7 +21,7 @@ export const FlagsInsert = new ValidatedMethod({
 		const flagWithMetadata = Object.assign(
 			{},
 			flag,
-			{ userId: Meteor.userId(), createdAt: Moment()._d }
+			{ userId: Meteor.userId(), createdAt: moment()._d }
 		);
 		Flags.insert(flagWithMetadata);
 	}

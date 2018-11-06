@@ -3,12 +3,12 @@ import ReactDOM from "react-dom";
 import { Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
-import { connectRouter, ConnectedRouter, routerMiddleware } from "connected-react-router";
+import { ConnectedRouter, routerMiddleware } from "connected-react-router";
 import { createBrowserHistory } from "history";
 
 import { Meteor } from "meteor/meteor";
 
-import reducers from "./reducers";
+import createRootReducer from "./reducers";
 import { screenResize } from "./actions";
 import AddNoteForm from "../imports/components/add_note_form";
 import UserProfile from "../imports/components/user_profile";
@@ -20,7 +20,7 @@ import Header from "../imports/components/header";
 const history = createBrowserHistory();
 
 const store = createStore(
-	connectRouter(history)(reducers),
+	createRootReducer(history),
 	applyMiddleware(
 		routerMiddleware(history)
 	)

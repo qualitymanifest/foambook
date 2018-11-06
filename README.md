@@ -1,7 +1,12 @@
 # change log:
-- Comment styling: show newlines, italic username/date
-- Update: @types/react, bcrypt, informed, react, react-dom, redux
-- Remove unused `/query` route
+- Remove `moment` as a dependency - unneccesary since `moment-timezone` already contains it
+- Update react-redux, moment-timezone, react-number-format, connected-react-router
+- Significant changes in `main.jsx` and `reducers.js` due to breaking change in `connected-react-router`
+- Add support for UP local symbols
+- Add count/recency badges to states and railroads
+- Consolidate query footnotes
+- Use object-destructuring for `qString` in `query.jsx`
+
 
 # bugs:
 

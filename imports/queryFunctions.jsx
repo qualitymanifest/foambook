@@ -74,8 +74,8 @@ export const processNotes = (notes) => {
 };
 
 export const badQuery = (specific) => {
-	return "Sorry, invalid " + specific + ". Either you've followed a bad link, or you're searching for a newly created " + specific +
-	" (query categories are updated every 15 minutes)";
+	return "Sorry, invalid " + specific + ". Either you've followed a bad link, or you're searching for a newly added " + specific +
+	" (search options are updated hourly)";
 };
 
 
@@ -93,6 +93,17 @@ export const testLocation = (metadata, searchCity, searchState) => {
 	return badQuery("state");
 };
 
+const FootNote = () => (
+	<p className="smallPrint">
+		<span>Badge number is the amount of notes, color indicates age of last submission: </span>
+		<span className="pastMonth">past month</span>
+		{" "}
+		<span className="pastYear">past year</span>
+		{" "}
+		<span className="olderThanYear">older</span>
+	</p>
+);
+
 export const listLocations = (locations) => {
 	return (
 		<React.Fragment>
@@ -107,6 +118,9 @@ export const listLocations = (locations) => {
 									<Panel.Toggle>
 										<Panel.Title>
 											{statesMap[loc._id]}
+											<Badge className={testAge(loc.mostRecent)}>
+												{loc.count}
+											</Badge>
 										</Panel.Title>
 									</Panel.Toggle>
 								</Panel.Heading>
@@ -132,13 +146,7 @@ export const listLocations = (locations) => {
 				}
 			</PanelGroup>
 			<br />
-			<p className="smallPrint">Numbers to the right of cities are the amount of notes</p>
-			<p className="smallPrint">
-				<span>Color indicates age of last submission: </span>
-				<span className="pastMonth">past month, </span>
-				<span className="pastYear">past year, </span>
-				<span className="olderThanYear">older </span>
-			</p>
+			<FootNote />
 		</React.Fragment>
 	)
 }
@@ -165,6 +173,9 @@ export const listSymbols = (railroads, city, state) => {
 									<Panel.Toggle>
 										<Panel.Title>
 											{railroad.railroad}
+											<Badge className={testAge(railroad.mostRecent)}>
+												{railroad.count}
+											</Badge>
 										</Panel.Title>
 									</Panel.Toggle>
 								</Panel.Heading>
@@ -190,13 +201,7 @@ export const listSymbols = (railroads, city, state) => {
 				}
 			</PanelGroup>
 			<br />
-			<p className="smallPrint">Numbers to the right of symbols are the amount of notes</p>
-			<p className="smallPrint">
-				<span>Color indicates age of last submission: </span>
-				<span className="pastMonth">past month, </span>
-				<span className="pastYear">past year, </span>
-				<span className="olderThanYear">older </span>
-			</p>
+			<FootNote />
 		</div>
 	)
 }
