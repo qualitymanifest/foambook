@@ -1,11 +1,7 @@
 # change log:
-- Remove `moment` as a dependency - unneccesary since `moment-timezone` already contains it
-- Update react-redux, moment-timezone, react-number-format, connected-react-router
-- Significant changes in `main.jsx` and `reducers.js` due to breaking change in `connected-react-router`
-- Add support for UP local symbols
-- Add count/recency badges to states and railroads
-- Consolidate query footnotes
-- Use object-destructuring for `qString` in `query.jsx`
+- Remove `listSymbols` from `queryFunctions`, do all symbol rendering logic in `query_symbols`
+- Add symbol sorting options
+- Update @babel/runtime, @types/react, connected-react-router, eslint, informed, react, react-dom, react-number-format, react-redux
 
 
 # bugs:

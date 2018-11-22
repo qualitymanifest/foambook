@@ -10,7 +10,7 @@ Moment.tz.setDefault("Etc/UTC");
 const monthAgo = Moment().subtract(1, "month");
 const yearAgo = Moment().subtract(1, "year");
 
-const testAge = (mostRecent) => {
+export const testAge = (mostRecent) => {
 	if (mostRecent > monthAgo) {
 		return "pastMonth";
 	}
@@ -31,14 +31,23 @@ export const locationSorter = (rawLocations) => {
 	return locations;
 };
 
-export const symbolSorter = (rawSymbols) => {
-	const railroads = rawSymbols[0].railroads.sort((a, b) => {
+export const railroadSorter = (rawRailroads) => {
+	return rawRailroads[0].railroads.sort((a, b) => {
 		return (a.railroad > b.railroad) ? 1 : -1;
 	});
-	railroads.forEach((railroad) => {
-		railroad.symbols.sort((a, b) => (a.symbol > b.symbol) ? 1 : -1);
-	});
-	return railroads;
+};
+
+export const symbolSorter = (symbols, sortType) => {
+	if (sortType === "alpha") {
+		return symbols.sort((a, b) => (a.symbol > b.symbol) ? 1 : -1);
+	}
+	if (sortType === "recent") {
+		return symbols.sort((a, b) => (a.mostRecent < b.mostRecent) ? 1 : -1);
+	}
+	// there may be many with the same count, so sort those alphabetically too
+	if (sortType === "count") {
+		return symbols.sort((a, b) => (a.count === b.count && a.symbol > b.symbol) ? 1 : (a.count < b.count) ? 1 : -1);
+	}
 };
 
 export const commentsSorter = (comments, city, state) => {
@@ -60,7 +69,7 @@ export const processNotes = (notes) => {
 	const newest = Moment(notes[notes.length - 1].dateTime);
 	const years = [];
 	const newNotes = [];
-	for (let note of notes) {
+	notes.map((note) => {
 		const newNote = Object.assign({}, note);
 		const noteMoment = Moment(note.dateTime);
 		newNote.time = (noteMoment.hours() * 60) + noteMoment.minutes();
@@ -69,7 +78,7 @@ export const processNotes = (notes) => {
 		if (!years.includes(noteMoment.year())) {
 			years.push(noteMoment.year());
 		}
-	}
+	});
 	return { notes: newNotes, oldest, newest, years };
 };
 
@@ -93,7 +102,7 @@ export const testLocation = (metadata, searchCity, searchState) => {
 	return badQuery("state");
 };
 
-const FootNote = () => (
+export const FootNote = () => (
 	<p className="smallPrint">
 		<span>Badge number is the amount of notes, color indicates age of last submission: </span>
 		<span className="pastMonth">past month</span>
@@ -148,63 +157,8 @@ export const listLocations = (locations) => {
 			<br />
 			<FootNote />
 		</React.Fragment>
-	)
-}
-
-
-export const listSymbols = (railroads, city, state) => {
-	const oneRailroad = (railroads.length === 1);
-	return (
-		<div className="fadeIn">
-			<p>
-				{oneRailroad ? "Select symbol" : "Select railroad & symbol"}
-			</p>
-			<PanelGroup
-				accordion
-				id="railroadsPanelGroup"
-				defaultActiveKey={oneRailroad ? city + railroads[0].railroad : null}
-			>
-				{
-					railroads.map((railroad) => {
-						const columnStyle = railroad.symbols.length > 14 ? { columnCount: 3 } : {};
-						return (
-							<Panel id={railroad.railroad} key={railroad.railroad} eventKey={city + railroad.railroad}>
-								<Panel.Heading>
-									<Panel.Toggle>
-										<Panel.Title>
-											{railroad.railroad}
-											<Badge className={testAge(railroad.mostRecent)}>
-												{railroad.count}
-											</Badge>
-										</Panel.Title>
-									</Panel.Toggle>
-								</Panel.Heading>
-								<Panel.Body collapsible style={columnStyle} className="queryList">
-									{
-										railroad.symbols.map((symbol) => {
-											return (
-												<div className="queryItem" key={symbol.symbol}>
-													<Link to={`?city=${city}&state=${state}&railroad=${railroad.railroad}&symbol=${symbol.symbol}`}>
-														{symbol.symbol}
-														<Badge className={testAge(symbol.mostRecent)}>
-															{symbol.count}
-														</Badge>
-													</Link>
-												</div>
-											);
-										})
-									}
-								</Panel.Body>
-							</Panel>
-						);
-					})
-				}
-			</PanelGroup>
-			<br />
-			<FootNote />
-		</div>
-	)
-}
+	);
+};
 
 export const breadcrumbBuilder = (qs, howComplete) => {
 	if (howComplete === "dates") {
