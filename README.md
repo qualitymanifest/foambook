@@ -1,5 +1,6 @@
 # change log:
-- Fix UP symbol validation
+- Update npm packages @babel/runtime, @types/react, bcrypt, d3-scale, d3-selection, d3-transition, informed, react, react-dom, react-number-format, simpl-schema
+- Update meteor to 18.0.2
 
 
 # bugs:
