@@ -68,7 +68,7 @@ export const statesMap = {
 
 const validRR = /^(BNSF|UP|CSX|NS|CN|CP|KCS|PAR|PAS)$/;
 
-const upSymbol = /^(([ACIKMOQUZ]|G[SELS])[A-Z1-5]{4}[BCELPXR]?)|([A-Z]{3}\d{2}[A-Z]?)$/;
+const upSymbol = /(^([ACIKMOQUZ]|G[SELS])[A-Z1-5]{4}[BCELPXR]?)$|^([A-Z]{3}\d{2}[A-Z]?)$/;
 const bnsfSymbol = /^[BCEGHMQSUVXZ][A-Z]{6}[1-9]?$/;
 const csxSymbol = /^[A-Z][0-9]{3}$/;
 const nsSymbol = /^([A-Z]{1,2}\d{1,2}|\d{3}|\d{2}[A-Z])$/;

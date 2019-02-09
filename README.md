@@ -1,11 +1,8 @@
 # change log:
-- Add welcome email
-- Add user status
-- Move status checking to check_user_status
+- Fix UP symbol validation
 
 
 # bugs:
-- Can put pretty much whatever you want for UP symbol as long as first letter is correct
 - Comment dates are wrong timezone, can appear in separate day (see 12/10 note for q349 - made at 20:03)
 - When opening several instances of the app, new notes are highlighted even if they were inserted before the instance started. Move newest note to redux?
 
