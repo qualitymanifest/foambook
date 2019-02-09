@@ -31,7 +31,6 @@ window.addEventListener("resize", () => {
 	store.dispatch(screenResize(document.documentElement.clientWidth));
 });
 
-
 const routes = (
 	<Provider store={store}>
 		<ConnectedRouter history={history}>

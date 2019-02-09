@@ -19,7 +19,7 @@ export const NotesInsert = new ValidatedMethod({
 	name: "notes.insert",
 	validate: NotesSchema.validator(),
 	run(train) {
-		if (!Meteor.userId()) {
+		if (!Meteor.userId() || Meteor.user().status !== "APPROVED") {
 			throw new Meteor.Error("not-authorized");
 		}
 		const note = Object.assign(
@@ -40,7 +40,7 @@ export const NotesDelete = new ValidatedMethod({
 	name: "notes.delete",
 	validate: DeleteSchema.validator(),
 	run({ noteId }) {
-		if (!Meteor.userId()) {
+		if (!Meteor.userId() || Meteor.user().status !== "APPROVED") {
 			throw new Meteor.Error("not-authorized");
 		}
 		Notes.remove({ userId: Meteor.userId(), _id: noteId });
@@ -58,7 +58,7 @@ export const UserUpdate = new ValidatedMethod({
 	name: "user.update",
 	validate: PreferenceSchema.validator(),
 	run(preferences) {
-		if (!Meteor.userId()) {
+		if (!Meteor.userId() || Meteor.user().status !== "APPROVED") {
 			throw new Meteor.Error("not-authorized");
 		}
 		Meteor.users.update(Meteor.userId(), {

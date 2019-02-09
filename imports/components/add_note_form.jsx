@@ -12,6 +12,7 @@ import { validSubRailroad, validSubCity, validSubState, validSubSymbol, validSub
 import DateTime from "./dateTime";
 import NotesTable from "./notes_table";
 import FieldWithError from "./field_with_error";
+import checkUserStatus from "../check_user_status";
 
 Moment.tz.setDefault("Etc/UTC");
 let apiHandle;
@@ -27,18 +28,9 @@ class AddNoteForm extends Component {
 
 	render() {
 		const { notes, user } = this.props;
-		if (!user) {
-			// default props.user is "LOADING". if undefined, definitely not logged in.
-			return (
-				<div className="center">
-					Please log in to submit train notes. For more information, visit the 
-					<Link to="/read_me"> readme</Link>.
-				</div>
-			);
-		}
-
-		if (user === "LOADING") {
-			return <div className="spinner" />;
+		const checkUser = checkUserStatus(user, "add_note_form");
+		if (!checkUser.shouldRender) {
+			return checkUser.renderInstead;
 		}
 
 		let defaultValues = null;

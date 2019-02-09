@@ -8,16 +8,14 @@ import PreferenceForm from "./preference_form";
 import { Notes } from "../collections/notes";
 import NotesTable from "./notes_table";
 import { incrementPages } from "../../client/actions";
+import checkUserStatus from "../check_user_status";
 
 class UserProfile extends Component {
 	render() {
 		let defaultValues = null;
-		if (!this.props.user) {
-			// default props.user is "LOADING". if undefined, definitely not logged in.
-			return <div className="center">You are not logged in!</div>;
-		}
-		if (this.props.user === "LOADING") {
-			return <div className="spinner" />;
+		const checkUser = checkUserStatus(this.props.user, "user_profile");
+		if (!checkUser.shouldRender) {
+			return checkUser.renderInstead;
 		}
 		if (this.props.user.preferences) {
 			defaultValues = this.props.user.preferences;

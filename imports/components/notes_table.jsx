@@ -33,14 +33,15 @@ const NotesTable = (props) => {
 				<LinkContainer to={noteUrl}><td>{city + ", " + state}</td></LinkContainer>
 				<LinkContainer to={noteUrl}><td>{symbol}</td></LinkContainer>
 				<LinkContainer to={noteUrl}><td>{Moment(dateTime).format("MM-DD-YY HH:mm")}</td></LinkContainer>
-				{ (props.user && userId === props.user._id) ?
+				{ (props.user && userId === props.user._id && props.user.status === "APPROVED") ?
 					<td className="trashColumn">
 						<span onClick={() => props.deleteFunc(_id)}
 							className="glyphicon glyphicon-trash"
 						/>
 					</td>
-					: 
+					: props.user && props.user.status === "APPROVED" ?
 					<FlagModal _id={_id} type="note" validationFunc={validFlag} />
+					: ""
 				}
 			</tr>
 		);

@@ -23,11 +23,11 @@ export default CommentsList = (props) => {
 					<p>{decode(comment)}</p>
 					<div className="commentData">
 						<span>- {userName} {moment(createdAt).format("MM-DD-YYYY")}</span>
-						{ (props.user && userId === props.user._id) ? 
+						{ (props.user && userId === props.user._id && props.user.status === "APPROVED") ? 
 								<span onClick={() => commentsDeleteMethod(_id)}
 									className="glyphicon glyphicon-trash"
 								/>
-							: props.user ?
+							: props.user && props.user.status === "APPROVED" ?
 							<FlagModal _id={_id} type="comment" validationFunc={validFlag} />
 							: ""
 						}

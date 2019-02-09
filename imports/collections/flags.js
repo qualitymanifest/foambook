@@ -15,7 +15,7 @@ export const FlagsInsert = new ValidatedMethod({
 	name: "flags.insert",
 	validate: FlagsSchema.validator(),
 	run(flag) {
-		if (!Meteor.userId()) {
+		if (!Meteor.userId() || Meteor.user().status !== "APPROVED") {
 			throw new Meteor.Error("not-authorized");
 		}
 		const flagWithMetadata = Object.assign(

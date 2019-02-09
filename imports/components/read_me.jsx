@@ -9,8 +9,7 @@ export default ReadMe = () => {
 			<h3>To sign up:</h3>
 			<p>You need a gmail account, as that is what is used for authentication. Signing up is simple: First, click the "Sign in with Google" button in the upper
 			right corner. If you are on a mobile device, this button will be inside the hamburger menu <span className="glyphicon glyphicon-menu-hamburger smallIcon"></span>.
-			A window will pop up, asking you to sign in to your google account, if you aren't already. Once you have done this, you have an account here. The process is the same to log in once you 
-			have an account.</p>
+			A window will pop up, asking you to sign in to your google account, if you aren't already. Once you have done this, check your email for the verification email.</p>
 			<h3>To configure default form values:</h3>
 			<p>Go to your account page by clicking on your username in the upper right corner. Fill out some or all of these fields and click "set defaults". This makes it so that whenever you go to submit a 
 			note, you can automatically have the railroad and location filled out, and the time filled out with the current time in the selected timezone.</p>

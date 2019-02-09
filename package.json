@@ -2,57 +2,7 @@
   "name": "foambook",
   "private": true,
   "scripts": {
-    "start": "meteor run",
-    "lint": "eslint . --ext js,jsx",
-    "lint:autofix": "eslint . --fix --ext js,jsx",
-    "pretest": "npm run lint --silent"
-  },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "parserOptions": {
-      "allowImportExportEverywhere": true,
-      "ecmaVersion": 6,
-      "ecmaFeatures": {
-        "jsx": true
-      }
-    },
-    "plugins": [
-      "meteor"
-    ],
-    "extends": [
-      "airbnb",
-      "plugin:meteor/recommended"
-    ],
-    "settings": {
-      "import/resolver": "meteor"
-    },
-    "rules": {
-      "no-tabs": 0,
-      "react/jsx-indent": 0,
-      "react/jsx-indent-props": 0,
-      "indent": [
-        2,
-        "tab",
-        {
-          "SwitchCase": 1
-        }
-      ],
-      "import/extensions": 0,
-      "import/no-extraneous-dependencies": 0,
-      "quotes": [
-        "error",
-        "double",
-        {
-          "allowTemplateLiterals": true
-        }
-      ],
-      "jsx-a11y/label-has-for": 0,
-      "comma-dangle": [
-        "error",
-        "never"
-      ],
-      "react/prop-types": 0
-    }
+    "start": "meteor run"
   },
   "dependencies": {
     "@babel/runtime": "^7.1.5",
@@ -81,15 +31,5 @@
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
     "simpl-schema": "^1.5.3"
-  },
-  "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.9.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-import-resolver-meteor": "^0.4.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-meteor": "^5.1.0",
-    "eslint-plugin-react": "^7.11.1"
   }
 }

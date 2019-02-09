@@ -18,7 +18,7 @@ export const CommentsInsert = new ValidatedMethod({
 	name: "comments.insert",
 	validate: CommentsSchema.validator(),
 	run(comment) {
-		if (!Meteor.userId()) {
+		if (!Meteor.userId() || Meteor.user().status !== "APPROVED") {
 			throw new Meteor.Error("not-authorized");
 		}
 		const commentWithMetadata = Object.assign(
@@ -37,7 +37,7 @@ export const CommentsDelete = new ValidatedMethod({
 	name: "comments.delete",
 	validate: DeleteSchema.validator(),
 	run({ commentId }) {
-		if (!Meteor.userId()) {
+		if (!Meteor.userId() || Meteor.user().status !== "APPROVED") {
 			throw new Meteor.Error("not-authorized");
 		}
 		Comments.remove({ userId: Meteor.userId(), _id: commentId });
