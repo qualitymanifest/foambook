@@ -1,6 +1,6 @@
 # change log:
-- Update npm packages @babel/runtime, @types/react, bcrypt, d3-scale, d3-selection, d3-transition, informed, react, react-dom, react-number-format, simpl-schema
-- Update meteor to 18.0.2
+- Add `info` collection consisting of scraped railroadfan data and aggregated multiple location data from foambook
+- Add `info_display.jsx` to render info
 
 
 # bugs:
@@ -17,10 +17,6 @@
 	- Add min and max controls to filter date
 	- Probably don't need to show date in URL anymore since not fetching from server?
 - MAYBE: Change breadcrumbs to state / city / railroad / symbol. Make it so that state or railroad is expanded when url is navigated to
-- Aggregate distinct symbols to include all distinct cities each symbol exists in, so that you can see what other cities a symbol has been recorded in. Then:
-	- Scrape railroadfan info, parse and format it, and test to make sure RRfan formatting won't break anything. Then:
-	- Upsert matches into distinct symbol info, and:
-	- Display this "other cities" and railroadfan info somewhere on query_display
 
 
 # notes:

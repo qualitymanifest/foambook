@@ -6,16 +6,18 @@ import { Link } from "react-router-dom";
 
 import { Notes } from "../collections/notes";
 import { Comments } from "../collections/comments";
+import { Info } from "../collections/info";
 import Scatterplot from "./scatterplot";
 import CommentsForm from "./comments_form";
 import CommentsList from "./comments_list";
+import InfoDisplay from "./info_display";
 import { processNotes } from "../queryFunctions";
 
 Moment.tz.setDefault("Etc/UTC");
 
 class QueryDisplay extends Component {
 	render() {
-		if (!this.props.notesReady) {
+		if (!this.props.notesReady || !this.props.infoReady) {
 			return <div className="spinner" />;
 		}
 		if (!this.props.notes.length) {
@@ -52,6 +54,7 @@ class QueryDisplay extends Component {
 						<p>{Moment(processed.newest).format("MM-DD-YY")}</p>
 					</div>
 				</div>
+				<InfoDisplay info={this.props.info} query={this.props.query} />
 				<CommentsForm user={this.props.user} query={query} />
 				<CommentsList 
 					user={this.props.user} 
@@ -70,9 +73,13 @@ QueryDisplay = withTracker(({ query }) => {
 	const notesHandle = Meteor.subscribe("notes.query", query);
 	const commentsQuery = { railroad: query.railroad, symbol: query.symbol };
 	const commentsHandle = Meteor.subscribe("comments", commentsQuery);
+	const infoQuery = { _id: `${query.railroad}_${query.symbol}` };
+	const infoHandle = Meteor.subscribe("info", infoQuery);
 	return {
 		notes: Notes.findFromPublication("notes.query", query, { fields: { dateTime: 1 }, sort: { dateTime: 1 } }).fetch(),
 		notesReady: notesHandle.ready(),
+		info: Info.findFromPublication("info", infoQuery).fetch(),
+		infoReady: infoHandle.ready(),
 		user: Meteor.user(),
 		comments: Comments.findFromPublication("comments", commentsQuery, { sort: { createdAt: -1 } }).fetch(),
 		commentsReady: commentsHandle.ready()

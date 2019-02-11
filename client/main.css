@@ -186,6 +186,16 @@ ul {
    text-align: center;
 }
 
+.infoBox {
+  background-color: #e0e0e0;
+  margin: 5px 20%;
+}
+
+.infoItem {
+  display: block;
+  margin: 0px;
+}
+
 .innerLi {
   margin-left: 40px;
   list-style-type: circle;
@@ -310,6 +320,10 @@ ul {
     background-color: #fff;
     margin: 5px;
     overflow-wrap: break-word;
+  }
+  .infoBox {
+    background-color: #e0e0e0;
+    margin: 5px;
   }
   .innerLi {
     margin-left: 20px;
