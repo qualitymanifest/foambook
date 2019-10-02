@@ -4,7 +4,6 @@ import { Form } from "informed";
 import { debounce } from "lodash";
 import { withTracker } from "meteor/react-meteor-data";
 import Moment from "moment-timezone";
-import { Link } from "react-router-dom";
 
 import { noteSubmitMethod, notesDeleteMethod } from "../methods";
 import { Notes } from "../collections/notes";
@@ -110,7 +109,7 @@ class AddNoteForm extends Component {
 								validateOnBlur
 								validate={validSubDateTime} />
 
-							<button className="btn btn-primary">
+							<button type="submit" className="btn btn-primary">
 								Submit
 							</button>
 
