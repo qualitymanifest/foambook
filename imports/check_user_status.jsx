@@ -2,7 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default (user, route) => {
-	const userStatus = { shouldRender: false };
+	const userStatus = { 
+		shouldRender: false,
+		renderInstead: <p>There was an error retrieving your approval status</p>
+	};
 
 	if (!user) {
 		if (route === "comments_form") {
@@ -21,6 +24,10 @@ export default (user, route) => {
 
 	else if (user === "LOADING") {
 		userStatus.renderInstead = <div className="spinner" />;
+	}
+
+	else if (user.status === "APPROVED") {
+		userStatus.shouldRender = true;
 	}
 
 	else if (user.status === "PENDING") {
@@ -46,10 +53,6 @@ export default (user, route) => {
 		else { 
 			userStatus.renderInstead = <div className="center">{returnMessage}</div>;
 		}
-	}
-
-	else {
-		userStatus.shouldRender = true;
 	}
 
 	return userStatus;
