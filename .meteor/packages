@@ -28,3 +28,4 @@ mdg:validated-method@1.2.0
 percolate:find-from-publication@0.2.0
 dynamic-import@0.5.1
 email@1.2.3
+force-ssl
