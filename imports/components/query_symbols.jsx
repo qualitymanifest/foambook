@@ -26,7 +26,7 @@ class QuerySymbols extends Component {
 		return (
 			<div className="fadeIn">
 				<p>
-					{oneRailroad ? "Select symbol" : "Select railroad & symbol"}
+					{oneRailroad ? "Select symbol:" : "Select railroad & symbol:"}
 				</p>
 				<PanelGroup
 					accordion

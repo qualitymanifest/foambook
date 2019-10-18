@@ -45,15 +45,13 @@ class QueryDisplay extends Component {
 					: ""
 				}
 				<Scatterplot notes={processed.notes} oldest={processed.oldest} newest={processed.newest} uiState={this.props.uiState} />
-				<p className="smallPrint">If you're on a computer, you can hover over dots to see exact date/time</p>
-				<div>
-					<p className="smallPrint">Dot color indicates age: Gray are oldest, red are newest. Date range:</p>
+					<small>Date range:</small>
 					<div id="dateRange">
 						<p>{Moment(processed.oldest).format("MM-DD-YY")}</p>
 						<p id="dateRangeColors"></p>
 						<p>{Moment(processed.newest).format("MM-DD-YY")}</p>
 					</div>
-				</div>
+					<small>Hover or tap dots for exact date/time</small>
 				<InfoDisplay info={this.props.info} query={this.props.query} />
 				<CommentsForm user={this.props.user} query={query} />
 				<CommentsList 

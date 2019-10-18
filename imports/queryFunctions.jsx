@@ -103,20 +103,24 @@ export const testLocation = (metadata, searchCity, searchState) => {
 };
 
 export const FootNote = () => (
-	<p className="smallPrint">
-		<span>Badge number is the amount of notes, color indicates age of last submission: </span>
-		<span className="pastMonth">past month</span>
-		{" "}
-		<span className="pastYear">past year</span>
-		{" "}
-		<span className="olderThanYear">older</span>
-	</p>
+	<>
+		<small>
+			<span>Badge number is the amount of notes, color indicates age of last submission: </span>
+			<span className="pastMonth">past month</span>
+			{" "}
+			<span className="pastYear">past year</span>
+			{" "}
+			<span className="olderThanYear">older</span>
+		</small>
+		<br />
+		<small><strong><Link to="/read_me">What is this?</Link></strong></small>
+	</>
 );
 
 export const listLocations = (locations) => {
 	return (
 		<React.Fragment>
-			<p>Select state & city</p>
+			<p>Select state & city:</p>
 			<PanelGroup accordion id="statesPanelGroup">
 				{
 					locations.map((loc) => {
