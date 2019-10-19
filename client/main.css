@@ -170,8 +170,8 @@ table {
 
 .infoBox {
   background-color: #e0e0e0;
-  margin: 5px 20%;
-  padding: 10px;
+  margin: 10px 20%;
+  padding: 10px 0 15px 0;
 }
 
 .infoItem {
@@ -293,7 +293,7 @@ table {
     margin: 5px;
   }
   .infoBox {
-    margin: 5px;
+    margin: 10px 5px;
   }
   .table {
     width: 100%;

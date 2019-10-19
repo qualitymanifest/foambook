@@ -2,8 +2,9 @@ import { Meteor } from "meteor/meteor";
 import React, { Component } from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import { connect } from "react-redux";
+import { debounce } from "lodash";
 
-import { notesDeleteMethod, preferenceSubmitMethod } from "../methods";
+import { notesDeleteMethod, preferenceSubmitMethod, downloadMethod } from "../methods";
 import PreferenceForm from "./preference_form";
 import { Notes } from "../collections/notes";
 import NotesTable from "./notes_table";
@@ -35,7 +36,11 @@ class UserProfile extends Component {
 					appLocation="user_profile"
 					caption="Your Recent Submissions" />
 				{	!!this.props.notes.length &&
-					<button className="btn btn-primary" onClick={this.props.paginate} >Load More</button>
+					<>
+						<button className="btn btn-primary" onClick={this.props.paginate} >Load More</button>
+						<br />
+						<button className="btn btn-secondary" onClick={debounce(downloadMethod, 1000)}>Download Notes</button>
+					</>
 				}
 			</div>
 		);

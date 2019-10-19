@@ -1,5 +1,6 @@
 import Moment from "moment-timezone";
 import { encode } from "he";
+import XLSX from "xlsx";
 
 import { FlagsInsert } from "./collections/flags";
 import { NotesDelete, UserUpdate, NotesInsert } from "./collections/notes";
@@ -86,3 +87,13 @@ export const flagSubmitMethod = (flag, handleClose, handleSuccess) => {
 		}
 	});
 };
+
+export const downloadMethod = () => {
+	Meteor.call("download", null, (err, wb) => {
+		if (err) {
+			alert(err);
+			return;
+		}
+		XLSX.writeFile(wb, "foambook_notes.xlsx");
+	});
+}

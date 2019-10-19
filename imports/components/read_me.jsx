@@ -15,6 +15,9 @@ export default ReadMe = () => {
 			<p>To speed up the process of filling out the submission form, you can set default values for 4 of the 5 fields. These options are 
 				available on <Link to="/user_profile">your profile page</Link>.
 			</p>
+			<p>Notes you submit are not stuck here, either. There is a button at the bottom of the <Link to="/user_profile">profile page</Link> that allows you
+				to download all your notes as an xlsx file.
+			</p>
 			<h3>When submitting notes:</h3>
 			<ul id="readMeLis">
 				<li>Date must be within the last five years.</li>
