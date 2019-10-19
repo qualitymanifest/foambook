@@ -34,7 +34,7 @@ const Query = (props) => {
 		}
 		const locationsTested = testLocation(sortedLocations, city, state);
 		return (
-			<div className="center">
+			<div className="text-center">
 				{ completeQuery.dateTime ? breadcrumbBuilder(qString, "dates") : breadcrumbBuilder(qString, "symbol") }
 				{
 					invalidDate ? "Sorry, invalid year specified" :
@@ -47,7 +47,7 @@ const Query = (props) => {
 	if (city && state) {
 		const locationsTested = testLocation(sortedLocations, city, state);
 		return (
-			<div className="center">
+			<div className="text-center">
 				{ breadcrumbBuilder(qString, "city") }
 				{ (typeof locationsTested === "string") ? locationsTested : <QuerySymbols city={city} state={state}/> }
 			</div>
@@ -55,7 +55,7 @@ const Query = (props) => {
 	}
 
 	return (
-		<div className="center fadeIn">
+		<div className="text-center fadeIn">
 			<Breadcrumb>
 				<Breadcrumb.Item active>Search Home</Breadcrumb.Item>
 			</Breadcrumb>

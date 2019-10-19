@@ -27,7 +27,7 @@ class QueryDisplay extends Component {
 		const processed = processNotes(this.props.notes);
 		let query = this.props.query;
 		return (
-			<div className="center fadeIn">
+			<div className="text-center fadeIn">
 				{ processed.years.length > 1 ? 
 					<div>
 						Filter by year:
@@ -45,13 +45,13 @@ class QueryDisplay extends Component {
 					: ""
 				}
 				<Scatterplot notes={processed.notes} oldest={processed.oldest} newest={processed.newest} uiState={this.props.uiState} />
-					<small>Date range:</small>
-					<div id="dateRange">
-						<p>{Moment(processed.oldest).format("MM-DD-YY")}</p>
-						<p id="dateRangeColors"></p>
-						<p>{Moment(processed.newest).format("MM-DD-YY")}</p>
-					</div>
-					<small>Hover or tap dots for exact date/time</small>
+				<small>Date range:</small>
+				<div id="dateRange">
+					<p>{Moment(processed.oldest).format("MM-DD-YY")}</p>
+					<p id="dateRangeColors"></p>
+					<p>{Moment(processed.newest).format("MM-DD-YY")}</p>
+				</div>
+				<small>Hover or tap dots for exact date/time</small>
 				<InfoDisplay info={this.props.info} query={this.props.query} />
 				<CommentsForm user={this.props.user} query={query} />
 				<CommentsList 

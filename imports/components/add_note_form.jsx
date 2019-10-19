@@ -44,7 +44,7 @@ class AddNoteForm extends Component {
 			};
 		}
 		return (
-			<div className="center fadeIn">
+			<div className="text-center fadeIn">
 				<h3>Submit a note</h3>
 				<Form
 					className="form-group"

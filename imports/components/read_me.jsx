@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default ReadMe = () => {
 	return (
-		<div id="readMe" className="fadeIn">
+		<div id="readMe" className="fadeIn container">
 			<h3>What is this?</h3>
 			<p>It's not uncommon for railfans to record train movements, but that data is scattered, and it can be hard to find any meaningful patterns by 
 				looking at a list of raw data. Foambook is intended to provide a centralized place to keep those notes, and to provide a way to quickly 

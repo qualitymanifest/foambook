@@ -48,7 +48,7 @@ const NotesTable = (props) => {
 	});
 	return (
 		<table className="table table-striped table-condensed table-responsive fadeIn">
-			<caption>{props.caption}</caption>
+			<caption className="text-center">{props.caption}</caption>
 			<thead>
 				<tr>
 					<th>RR</th>

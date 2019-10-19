@@ -14,7 +14,7 @@ export default (user, route) => {
 		else {
 			const message = route === "add_note_form" ? "add notes" : "view your profile";
 			userStatus.renderInstead = (
-				<div className="center">
+				<div className="text-center">
 					Please log in to {message}. For more information, visit the 
 					<Link to="/read_me"> readme</Link>.
 				</div>
@@ -38,7 +38,7 @@ export default (user, route) => {
 		}
 		else {
 			userStatus.renderInstead = (
-				<div className="center">
+				<div className="text-center">
 					{returnMessage}
 				</div>
 			)
@@ -51,7 +51,7 @@ export default (user, route) => {
 			userStatus.renderInstead = <p id="commentLoggedOut">{returnMessage}</p>;
 		}
 		else { 
-			userStatus.renderInstead = <div className="center">{returnMessage}</div>;
+			userStatus.renderInstead = <div className="text-center">{returnMessage}</div>;
 		}
 	}
 
