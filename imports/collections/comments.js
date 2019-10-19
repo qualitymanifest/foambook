@@ -24,7 +24,7 @@ export const CommentsInsert = new ValidatedMethod({
 		const commentWithMetadata = Object.assign(
 			{},
 			comment,
-			{ userId: Meteor.userId(), userName: Meteor.user().profile.name, createdAt: Number(moment().format("x")) }
+			{ userId: Meteor.userId(), userName: Meteor.user().profile.name, createdAt: Number(moment().tz("America/New_York").format("x")) }
 		);
 		Comments.insert(commentWithMetadata);
 	}
