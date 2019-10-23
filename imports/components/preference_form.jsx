@@ -16,7 +16,7 @@ export default (props) => {
 			initialValues={props.defaultValues}
 		>
 			{({ formApi, formState }) => (
-				<React.Fragment>
+				<>
 
 					<label>Railroad</label>
 					<FieldWithError
@@ -89,7 +89,7 @@ export default (props) => {
 
 					<button className="btn btn-warning">Set Defaults</button>
 
-				</React.Fragment>
+				</>
 			)}
 		</Form>
 	);

@@ -44,7 +44,7 @@ class FlagModal extends Component {
 
 	render() {
 		return (
-			<React.Fragment>
+			<>
 				{this.props.type === "note" ?
 					<td><span onClick={this.handleShow} className="glyphicon glyphicon-flag" /></td> :
 					<span onClick={this.handleShow} className="glyphicon glyphicon-flag" />
@@ -69,16 +69,13 @@ class FlagModal extends Component {
 										validateOnBlur
 										validate={this.props.validationFunc}
 									/>
-									<button type="submit" className="btn btn-primary">
-										<span className="glyphicon glyphicon-pencil" />
-										Submit
-									</button>
+									<button type="submit" className="btn btn-primary">Submit</button>
 								</Form>
 							)
 						}
 					</Modal.Body>
 				</Modal>
-			</React.Fragment>
+			</>
 		);
 	}
 }

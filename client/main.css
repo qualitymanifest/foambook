@@ -1,7 +1,11 @@
+:root {
+  --mediumGray: #eee;
+}
+
 body {
 	/* clear navbar-fixed-top */
-	padding-top: 60px;
-	background-color: #EEF1EF;
+	padding-top: 50px;
+	background-color: #f6f8fa;
 }
 
 circle {
@@ -10,6 +14,10 @@ circle {
 
 input {
   text-transform : uppercase;
+}
+
+table {
+  border: 1px solid #ddd;
 }
 
 textarea.form-control {
@@ -21,8 +29,8 @@ th, tr {
   text-align: center;
 }
 
-table {
-  border: 1px solid #ddd;
+thead {
+  background-color: var(--mediumGray);
 }
 
 #cityField {
@@ -95,7 +103,11 @@ table {
 }
 
 .badge {
-  margin: 0px 0px 0px 5px;
+  margin-left: 5px;
+}
+
+.breadcrumb {
+  background-color: var(--mediumGray);
 }
 
 .btn {
@@ -103,22 +115,17 @@ table {
   display: block;
 }
 
-.clearNavbar {
-  /* offset href target so it clears the navbar */
-  position: relative;
-  bottom: 50px;
-}
-
 .commentBox {
-  background-color: #fff;
+  background-color: var(--mediumGray);
   margin: 5px 20%;
+  padding: 10px 5px;
   overflow-wrap: break-word;
   white-space: pre-wrap;
 }
 
 .commentData {
   text-align: right;
-  padding: 5px;
+  padding-top: 5px;
   font-style: italic;
 }
 
@@ -141,16 +148,12 @@ table {
 }
 
 .glyphicon:hover {
-  text-shadow: 0 0 3px black;
+  text-shadow: 0 0 1px black;
   cursor: pointer;
 }
 
 .glyphicon-flag {
   color: #ec971f;
-}
-
-.glyphicon-pencil {
-  margin-left: 0px;
 }
 
 .glyphicon-trash {
@@ -169,7 +172,7 @@ table {
 }
 
 .infoBox {
-  background-color: #e0e0e0;
+  background-color: var(--mediumGray);
   margin: 10px 20%;
   padding: 10px 0 15px 0;
 }
@@ -240,6 +243,10 @@ table {
 .table {
   width: 60%;
   margin: 0px 20%;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: white;
 }
 
 .table-condensed > tbody > tr > .trashColumn {

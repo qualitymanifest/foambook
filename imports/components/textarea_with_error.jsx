@@ -2,7 +2,7 @@ import React from "react";
 import { TextArea, asField } from "informed";
 
 export default asField(({ fieldState, maxLength, ...props }) => (
-	<React.Fragment>
+	<>
 		<TextArea
 			fieldState={fieldState}
 			{...props}
@@ -14,5 +14,5 @@ export default asField(({ fieldState, maxLength, ...props }) => (
 		<small>
 			{`${fieldState.value ? fieldState.value.length : 0}/${maxLength} characters used`}
 		</small>
-	</React.Fragment>
+	</>
 ));

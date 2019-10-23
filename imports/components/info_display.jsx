@@ -41,16 +41,16 @@ export default info = (props) => {
 	return (
 		<div className="infoBox">
 			{locations && 
-				<React.Fragment>
+				<>
 					<h4>Other locations this train has been recorded at:</h4>
 					{renderLocations()}
-				</React.Fragment>
+				</>
 			}
 			{railroadFan && 
-				<React.Fragment>
+				<>
 					<h4>Info pulled from railroadfan.com:</h4>
 					{renderRailroadFan()}
-				</React.Fragment>
+				</>
 			}
 		</div>
 	)

@@ -58,10 +58,7 @@ export default class CommentsForm extends Component {
 							validateOnBlur
 							validate={validComment}
 						/>
-						<button type="submit" className="btn btn-primary">
-							<span className="glyphicon glyphicon-pencil" />
-							Submit
-						</button>
+						<button type="submit" className="btn btn-primary">Submit</button>
 					</Form>
 				</Panel.Body>
 			</Panel>

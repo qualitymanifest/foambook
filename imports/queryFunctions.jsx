@@ -119,7 +119,7 @@ export const FootNote = () => (
 
 export const listLocations = (locations) => {
 	return (
-		<React.Fragment>
+		<>
 			<p>Select state & city:</p>
 			<PanelGroup accordion id="statesPanelGroup">
 				{
@@ -160,7 +160,7 @@ export const listLocations = (locations) => {
 			</PanelGroup>
 			<br />
 			<FootNote />
-		</React.Fragment>
+		</>
 	);
 };
 

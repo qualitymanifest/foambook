@@ -53,7 +53,7 @@ class AddNoteForm extends Component {
 					initialValues={defaultValues}
 				>
 					{({ formApi, formState }) => (
-						<React.Fragment>
+						<>
 
 							<label>Railroad</label>
 							<FieldWithError
@@ -113,7 +113,7 @@ class AddNoteForm extends Component {
 								Submit
 							</button>
 
-						</React.Fragment>
+						</>
 					)}
 				</Form>
 				<NotesTable

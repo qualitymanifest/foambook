@@ -38,8 +38,8 @@ class UserProfile extends Component {
 				{	!!this.props.notes.length &&
 					<>
 						<button className="btn btn-primary" onClick={this.props.paginate} >Load More</button>
-						<br />
-						<button className="btn btn-secondary" onClick={debounce(downloadMethod, 1000)}>Download Notes</button>
+						<br /><br />
+						<button className="btn btn-default" onClick={debounce(downloadMethod, 1000)}>Download Notes</button>
 					</>
 				}
 			</div>

@@ -38,19 +38,19 @@ export default CommentsList = (props) => {
 	};
 
 	return (
-		<React.Fragment>
+		<>
 			{!!Object.keys(sortedComments.local).length && 
-				<React.Fragment>
+				<>
 					<strong>Comments for this train in {props.city}, {props.state}:</strong>
 					{commentsBuilder(sortedComments.local, true)}
-				</React.Fragment>
+				</>
 			}
 			{!!Object.keys(sortedComments.other).length &&
-				<React.Fragment>
+				<>
 					<strong>Comments for this train in other locations:</strong>
 					{commentsBuilder(sortedComments.other, false)}
-				</React.Fragment>
+				</>
 			}
-		</React.Fragment>
+		</>
 	);
 };

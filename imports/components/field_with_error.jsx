@@ -2,7 +2,7 @@ import React from "react";
 import { BasicText, asField } from "informed";
 
 export default asField(({ fieldState, ...props }) => (
-	<React.Fragment>
+	<>
 		<BasicText
 			fieldState={fieldState}
 			{...props}
@@ -11,5 +11,5 @@ export default asField(({ fieldState, ...props }) => (
 		{fieldState.error && fieldState.error !== "error-no-description" ? (
 			<p className="form-error">{fieldState.error}</p>
 		) : null}
-	</React.Fragment>
+	</>
 ));
