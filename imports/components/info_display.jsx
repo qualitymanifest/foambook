@@ -39,7 +39,7 @@ export default info = (props) => {
 		});
 	}
 	return (
-		<div className="infoBox">
+		<div className="box boxMargin boxPadding">
 			{locations && 
 				<>
 					<h4>Other locations this train has been recorded at:</h4>

@@ -6,7 +6,7 @@ import { debounce } from "lodash";
 import TextAreaWithError from "./textarea_with_error";
 import { commentSubmitMethod } from "../methods";
 import { validComment } from "../validation";
-import checkUserStatus from "../check_user_status";
+import checkUserStatus from "../checkUserStatus";
 
 const commentsPlaceholder = "Summarize what this train typically does here, or describe it's characteristics";
 let apiHandle;
@@ -38,7 +38,11 @@ export default class CommentsForm extends Component {
 			return checkUser.renderInstead;
 		}
 		return (
-			<Panel id="commentPanel" expanded={this.state.open} onToggle={this.toggleFunc}>
+			<Panel 
+				id="commentPanel" 
+				className="boxMargin"
+				expanded={this.state.open} 
+				onToggle={this.toggleFunc}>
 				<Panel.Heading onClick={this.toggleFunc}>
 					<Panel.Title>
 						Add comment

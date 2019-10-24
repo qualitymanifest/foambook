@@ -18,7 +18,7 @@ export default CommentsList = (props) => {
 		return comments.map((commentDoc) => {
 			const { userName, userId, createdAt, comment, city, state, _id } = commentDoc;
 			return (
-				<div key={_id} className="commentBox">
+				<div key={_id} className="box commentBox boxMargin boxPadding">
 					{!isLocal && <strong>{city}, {state}</strong>}
 					<p>{decode(comment)}</p>
 					<div className="commentData">

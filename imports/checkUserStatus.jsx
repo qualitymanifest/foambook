@@ -9,13 +9,13 @@ export default (user, route) => {
 
 	if (!user) {
 		if (route === "comments_form") {
-			userStatus.renderInstead = <p id="commentLoggedOut">Please log in to add comments</p>;
+			userStatus.renderInstead = <p id="commentLoggedOut">Log in to add comments</p>;
 		}
 		else {
 			const message = route === "add_note_form" ? "add notes" : "view your profile";
 			userStatus.renderInstead = (
-				<div className="text-center">
-					Please log in to {message}. For more information, visit the 
+				<div className="text-center logMessage">
+					Log in to {message}. For more information, visit the 
 					<Link to="/read_me"> readme</Link>.
 				</div>
 			);

@@ -9,17 +9,18 @@ import PreferenceForm from "./preference_form";
 import { Notes } from "../collections/notes";
 import NotesTable from "./notes_table";
 import { incrementPages } from "../../client/actions";
-import checkUserStatus from "../check_user_status";
+import checkUserStatus from "../checkUserStatus";
 
 class UserProfile extends Component {
 	render() {
 		let defaultValues = null;
-		const checkUser = checkUserStatus(this.props.user, "user_profile");
+		const { user, notes, paginate} = this.props;
+		const checkUser = checkUserStatus(user, "user_profile");
 		if (!checkUser.shouldRender) {
 			return checkUser.renderInstead;
 		}
-		if (this.props.user.preferences) {
-			defaultValues = this.props.user.preferences;
+		if (user.preferences) {
+			defaultValues = user.preferences;
 		}
 		return (
 			<div className="text-center fadeIn">
@@ -28,16 +29,16 @@ class UserProfile extends Component {
 					onSubmit={preferenceSubmitMethod}
 					defaultValues={defaultValues}
 				/>
-				<div style={{clear: "both"}}>You have submitted {this.props.user.notesCount} notes</div>
+				<div style={{clear: "both"}}>You have submitted {user.notesCount} notes</div>
 				<NotesTable 
-					notes={this.props.notes} 
-					user={this.props.user} 
+					notes={notes} 
+					user={user} 
 					deleteFunc={notesDeleteMethod}
 					appLocation="user_profile"
 					caption="Your Recent Submissions" />
-				{	!!this.props.notes.length &&
+				{	!!notes.length &&
 					<>
-						<button className="btn btn-primary" onClick={this.props.paginate} >Load More</button>
+						<button className="btn btn-primary" onClick={paginate} >Load More</button>
 						<br /><br />
 						<button className="btn btn-default" onClick={debounce(downloadMethod, 1000)}>Download Notes</button>
 					</>

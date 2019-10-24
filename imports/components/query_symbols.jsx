@@ -17,20 +17,21 @@ class QuerySymbols extends Component {
 	}
 
 	render() {
-		if (!this.props.aggregateSymbolsReady) {
+		const { city, state, aggregateSymbols, aggregateSymbolsReady  } = this.props;
+		if (!aggregateSymbolsReady) {
 			return <div className="spinner" />;
 		}
-		const { city, state } = this.props;
-		const railroads = railroadSorter(this.props.aggregateSymbols);
+		const railroads = railroadSorter(aggregateSymbols);
 		const oneRailroad = (railroads.length === 1);
 		return (
 			<div className="fadeIn">
-				<p>
+				<h3>
 					{oneRailroad ? "Select symbol:" : "Select railroad & symbol:"}
-				</p>
+				</h3>
 				<PanelGroup
 					accordion
 					id="railroadsPanelGroup"
+					className="boxMargin"
 					defaultActiveKey={oneRailroad ? city + railroads[0].railroad : null}
 				>
 					{

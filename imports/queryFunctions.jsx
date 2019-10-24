@@ -113,15 +113,16 @@ export const FootNote = () => (
 			<span className="olderThanYear">older</span>
 		</small>
 		<br />
-		<small><strong><Link to="/read_me">What is this?</Link></strong></small>
+		<br />
+		<p><strong><Link to="/read_me">What is this?</Link></strong></p>
 	</>
 );
 
 export const listLocations = (locations) => {
 	return (
 		<>
-			<p>Select state & city:</p>
-			<PanelGroup accordion id="statesPanelGroup">
+			<h3>Select state & city:</h3>
+			<PanelGroup accordion id="statesPanelGroup" className="boxMargin">
 				{
 					locations.map((loc) => {
 						const columnStyle = loc.cities.length > 5 ? { columnCount: 2 } : {};
