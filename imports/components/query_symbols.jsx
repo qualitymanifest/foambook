@@ -5,7 +5,8 @@ import queryString from "query-string";
 import { Badge, PanelGroup, Panel, ButtonToolbar, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-import { railroadSorter, symbolSorter, testAge, FootNote } from "../queryFunctions";
+import { railroadSorter, symbolSorter, testAge } from "../queryFunctions";
+import FootNote from "./foot_note";
 import { AggregateSymbols } from "../collections/aggregations";
 
 class QuerySymbols extends Component {
@@ -17,7 +18,7 @@ class QuerySymbols extends Component {
 	}
 
 	render() {
-		const { city, state, aggregateSymbols, aggregateSymbolsReady  } = this.props;
+		const { city, state, aggregateSymbols, aggregateSymbolsReady } = this.props;
 		if (!aggregateSymbolsReady) {
 			return <div className="spinner" />;
 		}
@@ -52,9 +53,9 @@ class QuerySymbols extends Component {
 									<Panel.Body collapsible className="queryList">
 										<ButtonToolbar className="symbolSortOptions">
 											<ToggleButtonGroup type="radio" name="sortType" defaultValue="alpha">
-												<ToggleButton value="alpha" onClick={() => this.setState({sortType: "alpha"})}>A-Z</ToggleButton>
-												<ToggleButton value="recent" onClick={() => this.setState({sortType: "recent"})}>Most Recent</ToggleButton>
-												<ToggleButton value="count" onClick={() => this.setState({sortType: "count"})}>Most Counted</ToggleButton>
+												<ToggleButton value="alpha" onClick={() => this.setState({ sortType: "alpha" })}>A-Z</ToggleButton>
+												<ToggleButton value="recent" onClick={() => this.setState({ sortType: "recent" })}>Most Recent</ToggleButton>
+												<ToggleButton value="count" onClick={() => this.setState({ sortType: "count" })}>Most Counted</ToggleButton>
 											</ToggleButtonGroup>
 										</ButtonToolbar>
 										<div style={columnStyle}>

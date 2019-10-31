@@ -4,6 +4,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Badge, PanelGroup, Panel, Breadcrumb } from "react-bootstrap";
 import Moment from "moment-timezone";
 
+import FootNote from "./components/foot_note";
 import { statesMap } from "./validation";
 
 Moment.tz.setDefault("Etc/UTC");
@@ -84,7 +85,7 @@ export const processNotes = (notes) => {
 
 export const badQuery = (specific) => {
 	return "Sorry, invalid " + specific + ". Either you've followed a bad link, or you're searching for a newly added " + specific +
-	" (search options are updated hourly)";
+		" (search options are updated hourly)";
 };
 
 
@@ -101,22 +102,6 @@ export const testLocation = (metadata, searchCity, searchState) => {
 	}
 	return badQuery("state");
 };
-
-export const FootNote = () => (
-	<>
-		<small>
-			<span>Badge number is the amount of notes, color indicates age of last submission: </span>
-			<span className="pastMonth">past month</span>
-			{" "}
-			<span className="pastYear">past year</span>
-			{" "}
-			<span className="olderThanYear">older</span>
-		</small>
-		<br />
-		<br />
-		<p><strong><Link to="/read_me">What is this?</Link></strong></p>
-	</>
-);
 
 export const listLocations = (locations) => {
 	return (
