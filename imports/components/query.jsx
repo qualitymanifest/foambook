@@ -9,7 +9,8 @@ import { AggregateLocations } from "../collections/aggregations";
 import QueryDisplay from "./query_display";
 import QuerySymbols from "./query_symbols";
 import QueryLocations from "./query_locations";
-import { locationSorter, testLocation, breadcrumbBuilder } from "../queryFunctions";
+import BreadcrumbBuilder from "./breadcrumb_builder";
+import { locationSorter, testLocation } from "../queryFunctions";
 
 let completeQuery = {};
 
@@ -36,7 +37,10 @@ const Query = (props) => {
 		const locationsTested = testLocation(sortedLocations, city, state);
 		return (
 			<div className="text-center">
-				{completeQuery.dateTime ? breadcrumbBuilder(qString, "dates") : breadcrumbBuilder(qString, "symbol")}
+				{completeQuery.dateTime ?
+					<BreadcrumbBuilder qs={qString} howComplete="dates" /> :
+					<BreadcrumbBuilder qs={qString} howComplete="symbol" />
+				}
 				{
 					invalidDate ? "Sorry, invalid year specified" :
 						(typeof locationsTested === "string") ? locationsTested : <QueryDisplay query={completeQuery} />
@@ -49,7 +53,7 @@ const Query = (props) => {
 		const locationsTested = testLocation(sortedLocations, city, state);
 		return (
 			<div className="text-center">
-				{breadcrumbBuilder(qString, "city")}
+				<BreadcrumbBuilder qs={qString} howComplete="city" />
 				{(typeof locationsTested === "string") ? locationsTested : <QuerySymbols city={city} state={state} />}
 			</div>
 		);
