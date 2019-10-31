@@ -5,8 +5,8 @@ import { debounce } from "lodash";
 
 import TextAreaWithError from "./textarea_with_error";
 import { commentSubmitMethod } from "../methods";
-import { validComment } from "../validation";
-import checkUserStatus from "../checkUserStatus";
+import { validComment } from "../utils/validation";
+import checkUserStatus from "../utils/checkUserStatus";
 
 const commentsPlaceholder = "Summarize what this train typically does here, or describe it's characteristics";
 let apiHandle;
@@ -29,7 +29,7 @@ export default class CommentsForm extends Component {
 	}
 
 	toggleFunc() {
-		this.setState({open: !this.state.open});
+		this.setState({ open: !this.state.open });
 	}
 
 	render() {
@@ -38,10 +38,10 @@ export default class CommentsForm extends Component {
 			return checkUser.renderInstead;
 		}
 		return (
-			<Panel 
-				id="commentPanel" 
+			<Panel
+				id="commentPanel"
 				className="boxMargin"
-				expanded={this.state.open} 
+				expanded={this.state.open}
 				onToggle={this.toggleFunc}>
 				<Panel.Heading onClick={this.toggleFunc}>
 					<Panel.Title>
@@ -52,7 +52,7 @@ export default class CommentsForm extends Component {
 					<Form
 						id="commentsFormGroup"
 						getApi={this.transferApi}
-						onSubmit={debounce(this.onSubmit.bind(this), 200)} 
+						onSubmit={debounce(this.onSubmit.bind(this), 200)}
 					>
 						<TextAreaWithError
 							className="form-control"

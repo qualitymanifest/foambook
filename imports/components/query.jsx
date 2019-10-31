@@ -10,7 +10,7 @@ import QueryDisplay from "./query_display";
 import QuerySymbols from "./query_symbols";
 import QueryLocations from "./query_locations";
 import BreadcrumbBuilder from "./breadcrumb_builder";
-import { locationSorter, testLocation } from "../queryFunctions";
+import { locationSorter, testLocation } from "../utils/queryFunctions";
 
 let completeQuery = {};
 

@@ -7,11 +7,11 @@ import Moment from "moment-timezone";
 
 import { noteSubmitMethod, notesDeleteMethod } from "../methods";
 import { Notes } from "../collections/notes";
-import { validSubRailroad, validSubCity, validSubState, validSubSymbol, validSubDateTime } from "../validation";
+import { validSubRailroad, validSubCity, validSubState, validSubSymbol, validSubDateTime } from "../utils/validation";
 import DateTime from "./dateTime";
 import NotesTable from "./notes_table";
 import FieldWithError from "./field_with_error";
-import checkUserStatus from "../checkUserStatus";
+import checkUserStatus from "../utils/checkUserStatus";
 
 Moment.tz.setDefault("Etc/UTC");
 let apiHandle;

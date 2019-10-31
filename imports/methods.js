@@ -5,7 +5,7 @@ import XLSX from "xlsx";
 import { FlagsInsert } from "./collections/flags";
 import { NotesDelete, UserUpdate, NotesInsert } from "./collections/notes";
 import { CommentsInsert, CommentsDelete } from "./collections/comments";
-import { cleanCity } from "./validation";
+import { cleanCity } from "./utils/validation";
 
 Moment.tz.setDefault("Etc/UTC");
 

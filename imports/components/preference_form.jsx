@@ -4,7 +4,7 @@ import Moment from "moment-timezone";
 import { Form, Select, Option } from "informed";
 
 import FieldWithError from "./field_with_error";
-import { validPrefRailroad, validPrefCity, validPrefState } from "../validation";
+import { validPrefRailroad, validPrefCity, validPrefState } from "../utils/validation";
 
 const moment = Moment();
 
@@ -15,7 +15,7 @@ export default (props) => {
 			onSubmit={debounce(props.onSubmit, 200)}
 			initialValues={props.defaultValues}
 		>
-			{({ formApi, formState }) => (
+			{() => (
 				<>
 
 					<label>Railroad</label>

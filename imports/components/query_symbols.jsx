@@ -5,7 +5,7 @@ import queryString from "query-string";
 import { Badge, PanelGroup, Panel, ButtonToolbar, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-import { railroadSorter, symbolSorter, testAge } from "../queryFunctions";
+import { railroadSorter, symbolSorter, testAge } from "../utils/queryFunctions";
 import FootNote from "./foot_note";
 import { AggregateSymbols } from "../collections/aggregations";
 

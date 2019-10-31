@@ -3,7 +3,7 @@ import Moment from "moment-timezone";
 import { LinkContainer } from "react-router-bootstrap";
 
 import FlagModal from "./flag_modal";
-import { validFlag } from "../validation";
+import { validFlag } from "../utils/validation";
 
 Moment.tz.setDefault("Etc/UTC");
 let newest = null;
@@ -27,21 +27,21 @@ const NotesTable = (props) => {
 		const noteUrl = `/?city=${city}&state=${state}&railroad=${railroad}&symbol=${symbol}`;
 		return (
 			<tr className={`notesTableLink ${props.appLocation === "add_note_form" ? shouldAnimate(createdAt) : ""}`}
-				key={_id} 
+				key={_id}
 			>
 				<LinkContainer to={noteUrl}><td>{railroad}</td></LinkContainer>
 				<LinkContainer to={noteUrl}><td>{city + ", " + state}</td></LinkContainer>
 				<LinkContainer to={noteUrl}><td>{symbol}</td></LinkContainer>
 				<LinkContainer to={noteUrl}><td>{Moment(dateTime).format("MM-DD-YY HH:mm")}</td></LinkContainer>
-				{ (props.user && userId === props.user._id && props.user.status === "APPROVED") ?
+				{(props.user && userId === props.user._id && props.user.status === "APPROVED") ?
 					<td className="trashColumn">
 						<span onClick={() => props.deleteFunc(_id)}
 							className="glyphicon glyphicon-trash"
 						/>
 					</td>
 					: props.user && props.user.status === "APPROVED" ?
-					<FlagModal _id={_id} type="note" validationFunc={validFlag} />
-					: ""
+						<FlagModal _id={_id} type="note" validationFunc={validFlag} />
+						: ""
 				}
 			</tr>
 		);

@@ -3,9 +3,9 @@ import moment from "moment-timezone";
 import { decode } from "he";
 
 import FlagModal from "./flag_modal";
-import { validFlag } from "../validation";
+import { validFlag } from "../utils/validation";
 import { commentsDeleteMethod } from "../methods";
-import { commentsSorter } from "../queryFunctions";
+import { commentsSorter } from "../utils/queryFunctions";
 
 moment.tz.setDefault("Etc/UTC");
 
@@ -23,13 +23,13 @@ export default CommentsList = (props) => {
 					<p>{decode(comment)}</p>
 					<div className="commentData">
 						<span>- {userName} {moment(createdAt).format("MM-DD-YYYY")}</span>
-						{ (props.user && userId === props.user._id && props.user.status === "APPROVED") ? 
-								<span onClick={() => commentsDeleteMethod(_id)}
-									className="glyphicon glyphicon-trash"
-								/>
+						{(props.user && userId === props.user._id && props.user.status === "APPROVED") ?
+							<span onClick={() => commentsDeleteMethod(_id)}
+								className="glyphicon glyphicon-trash"
+							/>
 							: props.user && props.user.status === "APPROVED" ?
-							<FlagModal _id={_id} type="comment" validationFunc={validFlag} />
-							: ""
+								<FlagModal _id={_id} type="comment" validationFunc={validFlag} />
+								: ""
 						}
 					</div>
 				</div>
@@ -39,7 +39,7 @@ export default CommentsList = (props) => {
 
 	return (
 		<>
-			{!!Object.keys(sortedComments.local).length && 
+			{!!Object.keys(sortedComments.local).length &&
 				<>
 					<strong>Comments for this train in {props.city}, {props.state}:</strong>
 					{commentsBuilder(sortedComments.local, true)}

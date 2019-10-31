@@ -11,7 +11,7 @@ import Scatterplot from "./scatterplot";
 import CommentsForm from "./comments_form";
 import CommentsList from "./comments_list";
 import InfoDisplay from "./info_display";
-import { processNotes } from "../queryFunctions";
+import { processNotes } from "../utils/queryFunctions";
 
 Moment.tz.setDefault("Etc/UTC");
 
@@ -28,18 +28,18 @@ class QueryDisplay extends Component {
 		let query = this.props.query;
 		return (
 			<div className="text-center fadeIn">
-				{ processed.years.length > 1 ? 
+				{processed.years.length > 1 ?
 					<div>
 						Filter by year:
-							{ processed.years.map((year) => {
-								return (
-									<Link className="queryFilterOption" key={year}
-										to={`?city=${query.city}&state=${query.state}&railroad=${query.railroad}&symbol=${query.symbol}&year=${year}`}
-									>
-										{`  ${year}  `}
-									</Link>
-								)
-							})
+							{processed.years.map((year) => {
+							return (
+								<Link className="queryFilterOption" key={year}
+									to={`?city=${query.city}&state=${query.state}&railroad=${query.railroad}&symbol=${query.symbol}&year=${year}`}
+								>
+									{`  ${year}  `}
+								</Link>
+							)
+						})
 						}
 					</div>
 					: ""
@@ -54,10 +54,10 @@ class QueryDisplay extends Component {
 				<small>Hover or tap dots for exact date/time</small>
 				<InfoDisplay info={this.props.info} query={this.props.query} />
 				<CommentsForm user={this.props.user} query={query} />
-				<CommentsList 
-					user={this.props.user} 
-					comments={this.props.comments} 
-					commentsReady={this.props.commentsReady} 
+				<CommentsList
+					user={this.props.user}
+					comments={this.props.comments}
+					commentsReady={this.props.commentsReady}
 					city={this.props.query.city}
 					state={this.props.query.state}
 				/>

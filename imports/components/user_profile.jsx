@@ -9,12 +9,12 @@ import PreferenceForm from "./preference_form";
 import { Notes } from "../collections/notes";
 import NotesTable from "./notes_table";
 import { incrementPages } from "../../client/actions";
-import checkUserStatus from "../checkUserStatus";
+import checkUserStatus from "../utils/checkUserStatus";
 
 class UserProfile extends Component {
 	render() {
 		let defaultValues = null;
-		const { user, notes, paginate} = this.props;
+		const { user, notes, paginate } = this.props;
 		const checkUser = checkUserStatus(user, "user_profile");
 		if (!checkUser.shouldRender) {
 			return checkUser.renderInstead;
@@ -29,14 +29,14 @@ class UserProfile extends Component {
 					onSubmit={preferenceSubmitMethod}
 					defaultValues={defaultValues}
 				/>
-				<div style={{clear: "both"}}>You have submitted {user.notesCount} notes</div>
-				<NotesTable 
-					notes={notes} 
-					user={user} 
+				<div style={{ clear: "both" }}>You have submitted {user.notesCount} notes</div>
+				<NotesTable
+					notes={notes}
+					user={user}
 					deleteFunc={notesDeleteMethod}
 					appLocation="user_profile"
 					caption="Your Recent Submissions" />
-				{	!!notes.length &&
+				{!!notes.length &&
 					<>
 						<button className="btn btn-primary" onClick={paginate} >Load More</button>
 						<br /><br />

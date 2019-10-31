@@ -2,8 +2,8 @@ import React from "react";
 import { Badge, PanelGroup, Panel } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-import { testAge, } from "../queryFunctions";
-import { statesMap } from "../validation";
+import { testAge } from "../utils/queryFunctions";
+import statesMap from "../utils/statesMap";
 
 
 export default QueryLocations = ({ locations }) => (
