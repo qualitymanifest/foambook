@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default (user, route) => {
 	const userStatus = { 
 		shouldRender: false,
-		renderInstead: <p>There was an error retrieving your approval status</p>
+		renderInstead: <p>There was an error retrieving your account status</p>
 	};
 
 	if (!user) {
@@ -38,7 +38,7 @@ export default (user, route) => {
 		}
 		else {
 			userStatus.renderInstead = (
-				<div className="text-center">
+				<div className="text-center logMessage">
 					{returnMessage}
 				</div>
 			)
@@ -51,7 +51,7 @@ export default (user, route) => {
 			userStatus.renderInstead = <p id="commentLoggedOut">{returnMessage}</p>;
 		}
 		else { 
-			userStatus.renderInstead = <div className="text-center">{returnMessage}</div>;
+			userStatus.renderInstead = <div className="text-center logMessage">{returnMessage}</div>;
 		}
 	}
 

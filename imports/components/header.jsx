@@ -47,7 +47,7 @@ const Header = (props) => {
 					>
 						<NavItem>README</NavItem>
 					</LinkContainer>
-					{user &&
+					{user && user.profile &&
 						(
 							<LinkContainer
 								eventKey="/user_profile"
