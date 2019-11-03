@@ -1,6 +1,8 @@
 import React from "react";
 import { BasicText, asField } from "informed";
 
+import { ERROR_NO_DESCRIPTION } from "../utils/validation";
+
 export default asField(({ fieldState, ...props }) => (
 	<>
 		<BasicText
@@ -8,7 +10,7 @@ export default asField(({ fieldState, ...props }) => (
 			{...props}
 			style={fieldState.error ? { border: "solid 1px red" } : null}
 		/>
-		{fieldState.error && fieldState.error !== "error-no-description" ? (
+		{fieldState.error && fieldState.error !== ERROR_NO_DESCRIPTION ? (
 			<p className="form-error">{fieldState.error}</p>
 		) : null}
 	</>

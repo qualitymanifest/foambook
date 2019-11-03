@@ -15,7 +15,7 @@ const cnSymbol = /^[A-Z]{1}\d{3,5}$/;
 const kcsSymbol = /^[ACDGHILMORSUWX][A-Z]{4}$/;
 const parSymbol = /^[A-Z]{4}|\d{3}[A-Z]{2}|[A-Z]{2}\d{3}$/;
 
-export const valSymbol = (symbol, railroad) => {
+const validSymbol = (symbol, railroad) => {
 	switch (railroad) {
 		case "UP":
 			return upSymbol.test(symbol);
@@ -39,24 +39,7 @@ export const valSymbol = (symbol, railroad) => {
 	}
 };
 
-export const valDateTime = (dateTime) => {
-	// returns true if valid, otherwise an error message
-	const fullDateTime = /^\d{2}-\d{2}-\d{2} \d{2}:\d{2}$/;
-	// Moment will turn dates without time into valid dates
-	if (!fullDateTime.test(dateTime)) {
-		return "Incomplete date/time";
-	}
-	const realDateTime = moment(dateTime, "MM-DD-YY HH:mm");
-	const fiveYearsAgo = moment().subtract(5, "years");
-	const now = moment();
-	if (realDateTime.isValid()) {
-		if (!moment(realDateTime).isBetween(fiveYearsAgo, now)) {
-			return "Must be within the last five years";
-		}
-		return true;
-	}
-	return "Invalid date";
-};
+export const ERROR_NO_DESCRIPTION = "ERROR_NO_DESCRIPTION";
 
 export const cleanCity = city => {
 	// remove all non-letters, and spaces that don't have a letter following
@@ -65,12 +48,12 @@ export const cleanCity = city => {
 };
 
 export const validComment = comment => {
-	if (!comment) { return "error-no-description" };
+	if (!comment) { return ERROR_NO_DESCRIPTION };
 	return comment.length < 10 || comment.length > 300 ? "Comments must be between 10 and 300 characters" : null;
 }
 
 export const validFlag = reason => {
-	if (!reason) { return "error-no-description" };
+	if (!reason) { return ERROR_NO_DESCRIPTION };
 	return reason.length < 10 || reason.length > 100 ? "Must be 10 to 100 characters" : null;
 }
 
@@ -83,41 +66,54 @@ export const validPrefRailroad = railroad => {
 }
 
 export const validPrefCity = city => {
-	return city && city.length > 30 ? "error-no-description" : null;
+	return city && city.length > 30 ? ERROR_NO_DESCRIPTION : null;
 }
 
 export const validPrefState = state => {
 	if (state) { state = state.toUpperCase() }
-	return state && !statesMap[state] ? "error-no-description" : null;
+	return state && !statesMap[state] ? ERROR_NO_DESCRIPTION : null;
 }
 
 /* **** SUBMIT SPECIFIC VALIDATION **** */
 
 export const validSubRailroad = railroad => {
-	if (!railroad) { return "error-no-description" };
+	if (!railroad) { return ERROR_NO_DESCRIPTION };
 	railroad = railroad.toUpperCase();
 	return !validRR.test(railroad) ? "Invalid railroad" : null;
 }
 
 export const validSubCity = city => {
 	city = cleanCity(city);
-	return !city || city.length > 30 ? "error-no-description" : null;
+	return !city || city.length > 30 ? ERROR_NO_DESCRIPTION : null;
 }
 
 export const validSubState = state => {
 	if (state) { state = state.toUpperCase() }
-	return !state || !statesMap[state] ? "error-no-description" : null;
+	return !state || !statesMap[state] ? ERROR_NO_DESCRIPTION : null;
 }
 
 export const validSubSymbol = (symbol, otherVals) => {
-	if (!symbol) { return "error-no-description" };
+	if (!symbol) { return ERROR_NO_DESCRIPTION };
 	symbol = symbol.toUpperCase();
 	const railroad = otherVals.railroad ? otherVals.railroad.toUpperCase() : "";
-	return !railroad ? "Railroad not provided" : !valSymbol(symbol, railroad) ? `Invalid symbol for ${railroad}` : null;
+	return !railroad ? "Railroad not provided" : !validSymbol(symbol, railroad) ? `Invalid symbol for ${railroad}` : null;
 }
 
 export const validSubDateTime = dateTime => {
-	if (!dateTime) { return "error-no-description" };
-	const dateTest = valDateTime(dateTime);
-	return dateTest !== true ? dateTest : null;
+	if (!dateTime) { return ERROR_NO_DESCRIPTION };
+	const fullDateTime = /^\d{2}-\d{2}-\d{2} \d{2}:\d{2}$/;
+	// Moment will turn dates without time into valid dates
+	if (!fullDateTime.test(dateTime)) {
+		return "Incomplete date/time";
+	}
+	const realDateTime = moment(dateTime, "MM-DD-YY HH:mm");
+	const fiveYearsAgo = moment().subtract(5, "years");
+	const now = moment();
+	if (realDateTime.isValid()) {
+		if (!moment(realDateTime).isBetween(fiveYearsAgo, now)) {
+			return "Must be within the last five years";
+		}
+		return null;
+	}
+	return "Invalid date";
 }
