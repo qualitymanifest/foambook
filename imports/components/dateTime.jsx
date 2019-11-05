@@ -2,7 +2,7 @@ import React from "react";
 import { asField } from "informed";
 import NumberFormat from "react-number-format";
 
-import { ERROR_NO_DESCRIPTION } from "../utils/validation";
+import { ERROR_NO_DESCRIPTION } from "../utils/constants";
 
 export default asField(({ fieldState, fieldApi, ...props }) => {
 	const { getValue, setValue, setTouched } = fieldApi;

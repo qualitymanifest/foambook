@@ -3,15 +3,17 @@ import SimpleSchema from "simpl-schema";
 import { ValidatedMethod } from "meteor/mdg:validated-method";
 import moment from "moment-timezone";
 
+import { MAX_CITY_LEN, MAX_STATE_LEN, MAX_RR_LEN, MAX_SYMBOL_LEN } from "../utils/constants";
+
 moment.tz.setDefault("Etc/UTC");
 
 export const Comments = new Mongo.Collection("comments");
 
 const CommentsSchema = new SimpleSchema({
-	railroad: { type: String, max: 10 },
-	city: { type: String, max: 30 },
-	state: { type: String, max: 2 },
-	symbol: { type: String, max: 10 },
+	railroad: { type: String, max: MAX_RR_LEN },
+	city: { type: String, max: MAX_CITY_LEN },
+	state: { type: String, max: MAX_STATE_LEN },
+	symbol: { type: String, max: MAX_SYMBOL_LEN },
 	comment: { type: String } // leaving out max due to encoding
 });
 export const CommentsInsert = new ValidatedMethod({

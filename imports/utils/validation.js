@@ -1,6 +1,7 @@
 import moment from "moment-timezone";
 
 import statesMap from "./statesMap";
+import { MAX_CITY_LEN, ERROR_NO_DESCRIPTION } from "./constants";
 
 moment.tz.setDefault("Etc/UTC");
 
@@ -39,8 +40,6 @@ const validSymbol = (symbol, railroad) => {
 	}
 };
 
-export const ERROR_NO_DESCRIPTION = "ERROR_NO_DESCRIPTION";
-
 export const cleanCity = city => {
 	// remove all non-letters, and spaces that don't have a letter following
 	// then remove a leading space
@@ -49,12 +48,12 @@ export const cleanCity = city => {
 
 export const validComment = comment => {
 	if (!comment) { return ERROR_NO_DESCRIPTION };
-	return comment.length < 10 || comment.length > 300 ? "Comments must be between 10 and 300 characters" : null;
+	return comment.length < 5 || comment.length > 300 ? "Comments must be between 5 and 300 characters" : null;
 }
 
 export const validFlag = reason => {
 	if (!reason) { return ERROR_NO_DESCRIPTION };
-	return reason.length < 10 || reason.length > 100 ? "Must be 10 to 100 characters" : null;
+	return reason.length < 5 || reason.length > 100 ? "Must be 5 to 100 characters" : null;
 }
 
 
@@ -66,7 +65,7 @@ export const validPrefRailroad = railroad => {
 }
 
 export const validPrefCity = city => {
-	return city && city.length > 30 ? ERROR_NO_DESCRIPTION : null;
+	return city && city.length > MAX_CITY_LEN ? ERROR_NO_DESCRIPTION : null;
 }
 
 export const validPrefState = state => {
@@ -84,7 +83,7 @@ export const validSubRailroad = railroad => {
 
 export const validSubCity = city => {
 	city = cleanCity(city);
-	return !city || city.length > 30 ? ERROR_NO_DESCRIPTION : null;
+	return !city || city.length > MAX_CITY_LEN ? ERROR_NO_DESCRIPTION : null;
 }
 
 export const validSubState = state => {

@@ -4,15 +4,17 @@ import Moment from "moment";
 import SimpleSchema from "simpl-schema";
 import { ValidatedMethod } from "meteor/mdg:validated-method";
 
+import { MAX_CITY_LEN, MAX_STATE_LEN, MAX_RR_LEN, MAX_SYMBOL_LEN } from "../utils/constants";
+
 // https://guide.meteor.com/collections.html#schemas-on-write
 
 export const Notes = new Mongo.Collection("notes");
 
 const NotesSchema = new SimpleSchema({
-	railroad: { type: String, max: 10 },
-	city: { type: String, max: 30 },
-	state: { type: String, max: 2 },
-	symbol: { type: String, max: 10 },
+	railroad: { type: String, max: MAX_RR_LEN },
+	city: { type: String, max: MAX_CITY_LEN },
+	state: { type: String, max: MAX_STATE_LEN },
+	symbol: { type: String, max: MAX_SYMBOL_LEN },
 	dateTime: { type: Date }
 });
 export const NotesInsert = new ValidatedMethod({
@@ -49,9 +51,9 @@ export const NotesDelete = new ValidatedMethod({
 });
 
 const PreferenceSchema = new SimpleSchema({
-	railroad: { type: String, max: 10, optional: true },
-	city: { type: String, max: 30, optional: true },
-	state: { type: String, max: 2, optional: true },
+	railroad: { type: String, max: MAX_RR_LEN, optional: true },
+	city: { type: String, max: MAX_CITY_LEN, optional: true },
+	state: { type: String, max: MAX_STATE_LEN, optional: true },
 	timezone: { type: String, max: 20 }
 });
 export const UserUpdate = new ValidatedMethod({

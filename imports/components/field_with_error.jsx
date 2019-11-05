@@ -1,7 +1,7 @@
 import React from "react";
 import { BasicText, asField } from "informed";
 
-import { ERROR_NO_DESCRIPTION } from "../utils/validation";
+import { ERROR_NO_DESCRIPTION } from "../utils/constants";
 
 export default asField(({ fieldState, ...props }) => (
 	<>
