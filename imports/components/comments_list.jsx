@@ -10,7 +10,7 @@ import { commentsSorter } from "../utils/queryFunctions";
 moment.tz.setDefault("Etc/UTC");
 
 export default CommentsList = (props) => {
-	if (!props.commentsReady || !props.comments.length) return null;
+	if (!props.comments.length) return null;
 
 	let sortedComments = commentsSorter(props.comments, props.city, props.state);
 
@@ -18,7 +18,7 @@ export default CommentsList = (props) => {
 		return comments.map((commentDoc) => {
 			const { userName, userId, createdAt, comment, city, state, _id } = commentDoc;
 			return (
-				<div key={_id} className="box commentBox boxMargin boxPadding">
+				<div key={_id} className="box commentBox boxMargin boxPadding fadeIn">
 					{!isLocal && <strong>{city}, {state}</strong>}
 					<p>{decode(comment)}</p>
 					<div className="commentData">

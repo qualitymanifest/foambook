@@ -8,16 +8,16 @@ export default info = (props) => {
 	const { railroadFan, locations } = props.info[0];
 	const { query } = props;
 	const renderLocations = () => {
-		return locations.map( location => {
+		return locations.map(location => {
 			const { city, state } = location;
 			// don't include current location
 			if (city === query.city && state === query.state) {
 				return;
 			}
 			return (
-				<Link 
+				<Link
 					className="infoItem"
-					key={`${city}${state}`} 
+					key={`${city}${state}`}
 					to={`?city=${city}&state=${state}&railroad=${query.railroad}&symbol=${query.symbol}`}>
 					{city}, {state}
 				</Link>
@@ -25,28 +25,28 @@ export default info = (props) => {
 		});
 	}
 	const renderRailroadFan = () => {
-		return Object.keys(railroadFan).map( key => {
+		return Object.keys(railroadFan).map(key => {
 			const property = railroadFan[key];
 			const properCaseKey = key[0].toUpperCase() + key.substring(1);
 			if (property) {
 				return (
 					<span className="infoItem" key={key}>
 						<strong>{properCaseKey}: </strong>
-							{property}
+						{property}
 					</span>
 				);
 			}
 		});
 	}
 	return (
-		<div className="box boxMargin boxPadding">
-			{locations && 
+		<div className="box boxMargin boxPadding fadeIn">
+			{locations &&
 				<>
 					<h4>Other locations this train has been recorded at:</h4>
 					{renderLocations()}
 				</>
 			}
-			{railroadFan && 
+			{railroadFan &&
 				<>
 					<h4>Info pulled from railroadfan.com:</h4>
 					{renderRailroadFan()}

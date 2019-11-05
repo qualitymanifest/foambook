@@ -5,8 +5,6 @@ import { scaleLinear } from "d3-scale";
 import { axisBottom, axisLeft } from "d3-axis";
 import { transition } from "d3-transition";
 
-import { getResponsiveChartWidth } from "../utils/queryFunctions";
-
 // https://mikewilliamson.wordpress.com/2016/06/03/d3-and-react-3-ways/
 
 const days = {
@@ -25,7 +23,8 @@ const tickHoursMobile = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24];
 export default Scatterplot = ({ notes, uiState, oldest, newest }) => {
 	if (!notes.length) return null;
 
-	const screenWidth = getResponsiveChartWidth(uiState.screenWidth);
+	let screenWidth = uiState.screenWidth;
+	screenWidth = screenWidth > 1200 ? screenWidth * 0.6 : screenWidth * 0.95;
 	const tickHours = screenWidth > 675 ? tickHoursFull : tickHoursMobile;
 	const dotRadius = screenWidth > 675 ? 8 : 4;
 	const tickMargin = screenWidth > 600 ? screenWidth * 0.04 : screenWidth * 0.08;

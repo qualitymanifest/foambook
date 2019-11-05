@@ -13,9 +13,6 @@ const QueryLocations = ({ locations, locationsReady }) => {
     if (!locationsReady) {
         return <div className="spinner" />;
     }
-    if (!locations.length) {
-        return <div style={{ clear: "both" }}>{QUERY_NOT_FOUND}</div>;
-    }
     const sortedLocations = locationSorter(locations);
     return (
         <>

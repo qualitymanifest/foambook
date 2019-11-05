@@ -75,5 +75,3 @@ export const processNotes = (notes) => {
 	});
 	return { notes: newNotes, oldest, newest, years };
 };
-
-export const getResponsiveChartWidth = (screenWidth) => screenWidth > 1200 ? screenWidth * 0.6 : screenWidth * 0.95;
