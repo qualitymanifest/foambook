@@ -1,30 +1,21 @@
-import { Meteor } from "meteor/meteor";
 import React from "react";
-import { withTracker } from "meteor/react-meteor-data";
 import queryString from "query-string";
 import { Breadcrumb } from "react-bootstrap";
 import Moment from "moment-timezone";
 
-import { AggregateLocations } from "../collections/aggregations";
 import QueryDisplay from "./query_display";
 import QuerySymbols from "./query_symbols";
 import QueryLocations from "./query_locations";
 import BreadcrumbBuilder from "./breadcrumb_builder";
-import { locationSorter, testLocation } from "../utils/queryFunctions";
 
 let completeQuery = {};
 
-const Query = (props) => {
-	const { aggregateLocationsReady, aggregateLocations } = props;
-	if (!aggregateLocationsReady) {
-		return <div className="spinner" />;
-	}
-	const sortedLocations = locationSorter(aggregateLocations);
+export default Query = () => {
 	const qString = queryString.parse(location.search);
 	const { city, state, railroad, symbol, year } = qString;
 
 	if (city && state && railroad && symbol) {
-		// completeQuery is for sending into DB - not using raw query string in case errant values are present
+		// completeQuery is for querying DB - not using raw query string in case errant values are present
 		completeQuery = { city, state, railroad, symbol };
 		let invalidDate = false;
 		if (year) {
@@ -34,7 +25,6 @@ const Query = (props) => {
 			// throw dateTime in regardless so we know if we have to render date in breadcrumb
 			completeQuery.dateTime = { "$gte": begin, "$lte": end }
 		}
-		const locationsTested = testLocation(sortedLocations, city, state);
 		return (
 			<div className="text-center">
 				{completeQuery.dateTime ?
@@ -43,18 +33,17 @@ const Query = (props) => {
 				}
 				{
 					invalidDate ? "Sorry, invalid year specified" :
-						(typeof locationsTested === "string") ? locationsTested : <QueryDisplay query={completeQuery} />
+						<QueryDisplay query={completeQuery} />
 				}
 			</div>
 		);
 	}
 
 	if (city && state) {
-		const locationsTested = testLocation(sortedLocations, city, state);
 		return (
 			<div className="text-center">
 				<BreadcrumbBuilder qs={qString} howComplete="city" />
-				{(typeof locationsTested === "string") ? locationsTested : <QuerySymbols city={city} state={state} />}
+				<QuerySymbols city={city} state={state} />
 			</div>
 		);
 	}
@@ -64,16 +53,7 @@ const Query = (props) => {
 			<Breadcrumb>
 				<Breadcrumb.Item active>Search Home</Breadcrumb.Item>
 			</Breadcrumb>
-			<QueryLocations locations={sortedLocations} />
+			<QueryLocations />
 		</div>
 	);
 };
-
-
-export default withTracker(() => {
-	const aggregateLocationsHandle = Meteor.subscribe("aggregateLocations", {});
-	return {
-		aggregateLocations: AggregateLocations.findFromPublication("aggregateLocations", {}).fetch(),
-		aggregateLocationsReady: aggregateLocationsHandle.ready()
-	};
-})(Query);

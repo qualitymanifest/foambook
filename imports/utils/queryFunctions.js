@@ -77,23 +77,3 @@ export const processNotes = (notes) => {
 };
 
 export const getResponsiveChartWidth = (screenWidth) => screenWidth > 1200 ? screenWidth * 0.6 : screenWidth * 0.95;
-
-export const badQuery = (specific) => {
-	return "Sorry, invalid " + specific + ". Either you've followed a bad link, or you're searching for a newly added " + specific +
-		" (search options are updated hourly)";
-};
-
-
-export const testLocation = (metadata, searchCity, searchState) => {
-	for (let state of metadata) {
-		if (state._id === searchState) {
-			for (let city of state.cities) {
-				if (city.city === searchCity) {
-					return true
-				}
-			}
-			return badQuery("city");
-		}
-	}
-	return badQuery("state");
-};

@@ -1,0 +1,1 @@
+export const QUERY_NOT_FOUND = "There were no results to that query. Not sure how you got here - maybe you followed a bad link?";

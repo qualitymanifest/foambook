@@ -12,6 +12,7 @@ import CommentsForm from "./comments_form";
 import CommentsList from "./comments_list";
 import InfoDisplay from "./info_display";
 import { processNotes } from "../utils/queryFunctions";
+import { QUERY_NOT_FOUND } from "../utils/constants";
 
 Moment.tz.setDefault("Etc/UTC");
 
@@ -21,7 +22,7 @@ class QueryDisplay extends Component {
 			return <div className="spinner" />;
 		}
 		if (!this.props.notes.length) {
-			return <div style={{ clear: "both" }}>There were no results to that query. Not sure how you got here - maybe you followed a bad link?</div>;
+			return <div style={{ clear: "both" }}>{QUERY_NOT_FOUND}</div>;
 		}
 
 		const processed = processNotes(this.props.notes);

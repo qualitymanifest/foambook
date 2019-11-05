@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { railroadSorter, symbolSorter, testAge } from "../utils/queryFunctions";
 import FootNote from "./foot_note";
 import { AggregateSymbols } from "../collections/aggregations";
+import { QUERY_NOT_FOUND } from "../utils/constants";
 
 class QuerySymbols extends Component {
 	constructor(props) {
@@ -18,11 +19,14 @@ class QuerySymbols extends Component {
 	}
 
 	render() {
-		const { city, state, aggregateSymbols, aggregateSymbolsReady } = this.props;
-		if (!aggregateSymbolsReady) {
+		const { city, state, aggregate, aggregateReady } = this.props;
+		if (!aggregateReady) {
 			return <div className="spinner" />;
 		}
-		const railroads = railroadSorter(aggregateSymbols);
+		if (!aggregate.length) {
+			return <div style={{ clear: "both" }}>{QUERY_NOT_FOUND}</div>;
+		}
+		const railroads = railroadSorter(aggregate);
 		const oneRailroad = (railroads.length === 1);
 		return (
 			<div className="fadeIn">
@@ -90,10 +94,10 @@ class QuerySymbols extends Component {
 const MeteorQuerySymbols = withTracker(() => {
 	const qs = queryString.parse(location.search);
 	const selector = { _id: qs.city + qs.state };
-	const aggregateHandle = Meteor.subscribe("aggregateSymbols", selector);
+	const handle = Meteor.subscribe("aggregateSymbols", selector);
 	return {
-		aggregateSymbols: AggregateSymbols.find(selector).fetch(),
-		aggregateSymbolsReady: aggregateHandle.ready()
+		aggregate: AggregateSymbols.find(selector).fetch(),
+		aggregateReady: handle.ready()
 	};
 })(QuerySymbols);
 
