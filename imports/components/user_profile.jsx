@@ -1,5 +1,5 @@
 import { Meteor } from "meteor/meteor";
-import React, { Component } from "react";
+import React from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import { connect } from "react-redux";
 import { debounce } from "lodash";
@@ -11,45 +11,34 @@ import NotesTable from "./notes_table";
 import { incrementPages } from "../../client/actions";
 import checkUserStatus from "../utils/checkUserStatus";
 
-class UserProfile extends Component {
-	render() {
-		let defaultValues = null;
-		const { user, notes, paginate } = this.props;
-		const checkUser = checkUserStatus(user, "user_profile");
-		if (!checkUser.shouldRender) {
-			return checkUser.renderInstead;
-		}
-		if (user.preferences) {
-			defaultValues = user.preferences;
-		}
-		return (
-			<div className="text-center fadeIn">
-				<h3>Default submission values</h3>
-				<PreferenceForm
-					onSubmit={preferenceSubmitMethod}
-					defaultValues={defaultValues}
-				/>
-				<div style={{ clear: "both" }}>You have submitted {user.notesCount} notes</div>
-				<NotesTable
-					notes={notes}
-					user={user}
-					deleteFunc={notesDeleteMethod}
-					appLocation="user_profile"
-					caption="Your Recent Submissions" />
-				{!!notes.length &&
-					<>
-						<button className="btn btn-primary" onClick={paginate} >Load More</button>
-						<br /><br />
-						<button className="btn btn-default" onClick={debounce(downloadMethod, 1000)}>Download Notes</button>
-					</>
-				}
-			</div>
-		);
+const UserProfile = ({ user = "LOADING", notes, paginate }) => {
+	const checkUser = checkUserStatus(user, "user_profile");
+	if (!checkUser.shouldRender) {
+		return checkUser.renderInstead;
 	}
-}
-
-UserProfile.defaultProps = {
-	user: "LOADING"
+	return (
+		<div className="text-center fadeIn">
+			<h3>Default submission values</h3>
+			<PreferenceForm
+				onSubmit={preferenceSubmitMethod}
+				defaultValues={user.preferences}
+			/>
+			<div style={{ clear: "both" }}>You have submitted {user.notesCount} notes</div>
+			<NotesTable
+				notes={notes}
+				user={user}
+				deleteFunc={notesDeleteMethod}
+				appLocation="user_profile"
+				caption="Your Recent Submissions" />
+			{notes.length &&
+				<>
+					<button className="btn btn-primary" onClick={paginate} >Load More</button>
+					<br /><br />
+					<button className="btn btn-default" onClick={debounce(downloadMethod, 1000)}>Download Notes</button>
+				</>
+			}
+		</div>
+	);
 };
 
 const mapDispatchToProps = (dispatch) => {
