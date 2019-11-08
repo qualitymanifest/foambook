@@ -26,10 +26,10 @@ const QueryDisplay = ({ notesReady, notes, query, uiState, info, infoReady, user
 	const processed = processNotes(notes);
 	return (
 		<div className="text-center fadeIn">
-			{processed.years.length > 1 ?
+			{processed.years.length > 1 &&
 				<div>
-					Filter by year:
-						{processed.years.map((year) => {
+					<span>Filter by year:</span>
+					{processed.years.map((year) => {
 						return (
 							<Link className="queryFilterOption" key={year}
 								to={`?city=${query.city}&state=${query.state}&railroad=${query.railroad}&symbol=${query.symbol}&year=${year}`}
@@ -40,7 +40,6 @@ const QueryDisplay = ({ notesReady, notes, query, uiState, info, infoReady, user
 					})
 					}
 				</div>
-				: ""
 			}
 			<Scatterplot notes={processed.notes} oldest={processed.oldest} newest={processed.newest} uiState={uiState} />
 			<small>Date range:</small>

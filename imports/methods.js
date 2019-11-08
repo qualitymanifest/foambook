@@ -48,7 +48,7 @@ export const noteSubmitMethod = (values, apiHandle) => {
 	});
 };
 
-export const commentSubmitMethod = (formValues, query, toggleFunc, apiHandle) => {
+export const commentSubmitMethod = (formValues, query, setExpanded, apiHandle) => {
 	const cleansedComment = encode(formValues.comment);
 	const comment = {
 		comment: cleansedComment,
@@ -62,7 +62,7 @@ export const commentSubmitMethod = (formValues, query, toggleFunc, apiHandle) =>
 			alert(err);
 		}
 		else {
-			toggleFunc();
+			setExpanded(false);
 			apiHandle.setValue("comment", "");
 		}
 	});
