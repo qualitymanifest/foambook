@@ -17,13 +17,11 @@ export default FlagModal = ({ _id, type, validationFunc }) => {
 		setSuccess
 	);
 
-	const FlagSpan = <span onClick={() => setVisible(true)} className="glyphicon glyphicon-flag" />;
-
 	return (
 		<>
 			{type === "note" ?
-				<td>{FlagSpan}</td> :
-				{ FlagSpan }
+				<td><span onClick={() => setVisible(true)} className="glyphicon glyphicon-flag" /></td> :
+				<span onClick={() => setVisible(true)} className="glyphicon glyphicon-flag" />
 			}
 			<Modal show={visible} onHide={() => setVisible(false)}>
 				<Modal.Header closeButton>
