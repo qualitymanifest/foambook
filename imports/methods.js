@@ -76,14 +76,14 @@ export const commentsDeleteMethod = (commentId) => {
 	});
 };
 
-export const flagSubmitMethod = (flag, handleClose, handleSuccess) => {
+export const flagSubmitMethod = (flag, setVisible, setSuccess) => {
 	FlagsInsert.call(flag, (err) => {
 		if (err) {
 			alert(err);
 		}
 		else {
-			handleSuccess();
-			setTimeout(() => handleClose(), 2500);
+			setSuccess(true);
+			setTimeout(() => setVisible(false), 2500);
 		}
 	});
 };
