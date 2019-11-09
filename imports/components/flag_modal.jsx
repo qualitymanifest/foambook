@@ -5,27 +5,28 @@ import { debounce } from "lodash";
 
 import TextAreaWithError from "./textarea_with_error";
 import { flagSubmitMethod } from "../methods";
+import { validFlag } from "../utils/validation";
 
 
-export default FlagModal = ({ _id, type, validationFunc }) => {
+export default FlagModal = ({ problemId, flagType }) => {
 	const [visible, setVisible] = useState(false);
 	const [success, setSuccess] = useState(false);
 
 	const onSubmit = ({ reason }) => flagSubmitMethod(
-		{ reason, problemId: _id, flagType: type },
+		{ reason, problemId, flagType },
 		setVisible,
 		setSuccess
 	);
 
 	return (
 		<>
-			{type === "note" ?
+			{flagType === "note" ?
 				<td><span onClick={() => setVisible(true)} className="glyphicon glyphicon-flag" /></td> :
 				<span onClick={() => setVisible(true)} className="glyphicon glyphicon-flag" />
 			}
 			<Modal show={visible} onHide={() => setVisible(false)}>
 				<Modal.Header closeButton>
-					<Modal.Title>Flag {type} for review</Modal.Title>
+					<Modal.Title>Flag {flagType} for review</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					{success ?
@@ -38,9 +39,9 @@ export default FlagModal = ({ _id, type, validationFunc }) => {
 									className="form-control"
 									maxLength={100}
 									field="reason"
-									placeholder={`Please explain the issue with this ${type}`}
+									placeholder={`Please explain the issue with this ${flagType}`}
 									validateOnBlur
-									validate={validationFunc}
+									validate={validFlag}
 								/>
 								<button type="submit" className="btn btn-primary">Submit</button>
 							</Form>

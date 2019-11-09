@@ -5,7 +5,7 @@ import { debounce } from "lodash";
 import { withTracker } from "meteor/react-meteor-data";
 import Moment from "moment-timezone";
 
-import { noteSubmitMethod, notesDeleteMethod } from "../methods";
+import { noteSubmitMethod } from "../methods";
 import { Notes } from "../collections/notes";
 import { validSubRailroad, validSubCity, validSubState, validSubSymbol, validSubDateTime } from "../utils/validation";
 import DateTime from "./dateTime";
@@ -114,7 +114,6 @@ const AddNoteForm = ({ notes, user = "LOADING" }) => {
 			<NotesTable
 				notes={notes}
 				user={user}
-				deleteFunc={notesDeleteMethod}
 				appLocation="add_note_form"
 				caption="Recent Submissions - All Users"
 			/>

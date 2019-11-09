@@ -4,6 +4,8 @@ import moment from "moment-timezone";
 import SimpleSchema from "simpl-schema";
 import { ValidatedMethod } from "meteor/mdg:validated-method";
 
+import { STATUS_APPROVED } from "../utils/constants";
+
 export const Flags = new Mongo.Collection("flags");
 
 const FlagsSchema = new SimpleSchema({
@@ -15,7 +17,7 @@ export const FlagsInsert = new ValidatedMethod({
 	name: "flags.insert",
 	validate: FlagsSchema.validator(),
 	run(flag) {
-		if (!Meteor.userId() || Meteor.user().status !== "APPROVED") {
+		if (!Meteor.userId() || Meteor.user().status !== STATUS_APPROVED) {
 			throw new Meteor.Error("not-authorized");
 		}
 		const flagWithMetadata = Object.assign(

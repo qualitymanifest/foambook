@@ -4,7 +4,7 @@ import { withTracker } from "meteor/react-meteor-data";
 import { connect } from "react-redux";
 import { debounce } from "lodash";
 
-import { notesDeleteMethod, preferenceSubmitMethod, downloadMethod } from "../methods";
+import { downloadMethod } from "../methods";
 import PreferenceForm from "./preference_form";
 import { Notes } from "../collections/notes";
 import NotesTable from "./notes_table";
@@ -20,14 +20,12 @@ const UserProfile = ({ user = "LOADING", notes, paginate }) => {
 		<div className="text-center fadeIn">
 			<h3>Default submission values</h3>
 			<PreferenceForm
-				onSubmit={preferenceSubmitMethod}
 				defaultValues={user.preferences}
 			/>
 			<div style={{ clear: "both" }}>You have submitted {user.notesCount} notes</div>
 			<NotesTable
 				notes={notes}
 				user={user}
-				deleteFunc={notesDeleteMethod}
 				appLocation="user_profile"
 				caption="Your Recent Submissions" />
 			{notes.length &&

@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { STATUS_APPROVED } from "./constants";
+
 export default (user, route) => {
-	const userStatus = { 
+	const userStatus = {
 		shouldRender: false,
 		renderInstead: <p>There was an error retrieving your account status</p>
 	};
@@ -15,7 +17,7 @@ export default (user, route) => {
 			const message = route === "add_note_form" ? "add notes" : "view your profile";
 			userStatus.renderInstead = (
 				<div className="text-center logMessage">
-					Log in to {message}. For more information, visit the 
+					Log in to {message}. For more information, visit the
 					<Link to="/read_me"> readme</Link>.
 				</div>
 			);
@@ -26,7 +28,7 @@ export default (user, route) => {
 		userStatus.renderInstead = <div className="spinner" />;
 	}
 
-	else if (user.status === "APPROVED") {
+	else if (user.status === STATUS_APPROVED) {
 		userStatus.shouldRender = true;
 	}
 
@@ -50,7 +52,7 @@ export default (user, route) => {
 		if (route === "comments_form") {
 			userStatus.renderInstead = <p id="commentLoggedOut">{returnMessage}</p>;
 		}
-		else { 
+		else {
 			userStatus.renderInstead = <div className="text-center logMessage">{returnMessage}</div>;
 		}
 	}

@@ -4,7 +4,7 @@ import Moment from "moment";
 import SimpleSchema from "simpl-schema";
 import { ValidatedMethod } from "meteor/mdg:validated-method";
 
-import { MAX_CITY_LEN, MAX_STATE_LEN, MAX_RR_LEN, MAX_SYMBOL_LEN } from "../utils/constants";
+import { MAX_CITY_LEN, MAX_STATE_LEN, MAX_RR_LEN, MAX_SYMBOL_LEN, STATUS_APPROVED } from "../utils/constants";
 
 // https://guide.meteor.com/collections.html#schemas-on-write
 
@@ -21,7 +21,7 @@ export const NotesInsert = new ValidatedMethod({
 	name: "notes.insert",
 	validate: NotesSchema.validator(),
 	run(train) {
-		if (!Meteor.userId() || Meteor.user().status !== "APPROVED") {
+		if (!Meteor.userId() || Meteor.user().status !== STATUS_APPROVED) {
 			throw new Meteor.Error("not-authorized");
 		}
 		const note = Object.assign(
@@ -42,7 +42,7 @@ export const NotesDelete = new ValidatedMethod({
 	name: "notes.delete",
 	validate: DeleteSchema.validator(),
 	run({ noteId }) {
-		if (!Meteor.userId() || Meteor.user().status !== "APPROVED") {
+		if (!Meteor.userId() || Meteor.user().status !== STATUS_APPROVED) {
 			throw new Meteor.Error("not-authorized");
 		}
 		Notes.remove({ userId: Meteor.userId(), _id: noteId });
@@ -60,7 +60,7 @@ export const UserUpdate = new ValidatedMethod({
 	name: "user.update",
 	validate: PreferenceSchema.validator(),
 	run(preferences) {
-		if (!Meteor.userId() || Meteor.user().status !== "APPROVED") {
+		if (!Meteor.userId() || Meteor.user().status !== STATUS_APPROVED) {
 			throw new Meteor.Error("not-authorized");
 		}
 		Meteor.users.update(Meteor.userId(), {

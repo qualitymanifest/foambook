@@ -3,21 +3,21 @@ import { debounce } from "lodash";
 import Moment from "moment-timezone";
 import { Form, Select, Option } from "informed";
 
-import FieldWithError from "./field_with_error";
+import { preferenceSubmitMethod } from "../methods";
 import { validPrefRailroad, validPrefCity, validPrefState } from "../utils/validation";
+import FieldWithError from "./field_with_error";
 
 const moment = Moment();
 
-export default (props) => {
+export default ({ defaultValues }) => {
 	return (
 		<Form
 			className="form-group"
-			onSubmit={debounce(props.onSubmit, 200)}
-			initialValues={props.defaultValues}
+			onSubmit={debounce(preferenceSubmitMethod, 200)}
+			initialValues={defaultValues}
 		>
 			{() => (
 				<>
-
 					<label>Railroad</label>
 					<FieldWithError
 						className="form-control"
@@ -57,38 +57,29 @@ export default (props) => {
 						className="form-control"
 						field="timezone"
 					>
-
 						<Option value="">
 						</Option>
-
 						<Option value="America/Los_Angeles">
 							{`PST: ${moment.tz("America/Los_Angeles").format("MM-DD-YY HH:mm")}`}
 						</Option>
-
 						<Option value="America/Phoenix">
 							{`AZ: ${moment.tz("America/Phoenix").format("MM-DD-YY HH:mm")}`}
 						</Option>
-
 						<Option value="America/Denver">
 							{`MST: ${moment.tz("America/Denver").format("MM-DD-YY HH:mm")}`}
 						</Option>
-
 						<Option value="America/Chicago">
 							{`CST: ${moment.tz("America/Chicago").format("MM-DD-YY HH:mm")}`}
 						</Option>
-
 						<Option value="America/New_York">
 							{`EST: ${moment.tz("America/New_York").format("MM-DD-YY HH:mm")}`}
 						</Option>
-
 						<Option value="America/Moncton">
 							{`AST: ${moment.tz("America/Moncton").format("MM-DD-YY HH:mm")}`}
 						</Option>
-
 					</Select>
 
 					<button className="btn btn-warning">Set Defaults</button>
-
 				</>
 			)}
 		</Form>

@@ -4,3 +4,4 @@ export const MAX_RR_LEN = 10;
 export const MAX_CITY_LEN = 30;
 export const MAX_STATE_LEN = 2;
 export const MAX_SYMBOL_LEN = 10;
+export const STATUS_APPROVED = "APPROVED";

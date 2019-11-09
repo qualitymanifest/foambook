@@ -3,7 +3,7 @@ import SimpleSchema from "simpl-schema";
 import { ValidatedMethod } from "meteor/mdg:validated-method";
 import moment from "moment-timezone";
 
-import { MAX_CITY_LEN, MAX_STATE_LEN, MAX_RR_LEN, MAX_SYMBOL_LEN } from "../utils/constants";
+import { MAX_CITY_LEN, MAX_STATE_LEN, MAX_RR_LEN, MAX_SYMBOL_LEN, STATUS_APPROVED } from "../utils/constants";
 
 moment.tz.setDefault("Etc/UTC");
 
@@ -20,7 +20,7 @@ export const CommentsInsert = new ValidatedMethod({
 	name: "comments.insert",
 	validate: CommentsSchema.validator(),
 	run(comment) {
-		if (!Meteor.userId() || Meteor.user().status !== "APPROVED") {
+		if (!Meteor.userId() || Meteor.user().status !== STATUS_APPROVED) {
 			throw new Meteor.Error("not-authorized");
 		}
 		const commentWithMetadata = Object.assign(
@@ -39,7 +39,7 @@ export const CommentsDelete = new ValidatedMethod({
 	name: "comments.delete",
 	validate: DeleteSchema.validator(),
 	run({ commentId }) {
-		if (!Meteor.userId() || Meteor.user().status !== "APPROVED") {
+		if (!Meteor.userId() || Meteor.user().status !== STATUS_APPROVED) {
 			throw new Meteor.Error("not-authorized");
 		}
 		Comments.remove({ userId: Meteor.userId(), _id: commentId });

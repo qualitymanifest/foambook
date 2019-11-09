@@ -8,8 +8,7 @@ import { connect } from "react-redux";
 import Accounts from "./accounts";
 
 
-const Header = (props) => {
-	const { loading, notesCount, router, user } = props;
+const Header = ({ loading, notesCount, router, user }) => {
 	const count = notesCount.reduce((a, b) => a + b.notesCount, 0);
 	return (
 		<Navbar inverse collapseOnSelect fixedTop>
