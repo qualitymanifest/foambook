@@ -6,8 +6,9 @@ import { FlagsInsert } from "./collections/flags";
 import { NotesDelete, UserUpdate, NotesInsert } from "./collections/notes";
 import { CommentsInsert, CommentsDelete } from "./collections/comments";
 import { cleanCity } from "./utils/validation";
+import { DATETIME_FORMAT, TZ_DEFAULT } from "./utils/constants";
 
-Moment.tz.setDefault("Etc/UTC");
+Moment.tz.setDefault(TZ_DEFAULT);
 
 export const preferenceSubmitMethod = (values) => {
 	const valuesCopy = Object.assign({}, values);
@@ -39,7 +40,7 @@ export const noteSubmitMethod = (values, apiHandle) => {
 	const valuesCopy = Object.assign({}, values);
 	Object.keys(valuesCopy).map(key => valuesCopy[key] = valuesCopy[key].toUpperCase());
 	valuesCopy.city = cleanCity(valuesCopy.city);
-	valuesCopy.dateTime = Moment(valuesCopy.dateTime, "MM-DD-YY HH:mm").toDate();
+	valuesCopy.dateTime = Moment(valuesCopy.dateTime, DATETIME_FORMAT).toDate();
 	apiHandle.setValue("symbol", "")
 	NotesInsert.call(valuesCopy, (err) => {
 		if (err) {

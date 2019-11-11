@@ -8,12 +8,13 @@ import Moment from "moment-timezone";
 import { noteSubmitMethod } from "../methods";
 import { Notes } from "../collections/notes";
 import { validSubRailroad, validSubCity, validSubState, validSubSymbol, validSubDateTime } from "../utils/validation";
+import { MAX_STATE_LEN, MAX_CITY_LEN, FORM_DEBOUNCE_MS, DATETIME_FORMAT, TZ_DEFAULT } from "../utils/constants";
 import DateTime from "./dateTime";
 import NotesTable from "./notes_table";
 import FieldWithError from "./field_with_error";
 import checkUserStatus from "../utils/checkUserStatus";
 
-Moment.tz.setDefault("Etc/UTC");
+Moment.tz.setDefault(TZ_DEFAULT);
 let apiHandle;
 
 const AddNoteForm = ({ notes, user = "LOADING" }) => {
@@ -29,7 +30,7 @@ const AddNoteForm = ({ notes, user = "LOADING" }) => {
 		railroad,
 		city,
 		state,
-		dateTime: timezone ? Moment().tz(timezone).format("MM-DD-YY HH:mm") : ""
+		dateTime: timezone ? Moment().tz(timezone).format(DATETIME_FORMAT) : ""
 	};
 
 	const onSubmit = values => noteSubmitMethod(values, apiHandle);
@@ -44,7 +45,7 @@ const AddNoteForm = ({ notes, user = "LOADING" }) => {
 			<Form
 				className="form-group"
 				getApi={transferApi}
-				onSubmit={debounce(onSubmit, 200)}
+				onSubmit={debounce(onSubmit, FORM_DEBOUNCE_MS)}
 				initialValues={defaultValues}
 			>
 				{({ formApi, formState }) => (
@@ -66,7 +67,7 @@ const AddNoteForm = ({ notes, user = "LOADING" }) => {
 								<FieldWithError
 									className="form-control"
 									field="city"
-									maxLength="30"
+									maxLength={MAX_CITY_LEN}
 									placeholder="e.g. PITTSBURGH"
 									validateOnBlur
 									validate={validSubCity}
@@ -77,7 +78,7 @@ const AddNoteForm = ({ notes, user = "LOADING" }) => {
 								<FieldWithError
 									className="form-control"
 									field="state"
-									maxLength="2"
+									maxLength={MAX_STATE_LEN}
 									placeholder="E.G. PA"
 									validateOnBlur
 									validate={validSubState}

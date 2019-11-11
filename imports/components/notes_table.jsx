@@ -3,10 +3,10 @@ import Moment from "moment-timezone";
 import { LinkContainer } from "react-router-bootstrap";
 
 import { notesDeleteMethod } from "../methods";
-import { STATUS_APPROVED } from "../utils/constants";
+import { STATUS_APPROVED, DATETIME_FORMAT, TZ_DEFAULT } from "../utils/constants";
 import FlagModal from "./flag_modal";
 
-Moment.tz.setDefault("Etc/UTC");
+Moment.tz.setDefault(TZ_DEFAULT);
 let newest = null;
 
 const shouldAnimate = (createdAt) => {
@@ -17,7 +17,7 @@ const shouldAnimate = (createdAt) => {
 	return "";
 };
 
-const NotesTable = ({ notes, appLocation, user, caption }) => {
+export default NotesTable = ({ notes, appLocation, user, caption }) => {
 	if (!notes.length) return null;
 	// if we're not on user_profile, initialize newest
 	if (appLocation !== "user_profile" && !newest) {
@@ -33,7 +33,7 @@ const NotesTable = ({ notes, appLocation, user, caption }) => {
 				<LinkContainer to={noteUrl}><td>{railroad}</td></LinkContainer>
 				<LinkContainer to={noteUrl}><td>{city + ", " + state}</td></LinkContainer>
 				<LinkContainer to={noteUrl}><td>{symbol}</td></LinkContainer>
-				<LinkContainer to={noteUrl}><td>{Moment(dateTime).format("MM-DD-YY HH:mm")}</td></LinkContainer>
+				<LinkContainer to={noteUrl}><td>{Moment(dateTime).format(DATETIME_FORMAT)}</td></LinkContainer>
 				{(user && userId === user._id && user.status === STATUS_APPROVED) ?
 					<td className="trashColumn">
 						<span onClick={() => notesDeleteMethod(_id)}
@@ -65,5 +65,3 @@ const NotesTable = ({ notes, appLocation, user, caption }) => {
 		</table>
 	);
 };
-
-export default NotesTable;

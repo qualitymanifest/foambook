@@ -6,6 +6,7 @@ import { debounce } from "lodash";
 import TextAreaWithError from "./textarea_with_error";
 import { flagSubmitMethod } from "../methods";
 import { validFlag } from "../utils/validation";
+import { FORM_DEBOUNCE_MS } from "../utils/constants";
 
 
 export default FlagModal = ({ problemId, flagType }) => {
@@ -33,7 +34,7 @@ export default FlagModal = ({ problemId, flagType }) => {
 						<strong>Flag submitted successfully, thank you for your input</strong> :
 						(
 							<Form
-								onSubmit={debounce(onSubmit, 200)}
+								onSubmit={debounce(onSubmit, FORM_DEBOUNCE_MS)}
 							>
 								<TextAreaWithError
 									className="form-control"

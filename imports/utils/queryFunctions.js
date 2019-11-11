@@ -1,6 +1,8 @@
 import Moment from "moment-timezone";
 
-Moment.tz.setDefault("Etc/UTC");
+import { TZ_DEFAULT } from "./constants";
+
+Moment.tz.setDefault(TZ_DEFAULT);
 const monthAgo = Moment().subtract(1, "month");
 const yearAgo = Moment().subtract(1, "year");
 

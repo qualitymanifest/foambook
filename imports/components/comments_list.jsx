@@ -5,9 +5,9 @@ import { decode } from "he";
 import FlagModal from "./flag_modal";
 import { commentsDeleteMethod } from "../methods";
 import { commentsSorter } from "../utils/queryFunctions";
-import { STATUS_APPROVED } from "../utils/constants";
+import { STATUS_APPROVED, TZ_DEFAULT } from "../utils/constants";
 
-moment.tz.setDefault("Etc/UTC");
+moment.tz.setDefault(TZ_DEFAULT);
 
 export default CommentsList = ({ comments, city, state, user }) => {
 	if (!comments.length) return null;

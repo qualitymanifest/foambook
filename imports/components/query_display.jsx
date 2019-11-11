@@ -12,9 +12,9 @@ import CommentsForm from "./comments_form";
 import CommentsList from "./comments_list";
 import InfoDisplay from "./info_display";
 import { processNotes } from "../utils/queryFunctions";
-import { QUERY_NOT_FOUND } from "../utils/constants";
+import { QUERY_NOT_FOUND, TZ_DEFAULT } from "../utils/constants";
 
-Moment.tz.setDefault("Etc/UTC");
+Moment.tz.setDefault(TZ_DEFAULT);
 
 const QueryDisplay = ({ notesReady, notes, query, uiState, info, infoReady, user, comments }) => {
 	if (!notesReady) {

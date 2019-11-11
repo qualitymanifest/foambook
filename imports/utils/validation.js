@@ -1,9 +1,9 @@
 import moment from "moment-timezone";
 
 import statesMap from "./statesMap";
-import { MAX_CITY_LEN, ERROR_NO_DESCRIPTION } from "./constants";
+import { MAX_CITY_LEN, ERROR_NO_DESCRIPTION, DATETIME_FORMAT, TZ_DEFAULT } from "./constants";
 
-moment.tz.setDefault("Etc/UTC");
+moment.tz.setDefault(TZ_DEFAULT);
 
 const validRR = /^(BNSF|UP|CSX|NS|CN|CP|KCS|PAR|PAS)$/;
 
@@ -105,7 +105,7 @@ export const validSubDateTime = dateTime => {
 	if (!fullDateTime.test(dateTime)) {
 		return "Incomplete date/time";
 	}
-	const realDateTime = moment(dateTime, "MM-DD-YY HH:mm");
+	const realDateTime = moment(dateTime, DATETIME_FORMAT);
 	const fiveYearsAgo = moment().subtract(5, "years");
 	const now = moment();
 	if (realDateTime.isValid()) {

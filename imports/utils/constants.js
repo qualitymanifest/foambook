@@ -5,3 +5,6 @@ export const MAX_CITY_LEN = 30;
 export const MAX_STATE_LEN = 2;
 export const MAX_SYMBOL_LEN = 10;
 export const STATUS_APPROVED = "APPROVED";
+export const FORM_DEBOUNCE_MS = 200;
+export const DATETIME_FORMAT = "MM-DD-YY HH:mm";
+export const TZ_DEFAULT = "Etc/UTC";

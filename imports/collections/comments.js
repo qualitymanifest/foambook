@@ -3,9 +3,9 @@ import SimpleSchema from "simpl-schema";
 import { ValidatedMethod } from "meteor/mdg:validated-method";
 import moment from "moment-timezone";
 
-import { MAX_CITY_LEN, MAX_STATE_LEN, MAX_RR_LEN, MAX_SYMBOL_LEN, STATUS_APPROVED } from "../utils/constants";
+import { MAX_CITY_LEN, MAX_STATE_LEN, MAX_RR_LEN, MAX_SYMBOL_LEN, STATUS_APPROVED, TZ_DEFAULT } from "../utils/constants";
 
-moment.tz.setDefault("Etc/UTC");
+moment.tz.setDefault(TZ_DEFAULT);
 
 export const Comments = new Mongo.Collection("comments");
 

@@ -5,6 +5,8 @@ import { scaleLinear } from "d3-scale";
 import { axisBottom, axisLeft } from "d3-axis";
 import { transition } from "d3-transition";
 
+import { DATETIME_FORMAT } from "../utils/constants";
+
 // https://mikewilliamson.wordpress.com/2016/06/03/d3-and-react-3-ways/
 
 const days = {
@@ -111,7 +113,7 @@ export default Scatterplot = ({ notes, uiState, oldest, newest }) => {
 		.attr("r", dotRadius)
 		.attr("fill", d => `hsl(356, 100%, ${colorScale(d.dateTime)}%)`)
 		.on("mouseover", function (d) {
-			const dateTimeReadable = Moment(d.dateTime).format("MM-DD-YY HH:mm");
+			const dateTimeReadable = Moment(d.dateTime).format(DATETIME_FORMAT);
 			const e = () => require("d3-selection").event;
 			tip.transition()
 				.duration(200)

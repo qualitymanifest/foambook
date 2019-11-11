@@ -10,6 +10,7 @@ import { Notes } from "../collections/notes";
 import NotesTable from "./notes_table";
 import { incrementPages } from "../../client/actions";
 import checkUserStatus from "../utils/checkUserStatus";
+import { FORM_DEBOUNCE_MS } from "../utils/constants";
 
 const UserProfile = ({ user = "LOADING", notes, paginate }) => {
 	const checkUser = checkUserStatus(user, "user_profile");
@@ -32,7 +33,9 @@ const UserProfile = ({ user = "LOADING", notes, paginate }) => {
 				<>
 					<button className="btn btn-primary" onClick={paginate} >Load More</button>
 					<br /><br />
-					<button className="btn btn-default" onClick={debounce(downloadMethod, 1000)}>Download Notes</button>
+					<button className="btn btn-default" onClick={debounce(downloadMethod, FORM_DEBOUNCE_MS)}>
+						Download Notes
+					</button>
 				</>
 			}
 		</div>
