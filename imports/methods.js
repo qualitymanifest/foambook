@@ -2,7 +2,6 @@ import Moment from "moment-timezone";
 import { encode } from "he";
 import XLSX from "xlsx";
 
-import { FlagsInsert } from "./collections/flags";
 import { NotesDelete, UserUpdate, NotesInsert } from "./collections/notes";
 import { CommentsInsert, CommentsDelete } from "./collections/comments";
 import { cleanCity } from "./utils/validation";
@@ -78,7 +77,7 @@ export const commentsDeleteMethod = (commentId) => {
 };
 
 export const flagSubmitMethod = (flag, setVisible, setSuccess) => {
-	FlagsInsert.call(flag, (err) => {
+	Meteor.call("flagEmail", ({ flag, user: Meteor.userId() }), (err) => {
 		if (err) {
 			alert(err);
 		}
@@ -86,7 +85,7 @@ export const flagSubmitMethod = (flag, setVisible, setSuccess) => {
 			setSuccess(true);
 			setTimeout(() => setVisible(false), 2500);
 		}
-	});
+	})
 };
 
 export const downloadMethod = () => {
