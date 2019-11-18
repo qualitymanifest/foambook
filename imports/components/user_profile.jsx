@@ -29,7 +29,7 @@ const UserProfile = ({ user = "LOADING", notes, paginate }) => {
 				user={user}
 				appLocation="user_profile"
 				caption="Your Recent Submissions" />
-			{notes.length &&
+			{!!notes.length &&
 				<>
 					<button className="btn btn-primary" onClick={paginate} >Load More</button>
 					<br /><br />
