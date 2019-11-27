@@ -1,5 +1,4 @@
 import React from "react";
-import queryString from "query-string";
 import { Breadcrumb } from "react-bootstrap";
 import Moment from "moment-timezone";
 
@@ -7,11 +6,12 @@ import QueryDisplay from "./query_display";
 import QuerySymbols from "./query_symbols";
 import QueryLocations from "./query_locations";
 import BreadcrumbBuilder from "./breadcrumb_builder";
+import { parseQueryString } from "../utils/queryFunctions";
 
 let completeQuery = {};
 
 export default Query = () => {
-	const qString = queryString.parse(location.search);
+	const qString = parseQueryString();
 	const { city, state, railroad, symbol, year } = qString;
 
 	if (city && state && railroad && symbol) {

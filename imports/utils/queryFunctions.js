@@ -6,6 +6,15 @@ Moment.tz.setDefault(TZ_DEFAULT);
 const monthAgo = Moment().subtract(1, "month");
 const yearAgo = Moment().subtract(1, "year");
 
+export const parseQueryString = () => {
+	const queryString = new URLSearchParams(location.search);
+	const parsed = {};
+	for (let [key, val] of queryString) {
+		parsed[key] = val;
+	}
+	return parsed;
+};
+
 export const testAge = (mostRecent) => {
 	if (mostRecent > monthAgo) {
 		return "pastMonth";
@@ -16,7 +25,7 @@ export const testAge = (mostRecent) => {
 	return "olderThanYear";
 };
 
-// meteor publishes randomly, even if DB is sorted:
+// Meteor publishes randomly, even if DB is sorted:
 export const locationSorter = (rawLocations) => {
 	const locations = rawLocations.sort((a, b) => {
 		return (a._id > b._id) ? 1 : -1;
@@ -40,7 +49,7 @@ export const symbolSorter = (symbols, sortType) => {
 	if (sortType === "recent") {
 		return symbols.sort((a, b) => (a.mostRecent < b.mostRecent) ? 1 : -1);
 	}
-	// there may be many with the same count, so sort those alphabetically too
+	// There may be many with the same count, so sort those alphabetically too
 	if (sortType === "count") {
 		return symbols.sort((a, b) => (a.count === b.count && a.symbol > b.symbol) ? 1 : (a.count < b.count) ? 1 : -1);
 	}

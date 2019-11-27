@@ -1,7 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import React, { useState } from "react";
 import { withTracker } from "meteor/react-meteor-data";
-import queryString from "query-string";
 import { Badge, PanelGroup, Panel, ButtonToolbar, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -83,9 +82,8 @@ const QuerySymbols = ({ city, state, aggregate, aggregateReady }) => {
 	);
 }
 
-export default withTracker(() => {
-	const qs = queryString.parse(location.search);
-	const selector = { _id: qs.city + qs.state };
+export default withTracker(({ city, state }) => {
+	const selector = { _id: city + state };
 	const handle = Meteor.subscribe("aggregateSymbols", selector);
 	return {
 		aggregate: AggregateSymbols.find(selector).fetch(),
