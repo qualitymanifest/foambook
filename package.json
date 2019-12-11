@@ -2,7 +2,8 @@
   "name": "foambook",
   "private": true,
   "scripts": {
-    "dev": "sh scripts/dev.sh"
+    "dev": "sh scripts/dev.sh",
+    "bundlevis": "sh scripts/bundlevis.sh"
   },
   "dependencies": {
     "@babel/runtime": "^7.7.2",

@@ -15,7 +15,7 @@ export default ReadMe = () => (
 			available on <Link to="/user_profile">your profile page</Link>.
 		</p>
 		<p>Notes you submit are not stuck here, either. There is a button at the bottom of the <Link to="/user_profile">profile page</Link> that allows you
-			to download all your notes as an xlsx file.
+			to download all your notes as an xlsx spreadsheet.
 		</p>
 		<h3>When submitting notes:</h3>
 		<ul id="readMeLis">

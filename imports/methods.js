@@ -1,6 +1,5 @@
 import Moment from "moment-timezone";
 import { encode } from "he";
-import XLSX from "xlsx";
 
 import { NotesDelete, UserUpdate, NotesInsert } from "./collections/notes";
 import { CommentsInsert, CommentsDelete } from "./collections/comments";
@@ -94,6 +93,8 @@ export const downloadMethod = () => {
 			alert(err);
 			return;
 		}
-		XLSX.writeFile(wb, "foambook_notes.xlsx");
+		import('xlsx').then(XLSX => {
+			XLSX.writeFile(wb, "foambook_notes.xlsx");
+		});
 	});
 }
