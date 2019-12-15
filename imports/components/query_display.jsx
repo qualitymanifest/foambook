@@ -1,7 +1,6 @@
 import React from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import Moment from "moment-timezone";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { Notes } from "../collections/notes";

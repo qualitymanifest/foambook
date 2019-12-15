@@ -1,14 +1,15 @@
 import { Meteor } from "meteor/meteor";
 import React from "react";
+import { useLocation } from "react-router";
 import { withTracker } from "meteor/react-meteor-data";
 import { Navbar, NavItem, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { connect } from "react-redux";
 
 import Accounts from "./accounts";
 
 
-const Header = ({ loading, notesCount, router, user }) => {
+const Header = ({ loading, notesCount, user }) => {
+    const { pathname } = useLocation();
 	const count = notesCount.reduce((a, b) => a + b.notesCount, 0);
 	return (
 		<Navbar inverse collapseOnSelect fixedTop>
@@ -26,7 +27,7 @@ const Header = ({ loading, notesCount, router, user }) => {
 						</Navbar.Text>
 					)
 				}
-				<Nav pullRight activeKey={router.location.pathname}>
+				<Nav pullRight activeKey={pathname}>
 					<LinkContainer
 						eventKey="/"
 						exact
@@ -67,7 +68,7 @@ const Header = ({ loading, notesCount, router, user }) => {
 	);
 };
 
-const MeteorHeader = withTracker(() => {
+export default withTracker(() => {
 	const handle = Meteor.subscribe("user.notesCount");
 	return {
 		// don't actually need any data, just get _ids so we can count them
@@ -76,5 +77,3 @@ const MeteorHeader = withTracker(() => {
 		loading: !handle.ready()
 	};
 })(Header);
-
-export default connect(({ router }) => ({ router }))(MeteorHeader);
