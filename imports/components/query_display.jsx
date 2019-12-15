@@ -16,7 +16,7 @@ import { QUERY_NOT_FOUND, TZ_DEFAULT } from "../utils/constants";
 
 Moment.tz.setDefault(TZ_DEFAULT);
 
-const QueryDisplay = ({ notesReady, notes, query, uiState, info, infoReady, user, comments }) => {
+const QueryDisplay = ({ notesReady, notes, query, info, infoReady, user, comments }) => {
 	if (!notesReady) {
 		return <div className="spinner" />
 	}
@@ -41,7 +41,7 @@ const QueryDisplay = ({ notesReady, notes, query, uiState, info, infoReady, user
 					}
 				</div>
 			}
-			<Scatterplot notes={processed.notes} oldest={processed.oldest} newest={processed.newest} uiState={uiState} />
+			<Scatterplot notes={processed.notes} oldest={processed.oldest} newest={processed.newest} />
 			<small>Date range:</small>
 			<div id="dateRange">
 				<p>{Moment(processed.oldest).format("MM-DD-YY")}</p>
@@ -68,20 +68,18 @@ const QueryDisplay = ({ notesReady, notes, query, uiState, info, infoReady, user
 };
 
 
-export default connect(({ uiState }) => ({ uiState }))(
-	withTracker(({ query }) => {
-		const notesHandle = Meteor.subscribe("notes.query", query);
-		const commentsQuery = { railroad: query.railroad, symbol: query.symbol };
-		Meteor.subscribe("comments", commentsQuery);
-		const infoQuery = { _id: `${query.railroad}_${query.symbol}` };
-		const infoHandle = Meteor.subscribe("info", infoQuery);
-		return {
-			notes: Notes.findFromPublication("notes.query", query, { fields: { dateTime: 1 }, sort: { dateTime: 1 } }).fetch(),
-			notesReady: notesHandle.ready(),
-			info: Info.findFromPublication("info", infoQuery).fetch(),
-			infoReady: infoHandle.ready(),
-			user: Meteor.user(),
-			comments: Comments.findFromPublication("comments", commentsQuery, { sort: { createdAt: -1 } }).fetch(),
-		};
-	})(QueryDisplay)
-);
+export default withTracker(({ query }) => {
+    const notesHandle = Meteor.subscribe("notes.query", query);
+    const commentsQuery = { railroad: query.railroad, symbol: query.symbol };
+    Meteor.subscribe("comments", commentsQuery);
+    const infoQuery = { _id: `${query.railroad}_${query.symbol}` };
+    const infoHandle = Meteor.subscribe("info", infoQuery);
+    return {
+        notes: Notes.findFromPublication("notes.query", query, { fields: { dateTime: 1 }, sort: { dateTime: 1 } }).fetch(),
+        notesReady: notesHandle.ready(),
+        info: Info.findFromPublication("info", infoQuery).fetch(),
+        infoReady: infoHandle.ready(),
+        user: Meteor.user(),
+        comments: Comments.findFromPublication("comments", commentsQuery, { sort: { createdAt: -1 } }).fetch(),
+    };
+})(QueryDisplay);

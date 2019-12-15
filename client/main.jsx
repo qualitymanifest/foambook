@@ -9,7 +9,6 @@ import { createBrowserHistory } from "history";
 import { Meteor } from "meteor/meteor";
 
 import createRootReducer from "./reducers";
-import { screenResize } from "./actions";
 import AddNoteForm from "../imports/components/add_note_form";
 import UserProfile from "../imports/components/user_profile";
 import Query from "../imports/components/query";
@@ -25,11 +24,6 @@ const store = createStore(
 		routerMiddleware(history)
 	)
 );
-
-window.addEventListener("resize", () => {
-	// using documentElement.clientWidth because window.innerWidth was inaccurate when resizing mobile
-	store.dispatch(screenResize(document.documentElement.clientWidth));
-});
 
 const routes = (
 	<Provider store={store}>
