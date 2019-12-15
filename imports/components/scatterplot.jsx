@@ -29,9 +29,11 @@ class Scatterplot extends Component {
         this.state = {
             screenWidth: document.documentElement.clientWidth
         }
-        window.addEventListener("resize", () => {
-            this.setState({ screenWidth: document.documentElement.clientWidth });
-        });
+        this.onResize = () => this.setState({ screenWidth: document.documentElement.clientWidth });
+        window.addEventListener("resize", this.onResize);
+    }
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.onResize);
     }
     render() {
         const { notes, oldest, newest } = this.props;
