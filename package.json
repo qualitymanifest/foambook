@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "sh scripts/dev.sh",
-    "bundlevis": "sh scripts/bundlevis.sh"
+    "bundlevis": "sh scripts/bundlevis.sh",
+    "lint": "eslint --ext .jsx,.js ."
   },
   "dependencies": {
     "@babel/runtime": "^7.7.2",
@@ -28,5 +29,20 @@
     "react-router-dom": "^5.1.2",
     "simpl-schema": "^1.5.6",
     "xlsx": "^0.15.2"
+  },
+  "devDependencies": {
+    "@meteorjs/eslint-config-meteor": "^1.0.5",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-import-resolver-meteor": "^0.4.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-meteor": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "prettier": "^1.19.1"
   }
 }

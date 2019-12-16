@@ -4,9 +4,9 @@
 }
 
 body {
-	/* clear navbar-fixed-top */
-	padding-top: 50px;
-	background-color: var(--lightGray);
+  /* clear navbar-fixed-top */
+  padding-top: 50px;
+  background-color: var(--lightGray);
 }
 
 circle {
@@ -14,7 +14,7 @@ circle {
 }
 
 input {
-  text-transform : uppercase;
+  text-transform: uppercase;
 }
 
 textarea.form-control {
@@ -22,7 +22,8 @@ textarea.form-control {
   resize: vertical;
 }
 
-th, tr {
+th,
+tr {
   text-align: center;
 }
 
@@ -54,7 +55,7 @@ thead {
   color: #777;
 }
 
-#dateRange>p {
+#dateRange > p {
   display: inline-block;
   margin: 5px;
   vertical-align: middle;
@@ -63,7 +64,11 @@ thead {
 #dateRangeColors {
   width: 60px;
   height: 20px;
-  background: linear-gradient(to right, hsla(356, 100%, 0%, 0.5), hsla(356, 100%, 50%, 0.5));
+  background: linear-gradient(
+    to right,
+    hsla(356, 100%, 0%, 0.5),
+    hsla(356, 100%, 50%, 0.5)
+  );
 }
 
 #log-button {
@@ -73,18 +78,19 @@ thead {
   padding: 12px 0px;
 }
 
-#login-buttons .text-besides-image{
+#login-buttons .text-besides-image {
   margin: 0px;
 }
 
 #login-buttons .login-display-name {
   /* default accounts name does nothing - hide that so that
   we can make user name a link to profile */
-  display : none;
+  display: none;
 }
 
-#login-buttons-logout, #login-buttons-google {
-  animation: fadeIn .3s;
+#login-buttons-logout,
+#login-buttons-google {
+  animation: fadeIn 0.3s;
 }
 
 #readMeLis li {
@@ -136,7 +142,7 @@ thead {
 
 .fadeIn {
   opacity: 1;
-  animation: fadeIn .3s
+  animation: fadeIn 0.3s;
 }
 
 .form-error {
@@ -146,15 +152,6 @@ thead {
 
 .form-group {
   padding: 3% 40%;
-}
-
-.glyphicon {
-  margin: 0px 5px;
-}
-
-.glyphicon:hover {
-  text-shadow: 0 0 1px black;
-  cursor: pointer;
 }
 
 .glyphicon-flag {
@@ -170,10 +167,18 @@ thead {
   stroke-opacity: 0.7;
 }
 
-.in a, .collapsing a {
+.iconButton {
+  font-size: 100%;
+  background-color: transparent;
+  border: 0px;
+  padding: 3px;
+}
+
+.in a,
+.collapsing a {
   /* hamburger dropdown default aligns items to the left,
   even though hamburger is on the right */
-   text-align: center;
+  text-align: center;
 }
 
 .infoItem {
@@ -206,7 +211,8 @@ thead {
   text-decoration: underline;
 }
 
-.olderThanYear, .panel-default > .panel-heading .olderThanYear {
+.olderThanYear,
+.panel-default > .panel-heading .olderThanYear {
   background-color: hsla(356, 100%, 0%, 0.7);
   color: white;
 }
@@ -219,12 +225,14 @@ thead {
   font-weight: bold;
 }
 
-.pastMonth, .panel-default > .panel-heading .pastMonth {
+.pastMonth,
+.panel-default > .panel-heading .pastMonth {
   background-color: hsla(356, 100%, 50%, 0.9);
   color: white;
 }
 
-.pastYear, .panel-default > .panel-heading .pastYear {
+.pastYear,
+.panel-default > .panel-heading .pastYear {
   background-color: hsla(356, 100%, 20%, 0.7);
   color: white;
 }
@@ -263,20 +271,20 @@ thead {
   padding: 5px 3px 5px 0px;
 }
 
-.tooltip { 
-  position: absolute;     
-  text-align: center;     
-  width: 60px;          
-  height: 32px;         
-  padding: 2px;    
-  font: 12px sans-serif;    
-  background: lightsteelblue; 
-  border: 0px;    
-  border-radius: 8px;     
-  pointer-events: none;     
+.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 60px;
+  height: 32px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
 }
 
-@media screen and (max-width:1199px) {
+@media screen and (max-width: 1199px) {
   .boxMargin {
     margin: 10px 18%;
   }
@@ -289,7 +297,7 @@ thead {
   }
 }
 
-@media screen and (min-width:768px) and (max-width:992px) {
+@media screen and (min-width: 768px) and (max-width: 992px) {
   /* bootstrap breakpoints for the navbar.
   username could be too long during this intermediate point, so shorten it */
   #userName {
@@ -300,7 +308,7 @@ thead {
   }
 }
 
-@media screen and (max-width:699px) {
+@media screen and (max-width: 699px) {
   .boxMargin {
     margin: 10px 5px;
   }
@@ -325,13 +333,22 @@ thead {
 /*** ANIMATIONS ***/
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes highlightNote {
-  0%,100% { background-color: #f9f9f9; }
-  50% { background-color: yellow; }
+  0%,
+  100% {
+    background-color: #f9f9f9;
+  }
+  50% {
+    background-color: yellow;
+  }
 }
 
 .spinner {
@@ -340,11 +357,11 @@ thead {
   position: relative;
   clear: both; /* spinner was overlapping, must be a better fix..?*/
   margin: 94px auto 0 auto;
-  animation: rotation .6s infinite linear;
-  border-left: 6px solid rgba(0, 174, 239, .15);
-  border-right: 6px solid rgba(0, 174, 239, .15);
-  border-bottom: 6px solid rgba(0, 174, 239, .15);
-  border-top: 6px solid rgba(0, 174, 239, .8);
+  animation: rotation 0.6s infinite linear;
+  border-left: 6px solid rgba(0, 174, 239, 0.15);
+  border-right: 6px solid rgba(0, 174, 239, 0.15);
+  border-bottom: 6px solid rgba(0, 174, 239, 0.15);
+  border-top: 6px solid rgba(0, 174, 239, 0.8);
   border-radius: 100%;
 }
 

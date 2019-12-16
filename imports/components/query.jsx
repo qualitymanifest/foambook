@@ -10,50 +10,58 @@ import { parseQueryString } from "../utils/queryFunctions";
 
 let completeQuery = {};
 
-export default Query = () => {
-	const qString = parseQueryString();
-	const { city, state, railroad, symbol, year } = qString;
+const Query = () => {
+  const qString = parseQueryString();
+  const { city, state, railroad, symbol, year } = qString;
 
-	if (city && state && railroad && symbol) {
-		// completeQuery is for querying DB - not using raw query string in case errant values are present
-		completeQuery = { city, state, railroad, symbol };
-		let invalidDate = false;
-		if (year) {
-			invalidDate = !/^\d{4}$/.test(year);
-			let begin = Moment(year, "YYYY").startOf("year").toDate()
-			let end = Moment(year, "YYYY").endOf("year").toDate();
-			// throw dateTime in regardless so we know if we have to render date in breadcrumb
-			completeQuery.dateTime = { "$gte": begin, "$lte": end }
-		}
-		return (
-			<div className="text-center">
-				{completeQuery.dateTime ?
-					<BreadcrumbBuilder qs={qString} howComplete="dates" /> :
-					<BreadcrumbBuilder qs={qString} howComplete="symbol" />
-				}
-				{
-					invalidDate ? "Sorry, invalid year specified" :
-						<QueryDisplay query={completeQuery} />
-				}
-			</div>
-		);
-	}
+  if (city && state && railroad && symbol) {
+    // completeQuery is for querying DB - not using raw query string in case errant values are present
+    completeQuery = { city, state, railroad, symbol };
+    let invalidDate = false;
+    if (year) {
+      invalidDate = !/^\d{4}$/.test(year);
+      const begin = Moment(year, "YYYY")
+        .startOf("year")
+        .toDate();
+      const end = Moment(year, "YYYY")
+        .endOf("year")
+        .toDate();
+      // throw dateTime in regardless so we know if we have to render date in breadcrumb
+      completeQuery.dateTime = { $gte: begin, $lte: end };
+    }
+    return (
+      <div className="text-center">
+        {completeQuery.dateTime ? (
+          <BreadcrumbBuilder qs={qString} howComplete="dates" />
+        ) : (
+          <BreadcrumbBuilder qs={qString} howComplete="symbol" />
+        )}
+        {invalidDate ? (
+          "Sorry, invalid year specified"
+        ) : (
+          <QueryDisplay query={completeQuery} />
+        )}
+      </div>
+    );
+  }
 
-	if (city && state) {
-		return (
-			<div className="text-center">
-				<BreadcrumbBuilder qs={qString} howComplete="city" />
-				<QuerySymbols city={city} state={state} />
-			</div>
-		);
-	}
+  if (city && state) {
+    return (
+      <div className="text-center">
+        <BreadcrumbBuilder qs={qString} howComplete="city" />
+        <QuerySymbols city={city} state={state} />
+      </div>
+    );
+  }
 
-	return (
-		<div className="text-center fadeIn">
-			<Breadcrumb>
-				<Breadcrumb.Item active>Search Home</Breadcrumb.Item>
-			</Breadcrumb>
-			<QueryLocations />
-		</div>
-	);
+  return (
+    <div className="text-center fadeIn">
+      <Breadcrumb>
+        <Breadcrumb.Item active>Search Home</Breadcrumb.Item>
+      </Breadcrumb>
+      <QueryLocations />
+    </div>
+  );
 };
+
+export default Query;

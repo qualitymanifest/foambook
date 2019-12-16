@@ -1,6 +1,7 @@
 import { Meteor } from "meteor/meteor";
-import React from "react";
 import { withTracker } from "meteor/react-meteor-data";
+import { ReactiveVar } from "meteor/reactive-var";
+import React from "react";
 import { debounce } from "lodash";
 
 import { downloadMethod } from "../methods";
@@ -13,44 +14,60 @@ import { FORM_DEBOUNCE_MS } from "../utils/constants";
 const loadNum = new ReactiveVar(5);
 
 const UserProfile = ({ user = "LOADING", notes }) => {
-	const checkUser = checkUserStatus(user, "user_profile");
-	if (!checkUser.shouldRender) {
-		return checkUser.renderInstead;
-	}
-	return (
-		<div className="text-center fadeIn">
-			<h3>Default submission values</h3>
-			<PreferenceForm
-				defaultValues={user.preferences}
-			/>
-			<div style={{ clear: "both" }}>You have submitted {user.notesCount} notes</div>
-			<NotesTable
-				notes={notes}
-				user={user}
-				appLocation="user_profile"
-				caption="Your Recent Submissions" />
-			{!!notes.length &&
-				<>
-					<button className="btn btn-primary" onClick={() => loadNum.set(loadNum.get() + 5)} >Load More</button>
-					<br /><br />
-					<button className="btn btn-default" onClick={debounce(downloadMethod, FORM_DEBOUNCE_MS)}>
-						Download Notes
-					</button>
-				</>
-			}
-		</div>
-	);
+  const checkUser = checkUserStatus(user, "user_profile");
+  if (!checkUser.shouldRender) {
+    return checkUser.renderInstead;
+  }
+  return (
+    <div className="text-center fadeIn">
+      <h3>Default submission values</h3>
+      <PreferenceForm defaultValues={user.preferences} />
+      <div style={{ clear: "both" }}>
+        You have submitted {user.notesCount} notes
+      </div>
+      <NotesTable
+        notes={notes}
+        user={user}
+        appLocation="user_profile"
+        caption="Your Recent Submissions"
+      />
+      {!!notes.length && (
+        <>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => loadNum.set(loadNum.get() + 5)}
+          >
+            Load More
+          </button>
+          <br />
+          <br />
+          <button
+            type="button"
+            className="btn btn-default"
+            onClick={debounce(downloadMethod, FORM_DEBOUNCE_MS)}
+          >
+            Download Notes
+          </button>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default withTracker(() => {
-	Meteor.subscribe("notes.user", loadNum.get());
-	return {
-		// specifying userId again doesn't seem necessary but can prevent future bugs
-		// see "Always use specific queries to fetch data" in guide
-		user: Meteor.user(),
-		notes: Notes.findFromPublication("notes.user", { userId: Meteor.userId() }, {
-			sort: { createdAt: -1 },
-			limit: loadNum.get()
-		}).fetch()
-	};
+  Meteor.subscribe("notes.user", loadNum.get());
+  return {
+    // specifying userId again doesn't seem necessary but can prevent future bugs
+    // see "Always use specific queries to fetch data" in guide
+    user: Meteor.user(),
+    notes: Notes.findFromPublication(
+      "notes.user",
+      { userId: Meteor.userId() },
+      {
+        sort: { createdAt: -1 },
+        limit: loadNum.get()
+      }
+    ).fetch()
+  };
 })(UserProfile);

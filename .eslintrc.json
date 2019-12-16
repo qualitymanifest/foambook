@@ -1,0 +1,29 @@
+{
+  "extends": [
+    "airbnb",
+    "plugin:meteor/recommended",
+    "@meteorjs/eslint-config-meteor",
+    "prettier",
+    "prettier/react"
+  ],
+  "plugins": ["prettier", "meteor"],
+  "rules": {
+    "prettier/prettier": "error",
+    "comma-dangle": "off",
+    "arrow-parens": "off",
+    "react/prop-types": "off",
+    "no-alert": "off",
+    "react/jsx-props-no-spreading": "off"
+  },
+  "env": {
+    "browser": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 11
+  },
+  "settings": {
+    "import/resolver": {
+      "meteor": [".js", ".jsx"]
+    }
+  }
+}
