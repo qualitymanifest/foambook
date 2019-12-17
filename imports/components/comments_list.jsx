@@ -1,13 +1,11 @@
 import React from "react";
-import moment from "moment-timezone";
+import { DateTime } from "luxon";
 import { decode } from "he";
 
 import FlagTrash from "./flag_trash";
 import { commentsDeleteMethod } from "../methods";
 import { commentsSorter } from "../utils/queryFunctions";
-import { TZ_DEFAULT } from "../utils/constants";
-
-moment.tz.setDefault(TZ_DEFAULT);
+import { ZONES, DATETIME_FORMAT_SHORT } from "../utils/constants";
 
 const CommentsList = ({ comments, city, state, user }) => {
   if (!comments.length) return null;
@@ -27,7 +25,10 @@ const CommentsList = ({ comments, city, state, user }) => {
           <p>{decode(comment)}</p>
           <div className="commentData">
             <span>
-              - {userName} {moment(createdAt).format("MM-DD-YYYY")}
+              - {userName}{" "}
+              {DateTime.fromMillis(createdAt)
+                .setZone(ZONES.EST)
+                .toFormat(DATETIME_FORMAT_SHORT)}
             </span>
             <FlagTrash
               currentUser={user}

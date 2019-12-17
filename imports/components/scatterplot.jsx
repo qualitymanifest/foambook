@@ -1,6 +1,6 @@
 import ReactFauxDOM from "react-faux-dom";
 import { Component } from "react";
-import Moment from "moment";
+import { DateTime } from "luxon";
 import { range } from "lodash";
 import { select } from "d3-selection";
 import { scaleLinear } from "d3-scale";
@@ -149,7 +149,9 @@ class Scatterplot extends Component {
       .attr("r", dotRadius)
       .attr("fill", d => `hsl(356, 100%, ${colorScale(d.dateTime)}%)`)
       .on("mouseover", function(d) {
-        const dateTimeReadable = Moment(d.dateTime).format(DATETIME_FORMAT);
+        const dateTimeReadable = DateTime.fromJSDate(d.dateTime).toFormat(
+          DATETIME_FORMAT
+        );
         const e = () => require("d3-selection").event; // eslint-disable-line
         tip
           .transition()

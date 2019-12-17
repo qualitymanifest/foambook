@@ -1,6 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import { Mongo } from "meteor/mongo";
-import Moment from "moment";
+import { DateTime } from "luxon";
 import SimpleSchema from "simpl-schema";
 import { ValidatedMethod } from "meteor/mdg:validated-method";
 
@@ -9,7 +9,8 @@ import {
   MAX_STATE_LEN,
   MAX_RR_LEN,
   MAX_SYMBOL_LEN,
-  STATUS_APPROVED
+  STATUS_APPROVED,
+  ZONES
 } from "../utils/constants";
 
 // https://guide.meteor.com/collections.html#schemas-on-write
@@ -33,7 +34,7 @@ export const NotesInsert = new ValidatedMethod({
     const note = {
       ...train,
       userId: Meteor.userId(),
-      createdAt: Number(Moment().format("x"))
+      createdAt: DateTime.fromObject({ zone: ZONES.UTC }).toFormat("x")
     };
     Notes.insert(note);
     Meteor.users.update(Meteor.userId(), { $inc: { notesCount: 1 } });

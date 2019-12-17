@@ -1,4 +1,4 @@
-import moment from "moment-timezone";
+import { DateTime, Interval, Settings } from "luxon";
 
 import statesMap from "./statesMap";
 import {
@@ -8,8 +8,7 @@ import {
   TZ_DEFAULT
 } from "./constants";
 
-moment.tz.setDefault(TZ_DEFAULT);
-
+Settings.defaultZoneName = TZ_DEFAULT;
 const validRR = /^(BNSF|UP|CSX|NS|CN|CP|KCS|PAR|PAS)$/;
 
 const upSymbol = /(^([ACIKMOQUZ]|G[SELS])[A-Z1-5]{4}[BCELPXR]?)$|^([A-Z]{3}\d{2}[A-Z]?)$/;
@@ -128,16 +127,11 @@ export const validSubDateTime = dateTime => {
   if (!dateTime) {
     return ERROR_NO_DESCRIPTION;
   }
-  const fullDateTime = /^\d{2}-\d{2}-\d{2} \d{2}:\d{2}$/;
-  // Moment will turn dates without time into valid dates
-  if (!fullDateTime.test(dateTime)) {
-    return "Incomplete date/time";
-  }
-  const realDateTime = moment(dateTime, DATETIME_FORMAT);
-  const fiveYearsAgo = moment().subtract(5, "years");
-  const now = moment();
-  if (realDateTime.isValid()) {
-    if (!moment(realDateTime).isBetween(fiveYearsAgo, now)) {
+  const luxonDateTime = DateTime.fromFormat(dateTime, DATETIME_FORMAT);
+  const now = DateTime.local();
+  const fiveYearsAgo = now.minus({ years: 5 });
+  if (luxonDateTime.isValid) {
+    if (!Interval.fromDateTimes(fiveYearsAgo, now).contains(luxonDateTime)) {
       return "Must be within the last five years";
     }
     return null;

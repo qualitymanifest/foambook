@@ -1,10 +1,11 @@
-import Moment from "moment-timezone";
+import { DateTime, Settings } from "luxon";
 
 import { TZ_DEFAULT, SORT_TYPES } from "./constants";
 
-Moment.tz.setDefault(TZ_DEFAULT);
-const monthAgo = Moment().subtract(1, "month");
-const yearAgo = Moment().subtract(1, "year");
+Settings.defaultZoneName = TZ_DEFAULT;
+const now = DateTime.local();
+const monthAgo = now.minus({ months: 1 });
+const yearAgo = now.minus({ years: 1 });
 
 export const parseQueryString = () => {
   const queryString = new URLSearchParams(window.location.search);
@@ -73,16 +74,16 @@ export const commentsSorter = (comments, city, state) => {
 };
 
 export const processNotes = notes => {
-  const oldest = Moment(notes[0].dateTime);
-  const newest = Moment(notes[notes.length - 1].dateTime);
+  const oldest = DateTime.fromJSDate(notes[0].dateTime);
+  const newest = DateTime.fromJSDate(notes[notes.length - 1].dateTime);
   const years = new Set();
   const processedNotes = notes.reduce((processed, { dateTime }) => {
-    const noteMoment = Moment(dateTime);
-    years.add(noteMoment.year());
+    const noteLuxon = DateTime.fromJSDate(dateTime);
+    years.add(noteLuxon.year);
     processed.push({
       dateTime,
-      time: noteMoment.hours() * 60 + noteMoment.minutes(),
-      weekday: noteMoment.isoWeekday()
+      time: noteLuxon.hour * 60 + noteLuxon.minute,
+      weekday: noteLuxon.weekday
     });
     return processed;
   }, []);

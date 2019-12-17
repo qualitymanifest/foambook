@@ -7,8 +7,18 @@ export const MAX_STATE_LEN = 2;
 export const MAX_SYMBOL_LEN = 10;
 export const STATUS_APPROVED = "APPROVED";
 export const FORM_DEBOUNCE_MS = 200;
-export const DATETIME_FORMAT = "MM-DD-YY HH:mm";
-export const TZ_DEFAULT = "Etc/UTC";
+export const DATETIME_FORMAT = "LL-dd-yy HH:mm";
+export const DATETIME_FORMAT_SHORT = "MM-dd-yyyy";
+export const ZONES = {
+  PST: "America/Los_Angeles",
+  AZ: "America/Phoenix",
+  MST: "America/Denver",
+  CST: "America/Chicago",
+  EST: "America/New_York",
+  AST: "America/Moncton",
+  UTC: "Etc/UTC"
+};
+export const TZ_DEFAULT = ZONES.UTC;
 export const SORT_TYPES = {
   ALPHA: "ALPHA",
   RECENT: "RECENT",

@@ -3,7 +3,7 @@ import React from "react";
 import { Form } from "informed";
 import { debounce } from "lodash";
 import { withTracker } from "meteor/react-meteor-data";
-import Moment from "moment-timezone";
+import { DateTime, Settings } from "luxon";
 
 import { noteSubmitMethod } from "../methods";
 import { Notes } from "../collections/notes";
@@ -21,12 +21,12 @@ import {
   DATETIME_FORMAT,
   TZ_DEFAULT
 } from "../utils/constants";
-import DateTime from "./dateTime";
+import DateTimeField from "./dateTime";
 import NotesTable from "./notes_table";
 import FieldWithError from "./field_with_error";
 import checkUserStatus from "../utils/checkUserStatus";
 
-Moment.tz.setDefault(TZ_DEFAULT);
+Settings.defaultZoneName = TZ_DEFAULT;
 let apiHandle;
 
 const AddNoteForm = ({ notes, user = "LOADING" }) => {
@@ -42,9 +42,7 @@ const AddNoteForm = ({ notes, user = "LOADING" }) => {
     city,
     state,
     dateTime: timezone
-      ? Moment()
-          .tz(timezone)
-          .format(DATETIME_FORMAT)
+      ? DateTime.fromObject({ zone: timezone }).toFormat(DATETIME_FORMAT)
       : ""
   };
 
@@ -114,7 +112,7 @@ const AddNoteForm = ({ notes, user = "LOADING" }) => {
             />
 
             <label>Date/Time</label>
-            <DateTime
+            <DateTimeField
               className="form-control"
               field="dateTime"
               placeholder="MM-DD-YY 23:59"

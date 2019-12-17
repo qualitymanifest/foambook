@@ -1,6 +1,6 @@
 import React from "react";
 import { Breadcrumb } from "react-bootstrap";
-import Moment from "moment-timezone";
+import { DateTime } from "luxon";
 
 import QueryDisplay from "./query_display";
 import QuerySymbols from "./query_symbols";
@@ -20,12 +20,9 @@ const Query = () => {
     let invalidDate = false;
     if (year) {
       invalidDate = !/^\d{4}$/.test(year);
-      const begin = Moment(year, "YYYY")
-        .startOf("year")
-        .toDate();
-      const end = Moment(year, "YYYY")
-        .endOf("year")
-        .toDate();
+      const luxonDateTime = DateTime.fromObject({ year });
+      const begin = luxonDateTime.toJSDate();
+      const end = luxonDateTime.endOf("year").toJSDate();
       // throw dateTime in regardless so we know if we have to render date in breadcrumb
       completeQuery.dateTime = { $gte: begin, $lte: end };
     }

@@ -1,7 +1,6 @@
 import React from "react";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
-import Moment from "moment-timezone";
 import { Link } from "react-router-dom";
 
 import { Notes } from "../collections/notes";
@@ -12,9 +11,7 @@ import CommentsForm from "./comments_form";
 import CommentsList from "./comments_list";
 import InfoDisplay from "./info_display";
 import { processNotes } from "../utils/queryFunctions";
-import { QUERY_NOT_FOUND, TZ_DEFAULT } from "../utils/constants";
-
-Moment.tz.setDefault(TZ_DEFAULT);
+import { QUERY_NOT_FOUND, DATETIME_FORMAT_SHORT } from "../utils/constants";
 
 const QueryDisplay = ({
   notesReady,
@@ -57,9 +54,9 @@ const QueryDisplay = ({
       />
       <small>Date range:</small>
       <div id="dateRange">
-        <p>{Moment(processed.oldest).format("MM-DD-YY")}</p>
+        <p>{processed.oldest.toFormat(DATETIME_FORMAT_SHORT)}</p>
         <p id="dateRangeColors" />
-        <p>{Moment(processed.newest).format("MM-DD-YY")}</p>
+        <p>{processed.newest.toFormat(DATETIME_FORMAT_SHORT)}</p>
       </div>
       <small>Hover or tap dots for exact date/time</small>
       {/* Since info goes on top of comments, make sure it is ready before rendering either */

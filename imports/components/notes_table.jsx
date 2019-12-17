@@ -1,12 +1,12 @@
 import React from "react";
-import Moment from "moment-timezone";
+import { DateTime, Settings } from "luxon";
 import { LinkContainer } from "react-router-bootstrap";
 
 import { notesDeleteMethod } from "../methods";
 import { DATETIME_FORMAT, TZ_DEFAULT } from "../utils/constants";
 import FlagTrash from "./flag_trash";
 
-Moment.tz.setDefault(TZ_DEFAULT);
+Settings.defaultZoneName = TZ_DEFAULT;
 let newest = null;
 
 const shouldAnimate = createdAt => {
@@ -52,7 +52,7 @@ const NotesTable = ({ notes, appLocation, user, caption }) => {
           <td>{symbol}</td>
         </LinkContainer>
         <LinkContainer to={noteUrl}>
-          <td>{Moment(dateTime).format(DATETIME_FORMAT)}</td>
+          <td>{DateTime.fromJSDate(dateTime).toFormat(DATETIME_FORMAT)}</td>
         </LinkContainer>
         <td>
           <FlagTrash

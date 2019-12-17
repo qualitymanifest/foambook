@@ -1,6 +1,6 @@
 import React from "react";
 import { debounce } from "lodash";
-import Moment from "moment-timezone";
+import { DateTime } from "luxon";
 import { Form, Select, Option } from "informed";
 
 import { preferenceSubmitMethod } from "../methods";
@@ -13,11 +13,10 @@ import {
   MAX_STATE_LEN,
   MAX_CITY_LEN,
   FORM_DEBOUNCE_MS,
-  DATETIME_FORMAT
+  DATETIME_FORMAT,
+  ZONES
 } from "../utils/constants";
 import FieldWithError from "./field_with_error";
-
-const moment = Moment();
 
 export default ({ defaultValues }) => {
   return (
@@ -65,25 +64,35 @@ export default ({ defaultValues }) => {
           <label>Timezone</label>
           <Select className="form-control" field="timezone">
             <Option value="" />
-            <Option value="America/Los_Angeles">
-              {`PST: ${moment
-                .tz("America/Los_Angeles")
-                .format(DATETIME_FORMAT)}`}
+            <Option value={ZONES.PST}>
+              {`PST: ${DateTime.fromObject({ zone: ZONES.PST }).toFormat(
+                DATETIME_FORMAT
+              )}`}
             </Option>
-            <Option value="America/Phoenix">
-              {`AZ: ${moment.tz("America/Phoenix").format(DATETIME_FORMAT)}`}
+            <Option value={ZONES.AZ}>
+              {`AZ: ${DateTime.fromObject({ zone: ZONES.AZ }).toFormat(
+                DATETIME_FORMAT
+              )}`}
             </Option>
-            <Option value="America/Denver">
-              {`MST: ${moment.tz("America/Denver").format(DATETIME_FORMAT)}`}
+            <Option value={ZONES.MST}>
+              {`MST: ${DateTime.fromObject({ zone: ZONES.MST }).toFormat(
+                DATETIME_FORMAT
+              )}`}
             </Option>
-            <Option value="America/Chicago">
-              {`CST: ${moment.tz("America/Chicago").format(DATETIME_FORMAT)}`}
+            <Option value={ZONES.CST}>
+              {`CST: ${DateTime.fromObject({ zone: ZONES.CST }).toFormat(
+                DATETIME_FORMAT
+              )}`}
             </Option>
-            <Option value="America/New_York">
-              {`EST: ${moment.tz("America/New_York").format(DATETIME_FORMAT)}`}
+            <Option value={ZONES.EST}>
+              {`EST: ${DateTime.fromObject({ zone: ZONES.EST }).toFormat(
+                DATETIME_FORMAT
+              )}`}
             </Option>
-            <Option value="America/Moncton">
-              {`AST: ${moment.tz("America/Moncton").format(DATETIME_FORMAT)}`}
+            <Option value={ZONES.AST}>
+              {`AST: ${DateTime.fromObject({ zone: ZONES.AST }).toFormat(
+                DATETIME_FORMAT
+              )}`}
             </Option>
           </Select>
 

@@ -2,7 +2,7 @@ import { Meteor } from "meteor/meteor";
 import { Mongo } from "meteor/mongo";
 import SimpleSchema from "simpl-schema";
 import { ValidatedMethod } from "meteor/mdg:validated-method";
-import moment from "moment-timezone";
+import { DateTime, Settings } from "luxon";
 
 import {
   MAX_CITY_LEN,
@@ -10,10 +10,11 @@ import {
   MAX_RR_LEN,
   MAX_SYMBOL_LEN,
   STATUS_APPROVED,
-  TZ_DEFAULT
+  TZ_DEFAULT,
+  ZONES
 } from "../utils/constants";
 
-moment.tz.setDefault(TZ_DEFAULT);
+Settings.defaultZoneName = TZ_DEFAULT;
 
 export const Comments = new Mongo.Collection("comments");
 
@@ -31,15 +32,12 @@ export const CommentsInsert = new ValidatedMethod({
     if (!Meteor.userId() || Meteor.user().status !== STATUS_APPROVED) {
       throw new Meteor.Error("not-authorized");
     }
+
     const commentWithMetadata = {
       ...comment, // eslint-disable-line
       userId: Meteor.userId(),
       userName: Meteor.user().profile.name,
-      createdAt: Number(
-        moment()
-          .tz("America/New_York")
-          .format("x")
-      )
+      createdAt: DateTime.fromObject({ zone: ZONES.EST }).toMillis()
     };
     Comments.insert(commentWithMetadata);
   }

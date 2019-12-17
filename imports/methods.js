@@ -1,5 +1,5 @@
 import { Meteor } from "meteor/meteor";
-import Moment from "moment-timezone";
+import { DateTime, Settings } from "luxon";
 import { encode } from "he";
 
 import { NotesDelete, UserUpdate, NotesInsert } from "./collections/notes";
@@ -7,7 +7,7 @@ import { CommentsInsert, CommentsDelete } from "./collections/comments";
 import { cleanCity } from "./utils/validation";
 import { DATETIME_FORMAT, TZ_DEFAULT } from "./utils/constants";
 
-Moment.tz.setDefault(TZ_DEFAULT);
+Settings.defaultZoneName = TZ_DEFAULT;
 
 export const preferenceSubmitMethod = ({ railroad, city, state, timezone }) => {
   const parsedValues = {
@@ -38,7 +38,7 @@ export const noteSubmitMethod = (values, apiHandle) => {
     city: cleanCity(city.toUpperCase()),
     state: state.toUpperCase(),
     symbol: symbol.toUpperCase(),
-    dateTime: Moment(dateTime, DATETIME_FORMAT).toDate()
+    dateTime: DateTime.fromFormat(dateTime, DATETIME_FORMAT).toJSDate()
   };
   apiHandle.setValue("symbol", "");
   NotesInsert.call(parsedValues, err => {
