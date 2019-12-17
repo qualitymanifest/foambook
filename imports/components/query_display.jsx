@@ -33,22 +33,26 @@ const QueryDisplay = ({
     return <div style={{ clear: "both" }}>{QUERY_NOT_FOUND}</div>;
   }
   const [filterYear, setFilterYear] = useState(null);
-  const processed = processNotes(notes);
-  let filtered = null;
-  if (processed.years.length) {
+  const { processedNotes, processedYears } = processNotes(notes);
+  let oldest = processedNotes[0].luxonDateTime;
+  let newest = processedNotes[processedNotes.length - 1].luxonDateTime;
+  let filteredNotes = null;
+  if (processedYears.length) {
     // Add a 0 so that filter can be unset by making filterYear falsy
     // Render associated togglebutton as "all"
-    processed.years.unshift(0);
+    processedYears.unshift(0);
   }
   if (filterYear) {
-    filtered = processed.notes.filter(note => note.year == filterYear); // eslint-disable-line
+    filteredNotes = processedNotes.filter(note => note.year == filterYear); // eslint-disable-line
+    oldest = filteredNotes[0].luxonDateTime;
+    newest = filteredNotes[filteredNotes.length - 1].luxonDateTime;
   }
   return (
     <div className="text-center fadeIn">
-      {processed.years.length > 1 && (
+      {processedYears.length > 1 && (
         <ButtonToolbar className="buttonToolbar">
           <ToggleButtonGroup type="radio" name="sortType" defaultValue={0}>
-            {processed.years.map(year => {
+            {processedYears.map(year => {
               return (
                 <ToggleButton
                   className="toggleButton"
@@ -63,15 +67,15 @@ const QueryDisplay = ({
         </ButtonToolbar>
       )}
       <Scatterplot
-        notes={filtered || processed.notes}
-        oldest={processed.oldest}
-        newest={processed.newest}
+        notes={filteredNotes || processedNotes}
+        oldest={oldest}
+        newest={newest}
       />
       <small>Date range:</small>
       <div id="dateRange">
-        <p>{processed.oldest.toFormat(DATETIME_FORMAT_SHORT)}</p>
+        <p>{oldest.toFormat(DATETIME_FORMAT_SHORT)}</p>
         <p id="dateRangeColors" />
-        <p>{processed.newest.toFormat(DATETIME_FORMAT_SHORT)}</p>
+        <p>{newest.toFormat(DATETIME_FORMAT_SHORT)}</p>
       </div>
       <small>Hover or tap dots for exact date/time</small>
       {/* Since info goes on top of comments, make sure it is ready before rendering either */

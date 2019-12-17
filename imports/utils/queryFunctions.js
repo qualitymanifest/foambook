@@ -74,20 +74,18 @@ export const commentsSorter = (comments, city, state) => {
 };
 
 export const processNotes = notes => {
-  const oldest = DateTime.fromJSDate(notes[0].dateTime);
-  const newest = DateTime.fromJSDate(notes[notes.length - 1].dateTime);
   const years = new Set();
   const processedNotes = notes.reduce((processed, { dateTime }) => {
-    const noteLuxon = DateTime.fromJSDate(dateTime);
-    const { year, hour, minute, weekday } = noteLuxon;
+    const luxonDateTime = DateTime.fromJSDate(dateTime);
+    const { year, hour, minute, weekday } = luxonDateTime;
     years.add(year);
     processed.push({
-      dateTime,
+      luxonDateTime,
       time: hour * 60 + minute,
       weekday,
       year
     });
     return processed;
   }, []);
-  return { notes: processedNotes, years: Array.from(years), oldest, newest };
+  return { processedNotes, processedYears: Array.from(years) };
 };
