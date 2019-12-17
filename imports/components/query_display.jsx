@@ -33,12 +33,12 @@ const QueryDisplay = ({
   if (!notes.length) {
     return <div style={{ clear: "both" }}>{QUERY_NOT_FOUND}</div>;
   }
-  const [filterYear, setFilterYear] = useState(null);
+  const [filterYear, setFilterYear] = useState(0);
   const { processedNotes, processedYears } = processNotes(notes);
   let oldest = processedNotes[0].luxonDateTime;
   let newest = processedNotes[processedNotes.length - 1].luxonDateTime;
   let filteredNotes = null;
-  if (processedYears.length) {
+  if (processedYears.length > 1) {
     // Add a 0 so that filter can be unset by making filterYear falsy
     // Render associated togglebutton as "all"
     processedYears.unshift(0);

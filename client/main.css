@@ -130,6 +130,11 @@ thead {
   display: block;
 }
 
+.buttonToolbar {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
 .commentBox {
   overflow-wrap: break-word;
   white-space: pre-wrap;
@@ -249,11 +254,6 @@ thead {
 .select {
   width: auto;
   margin: 0px auto 5px auto;
-}
-
-.buttonToolbar {
-  display: inline-block;
-  margin-bottom: 5px;
 }
 
 .table {
