@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import {
@@ -12,10 +12,11 @@ import { Comments } from "../collections/comments";
 import Info from "../collections/info";
 import Scatterplot from "./scatterplot";
 import CommentsForm from "./comments_form";
-import CommentsList from "./comments_list";
 import InfoDisplay from "./info_display";
 import { processNotes } from "../utils/queryFunctions";
 import { QUERY_NOT_FOUND, DATETIME_FORMAT_SHORT } from "../utils/constants";
+
+const CommentsList = lazy(() => import("./comments_list"));
 
 const QueryDisplay = ({
   notesReady,
@@ -56,6 +57,7 @@ const QueryDisplay = ({
               return (
                 <ToggleButton
                   className="toggleButton"
+                  key={year}
                   value={year}
                   onClick={() => setFilterYear(year)}
                 >
@@ -83,12 +85,14 @@ const QueryDisplay = ({
         <>
           <InfoDisplay info={info} query={query} />
           <CommentsForm user={user} query={query} />
-          <CommentsList
-            user={user}
-            comments={comments}
-            city={query.city}
-            state={query.state}
-          />
+          <Suspense fallback={<div />}>
+            <CommentsList
+              user={user}
+              comments={comments}
+              city={query.city}
+              state={query.state}
+            />
+          </Suspense>
         </>
       )}
     </div>

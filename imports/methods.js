@@ -1,6 +1,5 @@
 import { Meteor } from "meteor/meteor";
 import { DateTime, Settings } from "luxon";
-import { encode } from "he";
 
 import { NotesDelete, UserUpdate, NotesInsert } from "./collections/notes";
 import { CommentsInsert, CommentsDelete } from "./collections/comments";
@@ -48,12 +47,13 @@ export const noteSubmitMethod = (values, apiHandle) => {
   });
 };
 
-export const commentSubmitMethod = (
+export const commentSubmitMethod = async (
   formValues,
   query,
   setExpanded,
   apiHandle
 ) => {
+  const { encode } = await import("he");
   const cleansedComment = encode(formValues.comment);
   const comment = {
     comment: cleansedComment,
