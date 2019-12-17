@@ -1,6 +1,5 @@
 import React from "react";
 import { Breadcrumb } from "react-bootstrap";
-import { DateTime } from "luxon";
 
 import QueryDisplay from "./query_display";
 import QuerySymbols from "./query_symbols";
@@ -12,7 +11,7 @@ let completeQuery = {};
 
 const Query = () => {
   const qString = parseQueryString();
-  const { city, state, railroad, symbol, year } = qString;
+  const { city, state, railroad, symbol } = qString;
 
   if (city && state && railroad && symbol) {
     // completeQuery is for querying DB - not using raw query string in case errant values are present

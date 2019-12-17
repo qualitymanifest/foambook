@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
+import {
+  ButtonToolbar,
+  ToggleButtonGroup,
+  ToggleButton
+} from "react-bootstrap";
 
 import { Notes } from "../collections/notes";
 import { Comments } from "../collections/comments";
@@ -30,27 +35,32 @@ const QueryDisplay = ({
   const [filterYear, setFilterYear] = useState(null);
   const processed = processNotes(notes);
   let filtered = null;
+  if (processed.years.length) {
+    // Add a 0 so that filter can be unset by making filterYear falsy
+    // Render associated togglebutton as "all"
+    processed.years.unshift(0);
+  }
   if (filterYear) {
     filtered = processed.notes.filter(note => note.year == filterYear); // eslint-disable-line
   }
   return (
     <div className="text-center fadeIn">
       {processed.years.length > 1 && (
-        <div>
-          <span>Filter by year:</span>
-          {processed.years.map(year => {
-            return (
-              <button
-                type="button"
-                className="queryFilterOption"
-                key={year}
-                onClick={() => setFilterYear(year)}
-              >
-                {year}
-              </button>
-            );
-          })}
-        </div>
+        <ButtonToolbar className="buttonToolbar">
+          <ToggleButtonGroup type="radio" name="sortType" defaultValue={0}>
+            {processed.years.map(year => {
+              return (
+                <ToggleButton
+                  className="toggleButton"
+                  value={year}
+                  onClick={() => setFilterYear(year)}
+                >
+                  {year || "All"}
+                </ToggleButton>
+              );
+            })}
+          </ToggleButtonGroup>
+        </ButtonToolbar>
       )}
       <Scatterplot
         notes={filtered || processed.notes}

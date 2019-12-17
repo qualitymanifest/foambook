@@ -122,6 +122,7 @@ thead {
 
 .breadcrumb {
   background-color: var(--mediumGray);
+  margin-bottom: 15px;
 }
 
 .btn {
@@ -250,9 +251,9 @@ thead {
   margin: 0px auto 5px auto;
 }
 
-.symbolSortOptions {
+.buttonToolbar {
   display: inline-block;
-  margin: 0px 0px 10px 0px;
+  margin-bottom: 5px;
 }
 
 .table {
@@ -269,6 +270,10 @@ thead {
   /* have to get really specific to override bootstrap.
   make this column smaller so data fits in table better */
   padding: 5px 3px 5px 0px;
+}
+
+.toggleButton {
+  margin: 0;
 }
 
 .tooltip {
@@ -324,9 +329,6 @@ thead {
   }
   .queryItem {
     margin-bottom: 15px;
-  }
-  .queryFilterOption {
-    margin: 0px 5px;
   }
 }
 

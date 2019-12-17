@@ -55,7 +55,7 @@ const QuerySymbols = ({ city, state, aggregate, aggregateReady }) => {
                 </Panel.Toggle>
               </Panel.Heading>
               <Panel.Body collapsible className="queryList">
-                <ButtonToolbar className="symbolSortOptions">
+                <ButtonToolbar className="buttonToolbar">
                   <ToggleButtonGroup
                     type="radio"
                     name="sortType"
