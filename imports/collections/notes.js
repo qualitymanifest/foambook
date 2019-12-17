@@ -34,7 +34,7 @@ export const NotesInsert = new ValidatedMethod({
     const note = {
       ...train,
       userId: Meteor.userId(),
-      createdAt: DateTime.fromObject({ zone: ZONES.UTC }).toFormat("x")
+      createdAt: DateTime.fromObject({ zone: ZONES.UTC }).toMillis()
     };
     Notes.insert(note);
     Meteor.users.update(Meteor.userId(), { $inc: { notesCount: 1 } });

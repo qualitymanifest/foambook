@@ -79,11 +79,13 @@ export const processNotes = notes => {
   const years = new Set();
   const processedNotes = notes.reduce((processed, { dateTime }) => {
     const noteLuxon = DateTime.fromJSDate(dateTime);
-    years.add(noteLuxon.year);
+    const { year, hour, minute, weekday } = noteLuxon;
+    years.add(year);
     processed.push({
       dateTime,
-      time: noteLuxon.hour * 60 + noteLuxon.minute,
-      weekday: noteLuxon.weekday
+      time: hour * 60 + minute,
+      weekday,
+      year
     });
     return processed;
   }, []);

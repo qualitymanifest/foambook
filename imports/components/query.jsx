@@ -17,27 +17,10 @@ const Query = () => {
   if (city && state && railroad && symbol) {
     // completeQuery is for querying DB - not using raw query string in case errant values are present
     completeQuery = { city, state, railroad, symbol };
-    let invalidDate = false;
-    if (year) {
-      invalidDate = !/^\d{4}$/.test(year);
-      const luxonDateTime = DateTime.fromObject({ year });
-      const begin = luxonDateTime.toJSDate();
-      const end = luxonDateTime.endOf("year").toJSDate();
-      // throw dateTime in regardless so we know if we have to render date in breadcrumb
-      completeQuery.dateTime = { $gte: begin, $lte: end };
-    }
     return (
       <div className="text-center">
-        {completeQuery.dateTime ? (
-          <BreadcrumbBuilder qs={qString} howComplete="dates" />
-        ) : (
-          <BreadcrumbBuilder qs={qString} howComplete="symbol" />
-        )}
-        {invalidDate ? (
-          "Sorry, invalid year specified"
-        ) : (
-          <QueryDisplay query={completeQuery} />
-        )}
+        <BreadcrumbBuilder qs={qString} howComplete="symbol" />
+        <QueryDisplay query={completeQuery} />
       </div>
     );
   }

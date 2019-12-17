@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
-import { Link } from "react-router-dom";
 
 import { Notes } from "../collections/notes";
 import { Comments } from "../collections/comments";
@@ -28,7 +27,12 @@ const QueryDisplay = ({
   if (!notes.length) {
     return <div style={{ clear: "both" }}>{QUERY_NOT_FOUND}</div>;
   }
+  const [filterYear, setFilterYear] = useState(null);
   const processed = processNotes(notes);
+  let filtered = null;
+  if (filterYear) {
+    filtered = processed.notes.filter(note => note.year == filterYear); // eslint-disable-line
+  }
   return (
     <div className="text-center fadeIn">
       {processed.years.length > 1 && (
@@ -36,19 +40,20 @@ const QueryDisplay = ({
           <span>Filter by year:</span>
           {processed.years.map(year => {
             return (
-              <Link
+              <button
+                type="button"
                 className="queryFilterOption"
                 key={year}
-                to={`?city=${query.city}&state=${query.state}&railroad=${query.railroad}&symbol=${query.symbol}&year=${year}`}
+                onClick={() => setFilterYear(year)}
               >
-                {`  ${year}  `}
-              </Link>
+                {year}
+              </button>
             );
           })}
         </div>
       )}
       <Scatterplot
-        notes={processed.notes}
+        notes={filtered || processed.notes}
         oldest={processed.oldest}
         newest={processed.newest}
       />
