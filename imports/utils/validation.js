@@ -9,40 +9,19 @@ import {
 } from "./constants";
 
 Settings.defaultZoneName = TZ_DEFAULT;
-const validRR = /^(BNSF|UP|CSX|NS|CN|CP|KCS|PAR|PAS)$/;
 
-const upSymbol = /(^([ACIKMOQUZ]|G[SELS])[A-Z1-5]{4}[BCELPXR]?)$|^([A-Z]{3}\d{2}[A-Z]?)$/;
-const bnsfSymbol = /^[BCEGHMQSUVXZ][A-Z]{6}[1-9]?$/;
-const csxSymbol = /^[A-Z][0-9]{3}$/;
-const nsSymbol = /^([A-Z]{1,2}\d{1,2}|\d{3}|\d{2}[A-Z])$/;
-const cpSymbol = /^2?\d{3}$/; // extras might be 2NNN?
-const cnSymbol = /^[A-Z]{1}\d{3,5}$/;
-const kcsSymbol = /^[ACDGHILMORSUWX][A-Z]{4}$/;
-const parSymbol = /^[A-Z]{4}|\d{3}[A-Z]{2}|[A-Z]{2}\d{3}$/;
-
-const validSymbol = (symbol, railroad) => {
-  switch (railroad) {
-    case "UP":
-      return upSymbol.test(symbol);
-    case "BNSF":
-      return bnsfSymbol.test(symbol);
-    case "CSX":
-      return csxSymbol.test(symbol);
-    case "NS":
-      return nsSymbol.test(symbol);
-    case "CP":
-      return cpSymbol.test(symbol);
-    case "CN":
-      return cnSymbol.test(symbol);
-    case "KCS":
-      return kcsSymbol.test(symbol);
-    case "PAR":
-    case "PAS":
-      return parSymbol.test(symbol);
-    default:
-      return false;
-  }
+const symbols = {
+  UP: /(^([ACIKMOQUZ]|G[SELS])[A-Z1-5]{4}[BCELPXR]?)$|^([A-Z]{3}\d{2}[A-Z]?)$/,
+  BNSF: /^[BCEGHMQSUVXZ][A-Z]{6}[1-9]?$/,
+  CSX: /^[A-Z][0-9]{3}$/,
+  NS: /^([A-Z]{1,2}\d{1,2}|\d{3}|\d{2}[A-Z])$/,
+  CP: /^2?\d{3}$/,
+  CN: /^[A-Z]{1}\d{3,5}$/,
+  KCS: /^[ACDGHILMORSUWX][A-Z]{4}$/,
+  PAR: /^[A-Z]{4}|\d{3}[A-Z]{2}|[A-Z]{2}\d{3}$/
 };
+
+symbols.PAS = symbols.PAR;
 
 export const cleanCity = city => {
   // remove all non-letters, and spaces that don't have a letter following
@@ -75,9 +54,7 @@ export const validFlag = reason => {
 // It's okay to leave preferences empty
 export const validPrefRailroad = railroad => {
   const casedRailroad = railroad.toUpperCase();
-  return casedRailroad && !validRR.test(casedRailroad)
-    ? "Invalid railroad"
-    : null;
+  return casedRailroad && !symbols[casedRailroad] ? "Invalid railroad" : null;
 };
 
 export const validPrefCity = city => {
@@ -96,7 +73,7 @@ export const validSubRailroad = railroad => {
     return ERROR_NO_DESCRIPTION;
   }
   const casedRailroad = railroad.toUpperCase();
-  return !validRR.test(casedRailroad) ? "Invalid railroad" : null;
+  return !symbols[casedRailroad] ? "Invalid railroad" : null;
 };
 
 export const validSubCity = city => {
@@ -118,7 +95,7 @@ export const validSubSymbol = (symbol, otherVals) => {
   const casedRailroad = otherVals.railroad.toUpperCase();
   if (!casedRailroad) return "Railroad not provided";
   const casedSymbol = symbol.toUpperCase();
-  return !validSymbol(casedSymbol, casedRailroad)
+  return !symbols[casedRailroad].test(casedSymbol)
     ? `Invalid symbol for ${casedRailroad}`
     : null;
 };
