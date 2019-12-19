@@ -53,7 +53,6 @@ const Header = ({ loading, notesCount, user }) => {
 export default withTracker(() => {
   const handle = Meteor.subscribe("user.notesCount");
   return {
-    // don't actually need any data, just get _ids so we can count them
     notesCount: Meteor.users
       .findFromPublication("user.notesCount", {}, { fields: { notesCount: 1 } })
       .fetch(),

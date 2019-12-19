@@ -10,7 +10,7 @@ Settings.defaultZoneName = TZ_DEFAULT;
 let newest = null;
 
 const shouldAnimate = createdAt => {
-  if (createdAt > newest) {
+  if (newest && createdAt > newest) {
     newest = createdAt;
     return "newNote";
   }
@@ -19,8 +19,7 @@ const shouldAnimate = createdAt => {
 
 const NotesTable = ({ notes, appLocation, user, caption }) => {
   if (!notes.length) return null;
-  // if we're not on user_profile, initialize newest
-  if (appLocation !== "user_profile" && !newest) {
+  if (appLocation === "add_note_form" && !newest) {
     newest = notes[0].createdAt;
   }
   const renderedNotes = notes.map(note => {
@@ -36,24 +35,17 @@ const NotesTable = ({ notes, appLocation, user, caption }) => {
     } = note;
     const noteUrl = `/?city=${city}&state=${state}&railroad=${railroad}&symbol=${symbol}`;
     return (
-      <tr
-        className={`notesTableLink ${
-          appLocation === "add_note_form" ? shouldAnimate(createdAt) : ""
-        }`}
-        key={_id}
-      >
+      <tr className={shouldAnimate(createdAt)} key={_id}>
         <LinkContainer to={noteUrl}>
-          <td>{railroad}</td>
+          <td className="notesTableLink">{railroad}</td>
         </LinkContainer>
         <LinkContainer to={noteUrl}>
-          <td>{`${city}, ${state}`}</td>
+          <td className="notesTableLink">{`${city}, ${state}`}</td>
         </LinkContainer>
         <LinkContainer to={noteUrl}>
-          <td>{symbol}</td>
+          <td className="notesTableLink">{symbol}</td>
         </LinkContainer>
-        <LinkContainer to={noteUrl}>
-          <td>{DateTime.fromJSDate(dateTime).toFormat(DATETIME_FORMAT)}</td>
-        </LinkContainer>
+        <td>{DateTime.fromJSDate(dateTime).toFormat(DATETIME_FORMAT)}</td>
         <td>
           <FlagTrash
             currentUser={user}
