@@ -26,19 +26,46 @@ export const testAge = mostRecent => {
   return "olderThanYear";
 };
 
-// Meteor publishes randomly, even if DB is sorted:
-export const locationSorter = rawLocations => {
-  const locations = rawLocations.sort((a, b) => {
-    return a._id > b._id ? 1 : -1;
+export const processLocations = rawLocations => {
+  // There can be multiple cities per state and multiple railroads per city
+  // Condense them and preserve their original sorted order
+  // The mostRecent field is NOT sorted
+  const states = new Map();
+  rawLocations.forEach(location => {
+    const { city, state, count, mostRecent } = location;
+    const existingState = states.get(state);
+    if (existingState) {
+      existingState.count += count;
+      existingState.mostRecent =
+        mostRecent > existingState.mostRecent
+          ? mostRecent
+          : existingState.mostRecent;
+      const existingCity = existingState.cities.get(city);
+      if (existingCity) {
+        existingCity.count += count;
+        existingCity.mostRecent =
+          mostRecent > existingCity.mostRecent
+            ? mostRecent
+            : existingCity.mostRecent;
+        existingState.cities.set(city, existingCity);
+      } else {
+        existingState.cities.set(city, { count, mostRecent });
+      }
+      states.set(state, existingState);
+    } else {
+      states.set(state, {
+        cities: new Map([[city, { count, mostRecent }]]),
+        state,
+        count,
+        mostRecent
+      });
+    }
   });
-  locations.forEach(state => {
-    state.cities.sort((a, b) => (a.city > b.city ? 1 : -1));
-  });
-  return locations;
+  return Array.from(states);
 };
 
 export const railroadSorter = rawRailroads => {
-  return rawRailroads[0].railroads.sort((a, b) => {
+  return rawRailroads.sort((a, b) => {
     return a.railroad > b.railroad ? 1 : -1;
   });
 };

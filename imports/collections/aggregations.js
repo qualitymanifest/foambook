@@ -1,4 +1,5 @@
 import { Mongo } from "meteor/mongo";
 
-export const AggregateLocations = new Mongo.Collection("aggregateLocations");
-export const AggregateSymbols = new Mongo.Collection("aggregateSymbols");
+const AggregateNotes = new Mongo.Collection("aggregateNotes");
+
+export default AggregateNotes;

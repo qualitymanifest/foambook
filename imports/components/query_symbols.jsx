@@ -13,8 +13,12 @@ import { Link } from "react-router-dom";
 
 import { railroadSorter, symbolSorter, testAge } from "../utils/queryFunctions";
 import FootNote from "./foot_note";
-import { AggregateSymbols } from "../collections/aggregations";
-import { QUERY_NOT_FOUND, SORT_TYPES } from "../utils/constants";
+import AggregateNotes from "../collections/aggregations";
+import {
+  QUERY_NOT_FOUND,
+  SORT_TYPES,
+  AGGREGATE_SYMBOLS
+} from "../utils/constants";
 
 const QuerySymbols = ({ city, state, aggregate, aggregateReady }) => {
   if (!aggregateReady) {
@@ -109,10 +113,13 @@ const QuerySymbols = ({ city, state, aggregate, aggregateReady }) => {
 };
 
 export default withTracker(({ city, state }) => {
-  const selector = { _id: city + state };
-  const handle = Meteor.subscribe("aggregateSymbols", selector);
+  const selector = { city, state };
+  const handle = Meteor.subscribe(AGGREGATE_SYMBOLS, selector);
   return {
-    aggregate: AggregateSymbols.find(selector).fetch(),
+    aggregate: AggregateNotes.findFromPublication(
+      AGGREGATE_SYMBOLS,
+      selector
+    ).fetch(),
     aggregateReady: handle.ready()
   };
 })(QuerySymbols);
