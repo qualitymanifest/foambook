@@ -27,17 +27,18 @@ const NotesSchema = new SimpleSchema({
 export const NotesInsert = new ValidatedMethod({
   name: "notes.insert",
   validate: NotesSchema.validator(),
-  run(train) {
+  run(note) {
     if (!Meteor.userId() || Meteor.user().status !== STATUS_APPROVED) {
       throw new Meteor.Error("not-authorized");
     }
-    const note = {
-      ...train,
+    const fullNote = {
+      ...note,
       userId: Meteor.userId(),
       createdAt: DateTime.fromObject({ zone: ZONES.UTC }).toMillis()
     };
-    Notes.insert(note);
+    Notes.insert(fullNote);
     Meteor.users.update(Meteor.userId(), { $inc: { notesCount: 1 } });
+    Meteor.call("startAggregationTimer");
   }
 });
 
@@ -53,6 +54,7 @@ export const NotesDelete = new ValidatedMethod({
     }
     Notes.remove({ userId: Meteor.userId(), _id: noteId });
     Meteor.users.update(Meteor.userId(), { $inc: { notesCount: -1 } });
+    Meteor.call("startAggregationTimer");
   }
 });
 

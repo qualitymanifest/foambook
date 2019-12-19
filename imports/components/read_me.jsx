@@ -49,9 +49,9 @@ const ReadMe = () => (
         of the QRVWC) are okay, but QRVWCB-24 is not.
       </li>
       <li>
-        Search options are aggregated hourly, so if you submit a note for a new
-        location or symbol, it will not show up immediately. You can still view
-        it or add comments by clicking on the entry underneath the submission
+        When you submit a note for a new location/railroad/symbol, it can take a
+        few minutes to show up in the search menu. You can still view it and add
+        comments by clicking on the entry in the table underneath the submission
         form.
       </li>
     </ul>
