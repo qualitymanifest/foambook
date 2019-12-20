@@ -34,7 +34,7 @@ const Query = () => {
   }
 
   return (
-    <div className="text-center fadeIn">
+    <div className="text-center">
       <Breadcrumb>
         <Breadcrumb.Item active>Search Home</Breadcrumb.Item>
       </Breadcrumb>

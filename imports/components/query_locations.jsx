@@ -6,7 +6,7 @@ import { withTracker } from "meteor/react-meteor-data";
 
 import FootNote from "./foot_note";
 import AggregateNotes from "../collections/aggregations";
-import { processLocations, testAge } from "../utils/queryFunctions";
+import { processLocations, getAgeClass } from "../utils/queryFunctions";
 import statesMap from "../utils/statesMap";
 import { AGGREGATE_LOCATIONS } from "../utils/constants";
 
@@ -27,7 +27,7 @@ const QueryLocations = ({ locations, locationsReady }) => {
                 <Panel.Toggle>
                   <Panel.Title>
                     {statesMap[stateName]}
-                    <Badge className={testAge(state.mostRecent)}>
+                    <Badge className={getAgeClass(state.mostRecent)}>
                       {state.count}
                     </Badge>
                   </Panel.Title>
@@ -39,7 +39,7 @@ const QueryLocations = ({ locations, locationsReady }) => {
                     <div className="queryItem" key={stateName + cityName}>
                       <Link to={`?city=${cityName}&state=${stateName}`}>
                         {cityName}
-                        <Badge className={testAge(city.mostRecent)}>
+                        <Badge className={getAgeClass(city.mostRecent)}>
                           {city.count}
                         </Badge>
                       </Link>

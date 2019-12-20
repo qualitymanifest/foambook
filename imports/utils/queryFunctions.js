@@ -16,19 +16,21 @@ export const parseQueryString = () => {
   return parsed;
 };
 
-export const testAge = mostRecent => {
-  if (mostRecent > monthAgo) {
+export const getAgeClass = date => {
+  if (date > monthAgo) {
     return "pastMonth";
   }
-  if (mostRecent > yearAgo) {
+  if (date > yearAgo) {
     return "pastYear";
   }
   return "olderThanYear";
 };
 
+const getNewer = (a, b) => (a > b ? a : b);
+
 export const processLocations = rawLocations => {
   // There can be multiple cities per state and multiple railroads per city
-  // Condense them and preserve their original sorted order
+  // Condense them using a Map to preserve their original sorted order
   // The mostRecent field is NOT sorted
   const states = new Map();
   rawLocations.forEach(location => {
@@ -36,17 +38,11 @@ export const processLocations = rawLocations => {
     const existingState = states.get(state);
     if (existingState) {
       existingState.count += count;
-      existingState.mostRecent =
-        mostRecent > existingState.mostRecent
-          ? mostRecent
-          : existingState.mostRecent;
+      existingState.mostRecent = getNewer(mostRecent, existingState.mostRecent);
       const existingCity = existingState.cities.get(city);
       if (existingCity) {
         existingCity.count += count;
-        existingCity.mostRecent =
-          mostRecent > existingCity.mostRecent
-            ? mostRecent
-            : existingCity.mostRecent;
+        existingCity.mostRecent = getNewer(mostRecent, existingCity.mostRecent);
         existingState.cities.set(city, existingCity);
       } else {
         existingState.cities.set(city, { count, mostRecent });

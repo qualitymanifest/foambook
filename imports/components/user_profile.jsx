@@ -1,7 +1,7 @@
 import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import { ReactiveVar } from "meteor/reactive-var";
-import React from "react";
+import React, { useState } from "react";
 import { debounce } from "lodash";
 
 import { downloadMethod } from "../methods";
@@ -18,6 +18,7 @@ const UserProfile = ({ user = "LOADING", notes }) => {
   if (!checkUser.shouldRender) {
     return checkUser.renderInstead;
   }
+  const [downloadClicked, setDownloadClicked] = useState(false);
   return (
     <div className="text-center fadeIn">
       <h3>Default submission values</h3>
@@ -25,12 +26,7 @@ const UserProfile = ({ user = "LOADING", notes }) => {
       <div style={{ clear: "both" }}>
         You have submitted {user.notesCount} notes
       </div>
-      <NotesTable
-        notes={notes}
-        user={user}
-        appLocation="user_profile"
-        caption="Your Recent Submissions"
-      />
+      <NotesTable notes={notes} user={user} caption="Your Recent Submissions" />
       {!!notes.length && (
         <>
           <button
@@ -44,8 +40,11 @@ const UserProfile = ({ user = "LOADING", notes }) => {
           <br />
           <button
             type="button"
-            className="btn btn-default"
-            onClick={debounce(downloadMethod, FORM_DEBOUNCE_MS)}
+            className={`btn btn-default ${downloadClicked && "disabled"}`}
+            onClick={debounce(
+              downloadMethod.bind(null, setDownloadClicked),
+              FORM_DEBOUNCE_MS
+            )}
           >
             Download Notes
           </button>

@@ -91,7 +91,8 @@ export const flagSubmitMethod = (flag, setVisible, setSuccess) => {
   });
 };
 
-export const downloadMethod = () => {
+export const downloadMethod = setDownloadClicked => {
+  setDownloadClicked(true);
   Meteor.call("download", null, (err, wb) => {
     if (err) {
       alert(err);

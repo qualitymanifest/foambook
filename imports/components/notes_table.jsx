@@ -17,9 +17,9 @@ const shouldAnimate = createdAt => {
   return "";
 };
 
-const NotesTable = ({ notes, appLocation, user, caption }) => {
+const NotesTable = ({ notes, user, caption }) => {
   if (!notes.length) return null;
-  if (appLocation === "add_note_form" && !newest) {
+  if (!newest) {
     newest = notes[0].createdAt;
   }
   const renderedNotes = notes.map(note => {

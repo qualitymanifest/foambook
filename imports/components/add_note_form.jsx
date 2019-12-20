@@ -129,7 +129,6 @@ const AddNoteForm = ({ notes, user = "LOADING" }) => {
       <NotesTable
         notes={notes}
         user={user}
-        appLocation="add_note_form"
         caption="Recent Submissions - All Users"
       />
     </div>

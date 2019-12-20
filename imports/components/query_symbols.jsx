@@ -11,7 +11,11 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-import { railroadSorter, symbolSorter, testAge } from "../utils/queryFunctions";
+import {
+  railroadSorter,
+  symbolSorter,
+  getAgeClass
+} from "../utils/queryFunctions";
 import FootNote from "./foot_note";
 import AggregateNotes from "../collections/aggregations";
 import {
@@ -52,7 +56,7 @@ const QuerySymbols = ({ city, state, aggregate, aggregateReady }) => {
                 <Panel.Toggle>
                   <Panel.Title>
                     {railroad.railroad}
-                    <Badge className={testAge(railroad.mostRecent)}>
+                    <Badge className={getAgeClass(railroad.mostRecent)}>
                       {railroad.count}
                     </Badge>
                   </Panel.Title>
@@ -93,7 +97,7 @@ const QuerySymbols = ({ city, state, aggregate, aggregateReady }) => {
                           to={`?city=${city}&state=${state}&railroad=${railroad.railroad}&symbol=${symbol.symbol}`}
                         >
                           {symbol.symbol}
-                          <Badge className={testAge(symbol.mostRecent)}>
+                          <Badge className={getAgeClass(symbol.mostRecent)}>
                             {symbol.count}
                           </Badge>
                         </Link>
