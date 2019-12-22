@@ -12,9 +12,8 @@ const ReadMe = () => (
       when a train might be at a particular location.
     </p>
     <p>
-      To sign up, you will need a google account, as that is what&apos;s used
-      for authentication. Click the &quot;Sign in with Google&quot; button in
-      the upper right corner, then check your email for the verification email.
+      To sign up, click the &quot;Sign in with Google&quot; button in the upper
+      right corner, then check your email for the verification email.
     </p>
     <p>
       To speed up the process of filling out the submission form, you can set
@@ -37,16 +36,14 @@ const ReadMe = () => (
       <li>States/Provinces use two-letter abbrevations.</li>
       <li>
         Currently supported railroads are BNSF, CN, CP, CSX, KCS, NS, PAR/PAS,
-        and UP. This is because the train symbols have to be validated. To
-        request others, send an email with the railroad name and symbol format
-        to qualityfiltering@gmail.com
+        and UP. This is because the train symbols have to be validated.
       </li>
       <li>
-        In general, only road and local train symbols are supported.
-        Miscellaneous things like yard jobs are not. Further, only the base
-        symbols (and applicable section codes) are supported. Additional info
-        like date codes are not. For example, QRVWC and QRVWCB (second section
-        of the QRVWC) are okay, but QRVWCB-24 is not.
+        Only road and local train symbols are supported, miscellaneous things
+        like yard jobs are not. Further, only the base symbols (and applicable
+        section codes) are supported, additional info like date codes are not.
+        For example, UP&apos;s MFWWC and MFWWCB (second section of the MFWWC)
+        are okay, but MFWWCB-24 is not.
       </li>
       <li>
         When you submit a note for a new location/railroad/symbol, it can take a
@@ -66,18 +63,17 @@ const ReadMe = () => (
     <h3>If you find an incorrect/inappropriate note or comment:</h3>
     <p>
       Click the orange flag icon <span className="glyphicon glyphicon-flag" />{" "}
-      on the right hand side of the note/comment and a form will pop up. Please
-      include a brief description of the problem. Your comments here will not be
-      publicly visible. The problem note/comment will then be reviewed and
-      deleted if necessary.
+      by the note/comment and a form will pop up. Please include a brief
+      description of the problem. Your comments here will not be publicly
+      visible. The problem note/comment will then be reviewed and deleted if
+      necessary.
     </p>
     <h3>Privacy:</h3>
     <p>
-      When you create an account here, the only information that is collected
-      from google is your google profile (email, name, profile picture, and
-      language). This is essentially the same information that is included when
-      you send an email. Google also provides an ID and access token specific to
-      this app to use for authentication - that way, no passwords are involved.
+      When you create an account here, the only information that is collected is
+      your public google profile (email, name, profile picture, and language).
+      Google also provides an ID and access token specific to this app to use
+      for authentication - that way, no passwords are involved.
     </p>
     <h3>Feedback:</h3>
     <p>

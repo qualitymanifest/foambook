@@ -41,10 +41,8 @@ const UserProfile = ({ user = "LOADING", notes }) => {
           <button
             type="button"
             className={`btn btn-default ${downloadClicked && "disabled"}`}
-            onClick={debounce(
-              downloadMethod.bind(null, setDownloadClicked),
-              FORM_DEBOUNCE_MS
-            )}
+            disabled={downloadClicked}
+            onClick={downloadMethod.bind(null, setDownloadClicked)}
           >
             Download Notes
           </button>
