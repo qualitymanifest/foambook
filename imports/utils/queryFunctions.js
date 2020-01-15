@@ -10,7 +10,7 @@ const yearAgo = now.minus({ years: 1 });
 export const parseQueryString = () => {
   const queryString = new URLSearchParams(window.location.search);
   const parsed = {};
-  Array.from(queryString).forEach(([key, val]) => {
+  queryString.forEach((val, key) => {
     parsed[key] = val;
   });
   return parsed;
