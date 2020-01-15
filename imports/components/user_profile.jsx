@@ -2,14 +2,12 @@ import { Meteor } from "meteor/meteor";
 import { withTracker } from "meteor/react-meteor-data";
 import { ReactiveVar } from "meteor/reactive-var";
 import React, { useState } from "react";
-import { debounce } from "lodash";
 
 import { downloadMethod } from "../methods";
 import PreferenceForm from "./preference_form";
 import { Notes } from "../collections/notes";
 import NotesTable from "./notes_table";
 import checkUserStatus from "../utils/checkUserStatus";
-import { FORM_DEBOUNCE_MS } from "../utils/constants";
 
 const loadNum = new ReactiveVar(5);
 
