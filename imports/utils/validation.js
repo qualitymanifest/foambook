@@ -18,10 +18,11 @@ const symbols = {
   CP: /^2?\d{3}$/,
   CN: /^[A-Z]{1}\d{3,5}$/,
   KCS: /^[ACDGHILMORSUWX][A-Z]{4}$/,
-  PAR: /^[A-Z]{4}|\d{3}[A-Z]{2}|[A-Z]{2}\d{3}$/
+  PAR: /^([A-Z]{4}|\d{3}[A-Z]{2}|[A-Z]{2}\d{3})$/,
+  get PAS() {
+    return this.PAR;
+  }
 };
-
-symbols.PAS = symbols.PAR;
 
 export const cleanCity = city => {
   // remove all non-letters, and spaces that don't have a letter following
