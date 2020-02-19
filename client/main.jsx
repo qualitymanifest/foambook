@@ -3,10 +3,10 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { Meteor } from "meteor/meteor";
-import AddNoteForm from "../imports/components/add_note_form";
-import UserProfile from "../imports/components/user_profile";
-import Query from "../imports/components/query";
-import ReadMe from "../imports/components/read_me";
+import AddNoteForm from "../imports/routes/add_note_form";
+import UserProfile from "../imports/routes/user_profile";
+import Query from "../imports/routes/query";
+import ReadMe from "../imports/routes/read_me";
 import Header from "../imports/components/header";
 
 const routes = (

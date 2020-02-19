@@ -4,9 +4,9 @@ import { ReactiveVar } from "meteor/reactive-var";
 import React, { useState } from "react";
 
 import { downloadMethod } from "../methods";
-import PreferenceForm from "./preference_form";
+import PreferenceForm from "../components/preference_form";
 import { Notes } from "../collections/notes";
-import NotesTable from "./notes_table";
+import NotesTable from "../components/notes_table";
 import checkUserStatus from "../utils/checkUserStatus";
 
 const loadNum = new ReactiveVar(5);

@@ -21,9 +21,9 @@ import {
   DATETIME_FORMAT,
   TZ_DEFAULT
 } from "../utils/constants";
-import DateTimeField from "./dateTime";
-import NotesTable from "./notes_table";
-import FieldWithError from "./field_with_error";
+import DateTimeField from "../components/dateTime";
+import NotesTable from "../components/notes_table";
+import FieldWithError from "../components/field_with_error";
 import checkUserStatus from "../utils/checkUserStatus";
 
 Settings.defaultZoneName = TZ_DEFAULT;

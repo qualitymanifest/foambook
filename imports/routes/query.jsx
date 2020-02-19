@@ -1,10 +1,10 @@
 import React from "react";
 import { Breadcrumb } from "react-bootstrap";
 
-import QueryDisplay from "./query_display";
-import QuerySymbols from "./query_symbols";
-import QueryLocations from "./query_locations";
-import BreadcrumbBuilder from "./breadcrumb_builder";
+import QueryDisplay from "../components/query_display";
+import QuerySymbols from "../components/query_symbols";
+import QueryLocations from "../components/query_locations";
+import BreadcrumbBuilder from "../components/breadcrumb_builder";
 import { parseQueryString } from "../utils/queryFunctions";
 
 let completeQuery = {};
